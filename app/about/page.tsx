@@ -88,7 +88,7 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="max-w-2xl lg:pt-9">
-            <p className="text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9">
+            <p className="text-base leading-8 text-graphite/85 sm:text-lg">
               FulCastle provides the parent-company context for its portfolio.
               The ventures are distinct in what they build, who they serve, and
               the identities they establish—not a single service under different names.
@@ -159,7 +159,7 @@ export default function AboutPage() {
           className="bg-ivory py-20 sm:py-28"
         >
           <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="flex flex-col gap-6">
               <div>
                 <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
                   Across the portfolio
@@ -171,7 +171,7 @@ export default function AboutPage() {
                   Different problems. Distinct paths.
                 </h2>
               </div>
-              <p className="max-w-md text-sm leading-7 text-slate">
+              <p className="max-w-2xl text-base leading-8 text-slate">
                 A range of ideas, each shaped around a different need. Explore
                 the areas taking form across the FulCastle portfolio.
               </p>
