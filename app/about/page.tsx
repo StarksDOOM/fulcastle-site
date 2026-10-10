@@ -125,6 +125,71 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <section
+          aria-labelledby="founders-title"
+          className="bg-graphite py-20 text-ivory sm:py-28"
+        >
+          <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-muted-gold">
+              The people behind FulCastle
+            </p>
+            <h2
+              className="max-w-3xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl"
+              id="founders-title"
+            >
+              Different perspectives. A shared ambition.
+            </h2>
+            <div className="mt-12 grid gap-5 md:grid-cols-2">
+              <article className="border border-ivory/15 bg-ivory/[0.04] p-7 sm:p-9">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-gold">
+                  Founder &amp; CTO
+                </p>
+                <h3 className="mt-4 font-display text-3xl tracking-tight">
+                  Gamaliel Fulgencio
+                </h3>
+                <p className="mt-5 text-sm leading-7 text-ivory/75">
+                  Gamaliel leads FulCastle&apos;s technology and product direction,
+                  overseeing software architecture, engineering, and the
+                  development of the platforms and systems behind its ventures.
+                  His work brings business concepts into practical products,
+                  combining systems thinking with hands-on technical execution.
+                </p>
+                <p className="mt-4 text-sm leading-7 text-ivory/75">
+                  His professional experience includes work with Nespresso,
+                  Sony Music Entertainment, BMI, MLA, and FCB Health, across
+                  consumer brands, media, digital platforms, and healthcare
+                  marketing technology.
+                </p>
+              </article>
+              <article className="border border-ivory/15 bg-ivory/[0.04] p-7 sm:p-9">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-gold">
+                  Co-Founder
+                </p>
+                <h3 className="mt-4 font-display text-3xl tracking-tight">
+                  Roman Castillo
+                </h3>
+                <p className="mt-5 text-sm leading-7 text-ivory/75">
+                  Roman Castillo is a co-founder of FulCastle Holdings, Inc.,
+                  contributing to the company&apos;s brand identity, marketing
+                  direction, and partnership development. His focus is on
+                  shaping how FulCastle and its ventures present themselves to
+                  the market, establishing a cohesive brand presence, and
+                  cultivating relationships that support long-term growth.
+                </p>
+                <p className="mt-4 text-sm leading-7 text-ivory/75">
+                  Across FulCastle&apos;s diverse portfolio, Roman is focused on
+                  helping each venture define its identity, communicate its
+                  value, and connect with the audiences, collaborators, and
+                  partners relevant to its goals. He brings a brand-oriented
+                  perspective to the company&apos;s broader vision, supporting
+                  the development of distinct venture identities under a
+                  unified holding company.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-20 sm:px-10 sm:py-24 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
