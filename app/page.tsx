@@ -54,7 +54,7 @@ export default function HomePage() {
                 A parent company with a long-term perspective on building and supporting independent ventures.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <Link className="inline-flex min-h-12 items-center justify-center gap-3 bg-muted-gold px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:bg-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href="/#ventures">
+                <Link className="inline-flex min-h-12 items-center justify-center gap-3 bg-muted-gold px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:bg-muted-gold hover:text-graphite focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href="/#ventures">
                   Explore the ventures <span aria-hidden="true">↗</span>
                 </Link>
                 <Link className="inline-flex min-h-12 items-center justify-center border border-ivory/35 px-5 py-3 text-sm font-semibold text-ivory transition-colors hover:border-muted-gold hover:text-muted-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href="/#company">
