@@ -4,7 +4,7 @@ import Link from "next/link";
 const navigation = [
   { label: "Company", href: "/about" },
   { label: "Ventures", href: "/ventures" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function SiteHeader() {
