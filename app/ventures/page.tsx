@@ -43,13 +43,13 @@ const ventures = [
     tone: "text-graphite/70",
   },
   {
-    id: "govtech",
+    id: "civora",
     number: "03",
     category: "Public-sector technology",
-    name: "GovTech",
+    name: "Civora",
     description:
-      "Technology for discovering, organizing, and evaluating government-contracting opportunities.",
-    focus: "Contract opportunities and procurement",
+      "A concept for discovering, organizing, and evaluating government-contracting opportunities.",
+    focus: "Contract discovery and procurement intelligence",
     card: "bg-[#202a30] text-ivory",
     label: "text-[#b8d0d6]",
     artwork:
@@ -146,19 +146,17 @@ export default function VenturesPage() {
           className="bg-ivory py-20 sm:py-28"
         >
           <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
-            <div className="flex flex-col gap-5 border-b border-graphite/15 pb-8 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-                  Five areas of focus
-                </p>
-                <h2
-                  className="max-w-3xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl"
-                  id="portfolio-heading"
-                >
-                  One parent company. Independent directions.
-                </h2>
-              </div>
-              <p className="max-w-md text-sm leading-7 text-slate">
+            <div className="border-b border-graphite/15 pb-8">
+              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
+                Five areas of focus
+              </p>
+              <h2
+                className="max-w-3xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl"
+                id="portfolio-heading"
+              >
+                One parent company. Independent directions.
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate">
                 Explore the problems each initiative is intended to address.
               </p>
             </div>

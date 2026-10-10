@@ -12,19 +12,28 @@ export const metadata: Metadata = {
 const ventures = [
   {
     name: "Rodar",
-    category: "Property · Rental platform",
-    description:
-      "A rental and agency platform focused on the Dominican Republic.",
-    number: "01",
+    category: "Mobility",
     href: "/ventures#rodar",
   },
   {
-    name: "Future ventures",
-    category: "The portfolio ahead",
-    description:
-      "Additional venture profiles will be shared here as they are ready to be introduced.",
-    number: "02",
-    href: "/ventures",
+    name: "Vantage",
+    category: "Commerce intelligence",
+    href: "/ventures#vantage",
+  },
+  {
+    name: "Civora",
+    category: "Public-sector technology",
+    href: "/ventures#civora",
+  },
+  {
+    name: "Sweet Nothings",
+    category: "Personal expression",
+    href: "/ventures#sweet-nothings",
+  },
+  {
+    name: "PropTech Real Estate",
+    category: "Real estate workflows",
+    href: "/ventures#proptech-real-estate",
   },
 ];
 
@@ -110,30 +119,41 @@ export default function HomePage() {
 
         <section aria-labelledby="ventures-title" className="bg-[#fffdf9] py-20 sm:py-28" id="ventures">
           <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
-            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-              <div>
-                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">The portfolio</p>
-                <h2 className="font-display text-4xl tracking-[-0.035em] sm:text-5xl" id="ventures-title">Different paths. Clear purpose.</h2>
-              </div>
-              <p className="max-w-md text-sm leading-7 text-slate">
-                Explore the ventures associated with FulCastle, presented as distinct businesses with their own areas of focus.
+            <div className="border-b border-graphite/15 pb-8">
+              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">The portfolio</p>
+              <h2 className="max-w-3xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl" id="ventures-title">
+                Different paths. Clear purpose.
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-slate">
+                FulCastle Holdings, Inc. is the parent company behind these independent venture concepts. Each has a distinct area of focus and room to develop.
               </p>
             </div>
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
-              {ventures.map((venture) => (
-                <article className="group flex min-h-64 flex-col border border-graphite/12 bg-ivory p-7 transition-colors hover:border-muted-gold sm:p-9" key={venture.name}>
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="text-xs font-semibold tracking-[0.18em] text-muted-gold">{venture.number}</span>
-                    <span className="text-right text-[0.62rem] font-medium uppercase tracking-[0.15em] text-slate">{venture.category}</span>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {ventures.map((venture, index) => (
+                <article className="group flex min-h-[10.5rem] flex-col justify-between border border-graphite/12 bg-ivory p-5 transition-colors hover:border-muted-gold sm:p-6" key={venture.name}>
+                  <span className="text-xs font-semibold tracking-[0.18em] text-muted-gold">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="mt-6 flex flex-1 flex-col justify-end">
+                    <h3 className="font-display text-xl leading-tight tracking-tight text-graphite">
+                      <Link className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href={venture.href}>
+                        {venture.name}
+                      </Link>
+                    </h3>
+                    <p className="mt-2 min-h-[2.5rem] text-[0.65rem] font-medium uppercase leading-5 tracking-[0.12em] text-slate">
+                      {venture.category}
+                    </p>
                   </div>
-                  <h3 className="mt-8 font-display text-3xl tracking-tight text-graphite">{venture.name}</h3>
-                  <p className="mt-3 max-w-md text-sm leading-7 text-slate">{venture.description}</p>
-                  <Link className="group/link mt-auto inline-flex w-fit items-center gap-3 pt-8 text-sm font-semibold text-graphite no-underline transition-colors hover:text-slate focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href={venture.href}>
-                    {venture.name === "Rodar" ? "Explore the portfolio" : "Portfolio overview"}
-                    <span aria-hidden="true" className="transition-transform duration-200 group-hover/link:-translate-y-1 motion-reduce:transform-none">↗</span>
-                  </Link>
                 </article>
               ))}
+            </div>
+            <div className="mt-8 flex flex-col gap-4 border-t border-graphite/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-xl text-sm leading-6 text-slate">
+                These are areas of focus, not claims that every venture is launched or commercially available.
+              </p>
+              <Link className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start bg-muted-gold px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold sm:self-center" href="/ventures">
+                Explore all ventures <span aria-hidden="true">↗</span>
+              </Link>
             </div>
           </div>
         </section>
