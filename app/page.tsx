@@ -70,7 +70,7 @@ export default function HomePage() {
               <div aria-hidden="true" className="absolute left-[7%] top-1/2 h-px w-[86%] -translate-y-1/2 bg-ivory/20" />
               <div className="relative flex h-28 w-28 items-center justify-center border border-muted-gold bg-graphite sm:h-36 sm:w-36">
                 <div className="flex h-16 w-16 items-center justify-center border border-ivory/60 sm:h-20 sm:w-20">
-                  <span className="font-display text-4xl text-muted-gold sm:text-5xl">F</span>
+                  <span aria-label="FC" className="font-display text-3xl tracking-[-0.08em] text-muted-gold sm:text-4xl">FC</span>
                 </div>
               </div>
               <span className="absolute bottom-[4%] right-[2%] max-w-28 text-right text-[0.6rem] uppercase leading-5 tracking-[0.2em] text-ivory/55 sm:bottom-[7%] sm:right-[3%] sm:max-w-none">
