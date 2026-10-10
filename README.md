@@ -43,7 +43,7 @@ npm run typecheck
 npm run build
 ```
 
-The GitHub scaffold defines these scripts, but they must be run locally or in CI before being treated as passing. The starter route is intentionally temporary; the finished Home page is tracked separately in [issue #3](https://github.com/StarksDOOM/fulcastle-site/issues/3).
+The GitHub scaffold defines these scripts. Run them locally or in CI before treating them as passing. The homepage now introduces FulCastle, explains the parent-company role, presents Rodar separately from future ventures, and links to dedicated page routes as they are implemented.
 
 ## Development workflow
 
