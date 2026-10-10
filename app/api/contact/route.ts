@@ -4,11 +4,16 @@ export const runtime = "nodejs";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function cleanText(value: unknown, maxLength: number): string {
-  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+function cleanText(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get("content-length") ?? "0");
+  if (contentLength > 12_000) {
+    return NextResponse.json({ error: "Request is too large." }, { status: 413 });
+  }
+
   const origin = request.headers.get("origin");
   const host = request.headers.get("host");
 
@@ -39,25 +44,33 @@ export async function POST(request: Request) {
   const fields = payload as Record<string, unknown>;
 
   // Honeypot: silently accept automated submissions without sending email.
-  if (cleanText(fields.website, 200)) {
+  if (cleanText(fields.website)) {
     return NextResponse.json({ ok: true });
   }
 
-  const name = cleanText(fields.name, 100);
-  const email = cleanText(fields.email, 254);
-  const subject = cleanText(fields.subject, 120).replace(/[\r\n]+/g, " ");
-  const message = cleanText(fields.message, 5000);
+  const rawName = cleanText(fields.name);
+  const rawEmail = cleanText(fields.email);
+  const rawSubject = cleanText(fields.subject);
+  const rawMessage = cleanText(fields.message);
 
   if (
-    !name ||
-    !emailPattern.test(email) ||
-    !subject ||
-    !message ||
-    name.length > 100 ||
-    email.length > 254 ||
-    subject.length > 120 ||
-    message.length > 5000
+    rawName.length > 100 ||
+    rawEmail.length > 254 ||
+    rawSubject.length > 120 ||
+    rawMessage.length > 5000
   ) {
+    return NextResponse.json(
+      { error: "One or more fields exceed the allowed length." },
+      { status: 400 },
+    );
+  }
+
+  const name = rawName;
+  const email = rawEmail;
+  const subject = rawSubject.replace(/[\r\n]+/g, " ");
+  const message = rawMessage;
+
+  if (!name || !emailPattern.test(email) || !subject || !message) {
     return NextResponse.json(
       { error: "Please check the form fields and try again." },
       { status: 400 },
