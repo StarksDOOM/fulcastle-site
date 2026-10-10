@@ -2,16 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
+import { ContactForm } from "@/app/contact/contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
 };
-
-const contactEmail = "leo.fulgencio@gmail.com";
-const ccEmail = "rmansempire@gmail.com";
-const mailtoHref = `mailto:${contactEmail}?cc=${ccEmail}&subject=${encodeURIComponent("FulCastle Holdings inquiry")}`;
 
 export default function ContactPage() {
   return (
@@ -44,13 +41,14 @@ export default function ContactPage() {
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
               For business inquiries, potential partnerships, or questions about
-              FulCastle Holdings, Inc. and its ventures, reach out by email.
+              FulCastle Holdings, Inc. and its ventures, send us a message using
+              the form below.
             </p>
           </div>
         </section>
 
         <section
-          aria-labelledby="email-title"
+          aria-labelledby="form-title"
           className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20"
         >
           <div>
@@ -59,37 +57,21 @@ export default function ContactPage() {
             </p>
             <h2
               className="max-w-xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl"
-              id="email-title"
+              id="form-title"
             >
-              A direct line to FulCastle.
+              Tell us what you have in mind.
             </h2>
+            <p className="mt-5 max-w-md text-sm leading-7 text-slate">
+              Share a little context and the right person at FulCastle will
+              follow up if a response is appropriate.
+            </p>
           </div>
           <div className="max-w-2xl border border-graphite/15 bg-[#fffdf9] p-6 sm:p-9">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate">
-              Email
-            </p>
-            <p className="mt-4 break-words text-lg font-medium text-graphite sm:text-xl">
-              <a
-                className="underline decoration-muted-gold decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
-                href={mailtoHref}
-              >
-                {contactEmail}
-              </a>
-            </p>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-slate">
-              Selecting the email link opens your default email application and
-              addresses your message to Leo Fulgencio, with Roman Castillo copied.
-              You can review or change the recipients before sending.
-            </p>
-            <Link
-              className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 bg-muted-gold px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
-              href={mailtoHref}
-            >
-              Email FulCastle <span aria-hidden="true">↗</span>
-            </Link>
+            <ContactForm />
             <p className="mt-6 border-t border-graphite/10 pt-5 text-xs leading-6 text-slate">
-              This page does not include a contact form or collect information.
-              Your email application handles any message you choose to send.
+              Your message and contact details are used to respond to your
+              inquiry. Please do not include passwords, payment details, or
+              other sensitive information.
             </p>
           </div>
         </section>
