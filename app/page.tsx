@@ -62,20 +62,22 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="relative mx-auto flex aspect-square w-full max-w-[23rem] items-center justify-center sm:max-w-[27rem] lg:max-w-none">
-              <div aria-hidden="true" className="absolute inset-[7%] rotate-45 border border-muted-gold/60" />
-              <div aria-hidden="true" className="absolute inset-[19%] rotate-45 border border-ivory/25" />
-              <div aria-hidden="true" className="absolute inset-[31%] rotate-45 border border-muted-gold/50" />
-              <div aria-hidden="true" className="absolute left-1/2 top-[7%] h-[86%] w-px -translate-x-1/2 bg-ivory/20" />
-              <div aria-hidden="true" className="absolute left-[7%] top-1/2 h-px w-[86%] -translate-y-1/2 bg-ivory/20" />
-              <div className="relative flex h-28 w-28 items-center justify-center border border-muted-gold bg-graphite sm:h-36 sm:w-36">
-                <div className="flex h-16 w-16 items-center justify-center border border-ivory/60 sm:h-20 sm:w-20">
-                  <span aria-label="FC" className="font-display text-3xl tracking-[-0.08em] text-muted-gold sm:text-4xl">FC</span>
+            <div className="mx-auto w-full max-w-[23rem] sm:max-w-[27rem] lg:max-w-none">
+              <div className="relative flex aspect-square w-full items-center justify-center">
+                <div aria-hidden="true" className="absolute inset-[7%] rotate-45 border border-muted-gold/60" />
+                <div aria-hidden="true" className="absolute inset-[19%] rotate-45 border border-ivory/25" />
+                <div aria-hidden="true" className="absolute inset-[31%] rotate-45 border border-muted-gold/50" />
+                <div aria-hidden="true" className="absolute left-1/2 top-[7%] h-[86%] w-px -translate-x-1/2 bg-ivory/20" />
+                <div aria-hidden="true" className="absolute left-[7%] top-1/2 h-px w-[86%] -translate-y-1/2 bg-ivory/20" />
+                <div className="relative flex h-28 w-28 items-center justify-center border border-muted-gold bg-graphite sm:h-36 sm:w-36">
+                  <div className="flex h-16 w-16 items-center justify-center border border-ivory/60 sm:h-20 sm:w-20">
+                    <span aria-label="FC" className="font-display text-3xl tracking-[-0.08em] text-muted-gold sm:text-4xl">FC</span>
+                  </div>
                 </div>
               </div>
-              <span className="absolute bottom-[4%] right-[2%] max-w-28 text-right text-[0.6rem] uppercase leading-5 tracking-[0.2em] text-ivory/55 sm:bottom-[7%] sm:right-[3%] sm:max-w-none">
+              <p className="mt-4 text-right text-[0.6rem] uppercase leading-5 tracking-[0.2em] text-ivory/55">
                 A long-term view
-              </span>
+              </p>
             </div>
           </div>
           <div className="border-t border-ivory/15">
