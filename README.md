@@ -18,14 +18,36 @@ Corporate copy must remain factual. Do not invent company history, addresses, pe
 
 ## Technology and cost policy
 
-Preferred stack: Next.js, TypeScript, Tailwind CSS, and free/open-source components where useful. GitHub provides source control; Cloudflare manages DNS; deployment uses the existing Vercel Pro account.
+The site uses the Next.js App Router, React, TypeScript, and Tailwind CSS. GitHub provides source control; Cloudflare manages DNS; deployment is intended for the existing Vercel Pro account.
 
 Use free, commercially usable assets and dependencies. Do not introduce paid templates, premium components, stock subscriptions, new paid services, or recurring costs without explicit approval. Check the current license and service-plan terms before adoption.
 
 Keep the initial site static-first. Add a backend, CMS, database, or other service only when a concrete requirement justifies it.
 
+## Local development
+
+Requirements: Node.js 22 and npm.
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+Available checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+The GitHub scaffold defines these scripts, but they must be run locally or in CI before being treated as passing. The starter route is intentionally temporary; the finished Home page is tracked separately in [issue #3](https://github.com/StarksDOOM/fulcastle-site/issues/3).
+
 ## Development workflow
 
+- `main` remains the production branch used by Vercel.
 - `master` is the initial baseline branch.
 - `develop` is the active integration branch.
 - Feature branches and all page PRs target `develop`.
@@ -44,9 +66,3 @@ Keep the initial site static-first. Add a backend, CMS, database, or other servi
 5. Contact
 6. Privacy Policy
 7. Terms of Use
-
-Implementation order may change when repository evidence or dependencies justify it; track changes through issues.
-
-## Local development
-
-Once the application scaffold and package scripts are established, this section will document the verified install, development, lint, type-check, test, and build commands. Do not document commands as available until they exist and have been checked.
