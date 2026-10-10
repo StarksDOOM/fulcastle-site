@@ -88,7 +88,7 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="max-w-2xl lg:pt-9">
-            <p className="text-base leading-8 text-graphite/85 sm:text-lg">
+            <p className="font-sans text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9">
               FulCastle provides the parent-company context for its portfolio.
               The ventures are distinct in what they build, who they serve, and
               the identities they establish—not a single service under different names.
