@@ -128,11 +128,11 @@ export default function VenturesPage() {
                 focus and room to develop its own identity.
               </p>
             </div>
-            <aside className="relative border-l border-muted-gold/50 pl-6 sm:pl-8 lg:mb-2">
+            <aside className="relative border-l-2 border-muted-gold/70 pl-7 sm:pl-9 lg:mb-2 lg:ml-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-gold">
                 A portfolio in development
               </p>
-              <p className="mt-4 max-w-md text-sm leading-7 text-ivory/70 sm:text-base sm:leading-8">
+              <p className="mt-5 max-w-md text-sm leading-7 text-ivory/70 sm:text-base sm:leading-8">
                 These profiles describe areas of focus, not a promise that
                 every venture is launched or commercially available. The work
                 will take shape at its own pace.
@@ -214,18 +214,18 @@ export default function VenturesPage() {
               ))}
             </div>
 
-            <div className="mt-12 flex flex-col gap-5 border-t border-graphite/15 pt-7 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-20 flex flex-col gap-6 border-t border-graphite/15 pt-10 sm:mt-24 sm:flex-row sm:items-center sm:justify-between sm:pt-12">
               <div>
-                <p className="font-display text-xl text-graphite">
+                <p className="font-display text-2xl text-graphite sm:text-3xl">
                   One foundation. Room for different directions.
                 </p>
-                <p className="mt-2 max-w-2xl text-sm leading-7 text-slate">
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate sm:text-base">
                   Learn more about the company&apos;s perspective and the people
                   behind the portfolio.
                 </p>
               </div>
               <Link
-                className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start border border-graphite/20 px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold sm:self-center"
+                className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start border border-graphite/20 px-6 py-3.5 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold sm:self-center"
                 href="/about"
               >
                 About FulCastle <span aria-hidden="true">↗</span>
