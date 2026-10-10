@@ -148,7 +148,7 @@ export default function HomePage() {
               For inquiries and potential collaborations, get in touch with FulCastle Holdings, Inc.
             </p>
           </div>
-          <Link className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start border border-graphite px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:bg-graphite hover:text-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold md:self-center" href="/contact">
+          <Link className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start border border-graphite px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold hover:text-graphite focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold md:self-center" href="/contact">
             Contact FulCastle <span aria-hidden="true">↗</span>
           </Link>
         </section>
