@@ -58,7 +58,7 @@ export default function HomePage() {
                   Explore the ventures <span aria-hidden="true">↗</span>
                 </Link>
                 <Link className="inline-flex min-h-12 items-center justify-center border border-ivory/35 px-5 py-3 text-sm font-semibold text-ivory transition-colors hover:border-muted-gold hover:text-muted-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href="/#company">
-                  About FulCastle
+                  About FulCastle Holdings, Inc.
                 </Link>
               </div>
             </div>
