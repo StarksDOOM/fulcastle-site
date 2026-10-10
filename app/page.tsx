@@ -22,7 +22,7 @@ const ventures = [
   },
   {
     name: "Civora",
-    category: "Public-sector opportunity intelligence",
+    category: "Public-sector technology",
     href: "/ventures#civora",
   },
   {
@@ -119,30 +119,28 @@ export default function HomePage() {
 
         <section aria-labelledby="ventures-title" className="bg-[#fffdf9] py-20 sm:py-28" id="ventures">
           <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
-            <div className="grid gap-6 border-b border-graphite/15 pb-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-              <div>
-                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">The portfolio</p>
-                <h2 className="max-w-3xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl" id="ventures-title">
-                  Different paths. Clear purpose.
-                </h2>
-              </div>
-              <p className="max-w-xl text-sm leading-7 text-slate lg:justify-self-end">
+            <div className="border-b border-graphite/15 pb-8">
+              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">The portfolio</p>
+              <h2 className="max-w-3xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl" id="ventures-title">
+                Different paths. Clear purpose.
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-slate">
                 FulCastle Holdings, Inc. is the parent company behind these independent venture concepts. Each has a distinct area of focus and room to develop.
               </p>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
               {ventures.map((venture, index) => (
-                <article className="group flex min-h-36 flex-col justify-between border border-graphite/12 bg-ivory p-5 transition-colors hover:border-muted-gold sm:p-6" key={venture.name}>
+                <article className="group flex min-h-[10.5rem] flex-col justify-between border border-graphite/12 bg-ivory p-5 transition-colors hover:border-muted-gold sm:p-6" key={venture.name}>
                   <span className="text-xs font-semibold tracking-[0.18em] text-muted-gold">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className="mt-7">
+                  <div className="mt-6 flex flex-1 flex-col justify-end">
                     <h3 className="font-display text-xl leading-tight tracking-tight text-graphite">
                       <Link className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href={venture.href}>
                         {venture.name}
                       </Link>
                     </h3>
-                    <p className="mt-2 text-[0.65rem] font-medium uppercase leading-5 tracking-[0.12em] text-slate">
+                    <p className="mt-2 min-h-[2.5rem] text-[0.65rem] font-medium uppercase leading-5 tracking-[0.12em] text-slate">
                       {venture.category}
                     </p>
                   </div>

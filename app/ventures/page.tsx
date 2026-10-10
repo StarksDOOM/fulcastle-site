@@ -45,7 +45,7 @@ const ventures = [
   {
     id: "civora",
     number: "03",
-    category: "Public-sector opportunity intelligence",
+    category: "Public-sector technology",
     name: "Civora",
     description:
       "A concept for discovering, organizing, and evaluating government-contracting opportunities.",
