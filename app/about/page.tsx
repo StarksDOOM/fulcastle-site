@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DM_Sans } from "next/font/google";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
   description:
     "Learn about FulCastle Holdings, Inc., the parent company behind a portfolio of independent ventures.",
 };
+
+const dmSans = DM_Sans({ subsets: ["latin"], display: "swap" });
 
 export default function AboutPage() {
   return (
@@ -88,13 +91,13 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="max-w-2xl lg:pt-9">
-            <p className="font-sans text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9">
+            <p className={`${dmSans.className} text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9`}>
               FulCastle provides the parent-company context for its portfolio.
               The ventures are distinct in what they build, who they serve, and
               the identities they establish—not a single service under different names.
             </p>
             <div className="mt-8 h-px w-full bg-graphite/15" />
-            <p className="mt-6 max-w-xl text-sm leading-7 text-slate">
+            <p className={`${dmSans.className} mt-6 max-w-xl text-sm leading-7 text-slate`}>
               The shared perspective is long-term; the work remains specific.
               Each venture has room to pursue its own purpose while sitting
               within a considered broader portfolio.
