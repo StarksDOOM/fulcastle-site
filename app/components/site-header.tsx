@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navigation = [
-  { label: "Company", href: "/#company" },
+  { label: "Company", href: "/about" },
   { label: "Ventures", href: "/#ventures" },
   { label: "Contact", href: "/#contact" },
 ];
