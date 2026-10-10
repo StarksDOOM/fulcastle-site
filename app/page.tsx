@@ -128,9 +128,9 @@ export default function HomePage() {
                   </div>
                   <h3 className="mt-8 font-display text-3xl tracking-tight text-graphite">{venture.name}</h3>
                   <p className="mt-3 max-w-md text-sm leading-7 text-slate">{venture.description}</p>
-                  <Link className="mt-auto inline-flex w-fit items-center gap-3 pt-8 text-sm font-semibold text-graphite underline decoration-muted-gold underline-offset-4 transition-colors hover:text-slate focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href={venture.href}>
+                  <Link className="group/link mt-auto inline-flex w-fit items-center gap-3 pt-8 text-sm font-semibold text-graphite no-underline transition-colors hover:text-slate focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href={venture.href}>
                     {venture.name === "Rodar" ? "Explore the portfolio" : "Portfolio overview"}
-                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">↗</span>
+                    <span aria-hidden="true" className="transition-transform duration-200 group-hover/link:-translate-y-1 motion-reduce:transform-none">↗</span>
                   </Link>
                 </article>
               ))}
