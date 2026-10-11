@@ -88,6 +88,31 @@ function renderNotificationText(fields: ContactFields): string {
   ].join("\n");
 }
 
+function renderAcknowledgmentHtml(name: string): string {
+  const safeName = escapeHtml(name);
+  return `<!doctype html>
+<html lang="en">
+  <body style="margin:0;padding:0;background:#f6f3ed;font-family:Arial,Helvetica,sans-serif;color:#101722;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f6f3ed;padding:32px 12px;">
+      <tr><td align="center">
+        <table role="presentation" width="560" cellspacing="0" cellpadding="0" style="width:100%;max-width:560px;background:#fffdf9;border:1px solid #e4dfd5;">
+          <tr><td style="padding:28px 32px;background:#101722;border-bottom:3px solid #c6ae7a;">
+            <p style="margin:0;color:#c6ae7a;font-size:11px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;">FulCastle Holdings, Inc.</p>
+            <h1 style="margin:14px 0 0;color:#f6f3ed;font-size:24px;line-height:1.3;font-weight:500;">Thank you for reaching out.</h1>
+          </td></tr>
+          <tr><td style="padding:30px 32px;">
+            <p style="margin:0 0 14px;font-size:15px;line-height:1.8;">Hello ${safeName},</p>
+            <p style="margin:0 0 14px;color:#394452;font-size:14px;line-height:1.8;">We’ve received your message through the FulCastle website contact form. Thank you for taking the time to get in touch.</p>
+            <p style="margin:0;color:#394452;font-size:14px;line-height:1.8;">If a response is appropriate, the right person will follow up. This is an automated confirmation; please do not reply to this email with sensitive information.</p>
+          </td></tr>
+          <tr><td style="padding:18px 32px;border-top:1px solid #e4dfd5;background:#fbf8f2;color:#68717d;font-size:11px;line-height:1.6;">FulCastle Holdings, Inc. · Website contact acknowledgment</td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>`;
+}
+
 function invalidFields() {
   return NextResponse.json(
     { error: "Please check the form fields and try again." },
@@ -227,7 +252,44 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ ok: true });
+    // The inquiry notification is the primary delivery. Do not ask the visitor to
+    // retry it if only the secondary acknowledgment fails, which would duplicate it.
+    let acknowledgementSent = true;
+    try {
+      const acknowledgement = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from,
+          to: [validated.email],
+          subject: "We received your message — FulCastle Holdings, Inc.",
+          html: renderAcknowledgmentHtml(validated.name),
+          text: [
+            "FULCASTLE HOLDINGS, INC.",
+            "",
+            `Hello ${validated.name},`,
+            "",
+            "We’ve received your message through the FulCastle website contact form. Thank you for taking the time to get in touch.",
+            "If a response is appropriate, the right person will follow up.",
+            "",
+            "This is an automated confirmation; please do not reply with sensitive information.",
+          ].join("\\n"),
+        }),
+        cache: "no-store",
+      });
+      acknowledgementSent = acknowledgement.ok;
+      if (!acknowledgement.ok) {
+        console.error("Resend rejected a contact acknowledgment.", { status: acknowledgement.status });
+      }
+    } catch {
+      acknowledgementSent = false;
+      console.error("Resend request failed while sending a contact acknowledgment.");
+    }
+
+    return NextResponse.json({ ok: true, acknowledgementSent });
   } catch {
     console.error("Resend request failed while sending a contact form email.");
     return NextResponse.json(
