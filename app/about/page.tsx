@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
@@ -52,21 +53,28 @@ export default function AboutPage() {
               role="img"
               className="hero-artwork relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:aspect-[5/4] lg:aspect-[4/5]"
             >
-              <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_25%,rgba(190,160,103,0.16),transparent_42%),linear-gradient(145deg,transparent_35%,rgba(0,0,0,0.45))]" />
-              <div aria-hidden="true" className="absolute bottom-[-8%] left-[14%] h-[76%] w-[54%] border border-muted-gold/65 bg-gradient-to-br from-ivory/[0.08] to-transparent" />
-              <div aria-hidden="true" className="absolute bottom-[-8%] left-[28%] h-[64%] w-[54%] border border-ivory/35 bg-gradient-to-br from-ivory/[0.06] to-transparent" />
-              <div aria-hidden="true" className="absolute bottom-0 left-0 h-[32%] w-full bg-gradient-to-t from-black/55 to-transparent" />
-              <div className="absolute left-6 top-6 flex items-center gap-3 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-ivory/60 sm:left-8 sm:top-8">
-                <span className="h-px w-6 bg-muted-gold" />
-                A shared foundation
-              </div>
-              <div className="absolute bottom-7 left-6 right-6 sm:bottom-9 sm:left-8 sm:right-8">
-                <p className="font-display text-3xl leading-tight tracking-tight sm:text-4xl">
-                  Built with intention.
-                </p>
-                <p className="mt-3 max-w-xs text-sm leading-6 text-ivory/65">
-                  One foundation. Room for different directions.
-                </p>
+              <Image
+                src="/images/architect-shared-foundation.jfif"
+                alt="FulCastle architectural artwork depicting foundational structure with ascending pathways"
+                fill
+                priority
+                sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, 100vw"
+                className="object-cover"
+              />
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-graphite/90 via-graphite/30 to-graphite/40" />
+              <div className="relative z-10 p-6 sm:p-8 flex h-full flex-col justify-between">
+                <div className="flex items-center gap-3 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-ivory/80">
+                  <span className="h-px w-6 bg-muted-gold" />
+                  A shared foundation
+                </div>
+                <div>
+                  <p className="font-display text-3xl leading-tight tracking-tight sm:text-4xl text-ivory">
+                    Built with intention.
+                  </p>
+                  <p className="mt-3 max-w-xs text-sm leading-6 text-ivory/75">
+                    One foundation. Room for different directions.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
