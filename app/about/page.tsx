@@ -54,7 +54,7 @@ export default function AboutPage() {
               className="hero-artwork relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:aspect-[5/4] lg:aspect-[4/5]"
             >
               <Image
-                src="/images/architect-shared-foundation.jfif"
+                src="/images/architect-shared-foundation.jpg"
                 alt="FulCastle architectural artwork depicting foundational structure with ascending pathways"
                 fill
                 priority

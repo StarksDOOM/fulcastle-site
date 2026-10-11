@@ -82,7 +82,7 @@ export default function HomePage() {
                 className="relative aspect-square w-full overflow-hidden border border-ivory/15 bg-graphite"
               >
                 <Image
-                  src="/images/home-hero.jfif"
+                  src="/images/home-hero.jpg"
                   alt="FulCastle architectural artwork depicting foundational structure and perspective"
                   fill
                   priority
