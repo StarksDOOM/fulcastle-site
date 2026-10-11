@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 type SubmissionState = "idle" | "sending" | "success" | "partial" | "error";
 
@@ -44,6 +44,7 @@ function CheckIcon() {
 
 export function ContactForm() {
   const [state, setState] = useState<SubmissionState>("idle");
+  const submissionId = useRef<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -51,12 +52,16 @@ export function ContactForm() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    submissionId.current ??= crypto.randomUUID();
     setState("sending");
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Contact-Submission-Id": submissionId.current,
+        },
         body: JSON.stringify({
           name: formData.get("name"),
           email: formData.get("email"),
@@ -73,6 +78,7 @@ export function ContactForm() {
 
       const result: unknown = await response.json().catch(() => null);
       form.reset();
+      submissionId.current = null;
       setState(
         result && typeof result === "object" &&
         "acknowledgementSent" in result && result.acknowledgementSent === false
