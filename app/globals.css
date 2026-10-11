@@ -235,7 +235,7 @@ article.group.scroll-reveal-target {
 }
 
 .contact-success-plane {
-  transform-origin: 30px 28px;
+  transform-origin: 72px 56px;
   animation: fc-plane-send 1.25s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
