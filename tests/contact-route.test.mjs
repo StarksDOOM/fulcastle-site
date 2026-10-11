@@ -68,7 +68,9 @@ test("contact endpoint validates fields and sends escaped branded notification p
     assert.match(sent[0].text, /<script>alert\('xss'\)<\/script>/);
     assert.equal(sent[1].to[0], "Avery@example.com");
     assert.match(sent[1].html, /Thank you for reaching out/);
-    assert.match(sent[1].text, /Hello Avery Example,/);
+    assert.ok(sent[1].html.includes("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;"));
+    assert.doesNotMatch(sent[1].html, /<img src=x onerror=/);
+    assert.match(sent[1].text, /Hello <img src=x onerror="alert\\(1\\)">,/);
   } finally {
     globalThis.fetch = originalFetch;
   }
