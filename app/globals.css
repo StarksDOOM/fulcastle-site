@@ -248,12 +248,12 @@ article.group.scroll-reveal-target {
 }
 
 .contact-success-plane {
-  animation: fc-plane-send 1.25s ease-out both;
+  animation: fc-plane-send 1.8s ease-out both;
 }
 
 .contact-success-flight-path {
   stroke-dashoffset: 44;
-  animation: fc-flight-path 900ms ease-out 120ms both;
+  animation: fc-flight-path 1.8s ease-out both;
 }
 
 .contact-success-sparkle {
