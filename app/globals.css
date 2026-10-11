@@ -59,12 +59,18 @@ a { color: inherit; }
   color: var(--graphite);
 }
 
-/* Contact fields keep the gold keyboard-focus outline without the inner black ring. */
+/* Contact fields use a gold focus treatment only; suppress the global graphite ring for pointer and keyboard focus. */
+#contact-name:focus,
+#contact-email:focus,
+#contact-subject:focus,
+#contact-message:focus,
 #contact-name:focus-visible,
 #contact-email:focus-visible,
 #contact-subject:focus-visible,
 #contact-message:focus-visible {
-  box-shadow: none;
+  box-shadow: none !important;
+  border-color: var(--muted-gold) !important;
+  outline-color: var(--muted-gold) !important;
 }
 
 /* One restrained entrance sequence per page hero; scroll reveals use an observer, never scroll-jacking. */
