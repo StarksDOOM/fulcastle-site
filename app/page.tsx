@@ -130,8 +130,8 @@ export default function HomePage() {
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
               {ventures.map((venture, index) => (
-                <article className="group flex min-h-[10.5rem] flex-col justify-between border border-graphite/12 bg-ivory p-5 transition-colors hover:border-muted-gold sm:p-6" key={venture.name}>
-                  <span className="text-xs font-semibold tracking-[0.18em] text-muted-gold">
+                <article className="group flex min-h-[10.5rem] flex-col justify-between border border-graphite/12 bg-ivory p-5 hover:bg-white motion-reduce:transition-none sm:p-6" key={venture.name}>
+                  <span className="text-xs font-semibold tracking-[0.18em] text-gold-ink">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="mt-6 flex flex-1 flex-col justify-end">
