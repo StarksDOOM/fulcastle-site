@@ -276,7 +276,7 @@ export async function POST(request: Request) {
             "If a response is appropriate, the right person will follow up.",
             "",
             "This is an automated confirmation; please do not reply with sensitive information.",
-          ].join("\\n"),
+          ].join("\n"),
         }),
         cache: "no-store",
       });
