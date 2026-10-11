@@ -175,17 +175,18 @@ export function ContactForm() {
             />
             <g className="contact-success-plane">
               <animateMotion
-                dur="1.25s"
+                dur="1.8s"
                 path="M10 91C39 88 55 73 76 53S111 24 143 18"
+                calcMode="paced"
                 rotate="auto"
                 fill="freeze"
               />
               <image
                 href="/images/paper-plane-no-path.png"
-                x="-36"
-                y="-36"
-                width="72"
-                height="72"
+                x="-44"
+                y="-44"
+                width="88"
+                height="88"
                 transform="rotate(35)"
                 preserveAspectRatio="xMidYMid meet"
               />
