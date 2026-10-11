@@ -41,7 +41,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <section aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-graphite text-ivory">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-25">
             <div className="absolute -right-36 -top-40 h-[34rem] w-[34rem] rounded-full border border-muted-gold/60 sm:right-[-8rem] sm:top-[-15rem]" />
