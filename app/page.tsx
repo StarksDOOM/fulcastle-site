@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Built on Structure. Driven by Possibility.",
   description:
     "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next.",
+  other: {
+    "facebook-domain-verification": "o0yn7f7qd7169d7lxl9frrns31z74b",
+  },
 };
 
 const ventures = [
