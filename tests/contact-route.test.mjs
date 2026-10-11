@@ -58,6 +58,7 @@ test("contact endpoint validates fields and sends escaped branded notification p
     assert.equal(response.status, 200);
     assert.deepEqual(result, { ok: true, acknowledgementSent: true });
     assert.equal(sent.length, 2);
+    assert.equal(sent[0].from, "FulCastle Holdings, Inc. <contact@fulcastle.com>");
     assert.equal(sent[0].to[0], "inbox@example.com");
     assert.equal(sent[0].cc[0], "copy@example.com");
     assert.equal(sent[0].reply_to, "Avery@example.com");
