@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -164,6 +165,8 @@ export async function POST(request: Request) {
   }
 
   const fields = payload as Record<string, unknown>;
+  const suppliedSubmissionId = request.headers.get("x-contact-submission-id");
+  const submissionId = suppliedSubmissionId && /^[0-9a-f-]{36}$/i.test(suppliedSubmissionId) ? suppliedSubmissionId : randomUUID();
 
   // Honeypot: silently accept automated submissions without sending email.
   if (cleanText(fields.website)) {
@@ -235,6 +238,7 @@ export async function POST(request: Request) {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
+        "Idempotency-Key": `${submissionId}-notification`,
       },
       body: JSON.stringify({
         from,
@@ -265,6 +269,7 @@ export async function POST(request: Request) {
         headers: {
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
+          "Idempotency-Key": `${submissionId}-acknowledgment`,
         },
         body: JSON.stringify({
           from,
