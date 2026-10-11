@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 
-type SubmissionState = "idle" | "sending" | "success" | "error";
+type SubmissionState = "idle" | "sending" | "success" | "partial" | "error";
 
 const fieldClassName =
   "mt-2 block min-h-12 w-full border border-graphite/20 bg-white px-4 py-3 text-base text-graphite placeholder:text-slate/70 focus:border-muted-gold focus:outline-2 focus:outline-offset-2 focus:outline-muted-gold";
@@ -71,8 +71,14 @@ export function ContactForm() {
         return;
       }
 
+      const result: unknown = await response.json().catch(() => null);
       form.reset();
-      setState("success");
+      setState(
+        result && typeof result === "object" &&
+        "acknowledgementSent" in result && result.acknowledgementSent === false
+          ? "partial"
+          : "success",
+      );
     } catch {
       setState("error");
     }
@@ -164,7 +170,7 @@ export function ContactForm() {
               <PaperPlaneIcon />
             </span>
           </>
-        ) : state === "success" ? (
+        ) : state === "success" || state === "partial" ? (
           <>
             Sent!
             <CheckIcon />
@@ -185,6 +191,11 @@ export function ContactForm() {
         {state === "success" && (
           <span className="text-emerald-800">
             Thanks for reaching out. Your message has been sent.
+          </span>
+        )}
+        {state === "partial" && (
+          <span className="text-amber-800">
+            Your message was received, but we couldn’t send a confirmation email. You don’t need to submit it again.
           </span>
         )}
         {state === "error" && (
