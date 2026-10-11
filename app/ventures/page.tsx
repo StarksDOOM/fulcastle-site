@@ -175,7 +175,7 @@ export default function VenturesPage() {
                   />
                   <div
                     aria-hidden="true"
-                    className={`absolute -right-5 top-12 h-36 w-36 rotate-[18deg] border transition-transform duration-500 group-hover:-translate-y-2 ${venture.shape}`}
+                    className={`absolute -right-5 top-12 h-36 w-36 rotate-[18deg] border transition-transform duration-350 group-hover:-translate-y-1 motion-reduce:transition-none ${venture.shape}`}
                   />
                   <div
                     aria-hidden="true"
