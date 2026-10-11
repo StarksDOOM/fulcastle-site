@@ -50,7 +50,7 @@ export default function HomePage() {
             <div className="absolute bottom-0 right-[27%] top-0 hidden w-px bg-ivory/10 lg:block" />
           </div>
           <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-6 py-20 sm:px-10 sm:py-28 lg:min-h-[610px] lg:grid-cols-[1.2fr_0.8fr] lg:gap-10 lg:py-32">
-            <div className="max-w-3xl">
+            <div className="hero-copy max-w-3xl">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span className="h-px w-8 bg-muted-gold" />
                 FulCastle Holdings, Inc.
@@ -71,7 +71,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="mx-auto w-full max-w-[23rem] sm:max-w-[27rem] lg:max-w-none">
+            <div className="hero-artwork mx-auto w-full max-w-[23rem] sm:max-w-[27rem] lg:max-w-none">
               <div className="relative flex aspect-square w-full items-center justify-center">
                 <div aria-hidden="true" className="absolute inset-[7%] rotate-45 border border-muted-gold/60" />
                 <div aria-hidden="true" className="absolute inset-[19%] rotate-45 border border-ivory/25" />

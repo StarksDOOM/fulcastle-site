@@ -108,7 +108,7 @@ export default function PrivacyPolicyPage() {
         <div className="mx-auto grid w-full max-w-5xl gap-10 px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-16">
           <article className="min-w-0 space-y-10">
             {sections.map((section) => (
-              <section aria-labelledby={section.title} key={section.title}>
+              <section aria-labelledby={section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")} key={section.title}>
                 <h2
                   className="font-display text-2xl leading-tight tracking-tight text-graphite sm:text-3xl"
                   id={section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}

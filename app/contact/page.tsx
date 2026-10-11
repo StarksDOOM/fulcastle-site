@@ -28,22 +28,24 @@ export default function ContactPage() {
             <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-muted-gold/50 to-transparent" />
           </div>
           <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-10 sm:py-28 lg:py-32">
-            <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
-              <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
-              Contact FulCastle
-            </p>
-            <h1
-              className="max-w-4xl font-display text-5xl leading-[1.04] tracking-[-0.045em] sm:text-6xl md:text-7xl"
-              id="contact-title"
-            >
-              Start a conversation.
-              <span className="mt-2 block text-muted-gold">Build with intention.</span>
-            </h1>
-            <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
-              For business inquiries, potential partnerships, or questions about
-              FulCastle Holdings, Inc. and its ventures, send us a message using
-              the form below.
-            </p>
+            <div className="hero-copy">
+              <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
+                <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
+                Contact FulCastle
+              </p>
+              <h1
+                className="max-w-4xl font-display text-5xl leading-[1.04] tracking-[-0.045em] sm:text-6xl md:text-7xl"
+                id="contact-title"
+              >
+                Start a conversation.
+                <span className="mt-2 block text-muted-gold">Build with intention.</span>
+              </h1>
+              <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
+                For business inquiries, potential partnerships, or questions about
+                FulCastle Holdings, Inc. and its ventures, send us a message using
+                the form below.
+              </p>
+            </div>
           </div>
         </section>
 

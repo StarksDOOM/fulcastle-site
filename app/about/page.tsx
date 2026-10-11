@@ -28,7 +28,7 @@ export default function AboutPage() {
             <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-muted-gold/50 to-transparent" />
           </div>
           <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-6 py-20 sm:px-10 sm:py-28 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:py-32">
-            <div className="relative z-10">
+            <div className="hero-copy relative z-10">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
                 About FulCastle
@@ -50,7 +50,7 @@ export default function AboutPage() {
             <div
               aria-label="Abstract architectural composition representing a shared foundation and distinct paths"
               role="img"
-              className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:aspect-[5/4] lg:aspect-[4/5]"
+              className="hero-artwork relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:aspect-[5/4] lg:aspect-[4/5]"
             >
               <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_25%,rgba(190,160,103,0.16),transparent_42%),linear-gradient(145deg,transparent_35%,rgba(0,0,0,0.45))]" />
               <div aria-hidden="true" className="absolute bottom-[-8%] left-[14%] h-[76%] w-[54%] border border-muted-gold/65 bg-gradient-to-br from-ivory/[0.08] to-transparent" />
@@ -216,7 +216,7 @@ export default function AboutPage() {
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
                   <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#b8d0d6]">Public-sector technology</span>
                   <div>
-                    <h3 className="font-display text-2xl">GovTech</h3>
+                    <h3 className="font-display text-2xl">Civora</h3>
                     <p className="mt-2 max-w-xs text-sm leading-6 text-ivory/70">
                       Technology for discovering and evaluating government-contracting opportunities.
                     </p>
