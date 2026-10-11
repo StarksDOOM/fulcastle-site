@@ -147,9 +147,14 @@ export function ContactForm() {
   const hasSucceeded = state === "success" || state === "partial";
 
   useEffect(() => {
-    if (hasSucceeded) {
+    if (!hasSucceeded) return;
+
+    // Wait until the success panel has committed to the DOM before aligning it.
+    const frame = window.requestAnimationFrame(() => {
       successPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [hasSucceeded]);
 
   return (
@@ -178,10 +183,10 @@ export function ContactForm() {
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7">
-              <path d="M24 58 137 17 91 94 72 66 24 58Z" fill="var(--ivory)" />
-              <path d="M24 58 111 43 72 66Z" fill="var(--muted-gold)" />
-              <path d="M72 66 111 43 91 94ZM111 43 137 17M24 58 111 43" />
+            <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">
+              <path d="M20 56 140 16 93 96 73 66 20 56Z" fill="var(--ivory)" />
+              <path d="M20 56 140 16 73 66Z" fill="var(--muted-gold)" />
+              <path d="M20 56 92 51 140 16M73 66 92 51 93 96" fill="none" />
             </g>
           </svg>
         </div>
