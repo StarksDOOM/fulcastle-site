@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
   title: "Built on Structure. Driven by Possibility.",
   description:
     "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next.",
+  other: {
+    "facebook-domain-verification": "o0yn7f7qd7169d7lxl9frrns31z74b",
+  },
 };
 
 const ventures = [
@@ -72,17 +76,19 @@ export default function HomePage() {
               </div>
             </div>
             <div className="hero-artwork mx-auto w-full max-w-[23rem] sm:max-w-[27rem] lg:max-w-none">
-              <div className="relative flex aspect-square w-full items-center justify-center">
-                <div aria-hidden="true" className="absolute inset-[7%] rotate-45 border border-muted-gold/60" />
-                <div aria-hidden="true" className="absolute inset-[19%] rotate-45 border border-ivory/25" />
-                <div aria-hidden="true" className="absolute inset-[31%] rotate-45 border border-muted-gold/50" />
-                <div aria-hidden="true" className="absolute left-1/2 top-[7%] h-[86%] w-px -translate-x-1/2 bg-ivory/20" />
-                <div aria-hidden="true" className="absolute left-[7%] top-1/2 h-px w-[86%] -translate-y-1/2 bg-ivory/20" />
-                <div className="relative flex h-28 w-28 items-center justify-center border border-muted-gold bg-graphite sm:h-36 sm:w-36">
-                  <div className="flex h-16 w-16 items-center justify-center border border-ivory/60 sm:h-20 sm:w-20">
-                    <span aria-label="FC" className="font-display text-3xl tracking-[-0.08em] text-muted-gold sm:text-4xl">FC</span>
-                  </div>
-                </div>
+              <div
+                aria-label="FulCastle architectural artwork depicting structure and perspective"
+                role="img"
+                className="relative aspect-square w-full overflow-hidden border border-ivory/15 bg-graphite"
+              >
+                <Image
+                  src="/images/home-hero.jfif"
+                  alt="FulCastle architectural artwork depicting foundational structure and perspective"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 440px, (min-width: 640px) 432px, 100vw"
+                  className="object-cover"
+                />
               </div>
               <p className="mt-4 text-right text-[0.6rem] uppercase leading-5 tracking-[0.2em] text-ivory/55">
                 A long-term view
