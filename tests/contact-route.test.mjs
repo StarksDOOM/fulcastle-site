@@ -84,16 +84,22 @@ test("rejects malformed JSON and non-object payloads", async () => {
   assert.equal(nonObject.status, 400);
 });
 
-test("rejects missing, wrong-type, malformed-email, and oversized fields", async () => {
-  for (const payload of [
-    { ...validPayload, name: "" },
-    { ...validPayload, name: 42 },
-    { ...validPayload, email: "not-an-email" },
-    { ...validPayload, message: "x".repeat(5001) },
-  ]) {
-    const response = await POST(request(payload));
-    assert.equal(response.status, 400);
+test("rejects every missing required field and every required field with the wrong type", async () => {
+  const requiredFields = ["name", "email", "subject", "message"];
+  for (const field of requiredFields) {
+    const missing = { ...validPayload };
+    delete missing[field];
+    const missingResponse = await POST(request(missing));
+    assert.equal(missingResponse.status, 400, `missing ${field} should be rejected`);
+
+    for (const wrongValue of [42, null, {}, []]) {
+      const wrongTypeResponse = await POST(request({ ...validPayload, [field]: wrongValue }));
+      assert.equal(wrongTypeResponse.status, 400, `${field} with type ${typeof wrongValue} should be rejected`);
+    }
   }
+
+  assert.equal((await POST(request({ ...validPayload, email: "not-an-email" }))).status, 400);
+  assert.equal((await POST(request({ ...validPayload, message: "x".repeat(5001) }))).status, 400);
 });
 
 test("rejects mismatched origins", async () => {
@@ -216,6 +222,8 @@ test("enforces each field's exact maximum and rejects one character over", async
 });
 
 test("rejects oversized request bodies even when content-length is absent or understated", async () => {
+  configureEnvironment();
+  globalThis.fetch = async () => new Response("{}", { status: 200 });
   const oversizedJsonWhitespace = `{}${" ".repeat(12_001)}`;
   const absentLength = await POST(request(oversizedJsonWhitespace));
   assert.equal(absentLength.status, 413);
