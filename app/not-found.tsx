@@ -13,7 +13,7 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="relative isolate flex flex-1 items-center overflow-hidden bg-graphite text-ivory">
+      <main id="main-content" tabIndex={-1} className="relative isolate flex flex-1 items-center overflow-hidden bg-graphite text-ivory">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute -right-24 top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rotate-45 border border-muted-gold/25 sm:right-[8%] sm:h-[34rem] sm:w-[34rem]" />
           <div className="absolute -right-8 top-1/2 h-[18rem] w-[18rem] -translate-y-1/2 rotate-45 border border-ivory/10 sm:right-[14%] sm:h-[24rem] sm:w-[24rem]" />

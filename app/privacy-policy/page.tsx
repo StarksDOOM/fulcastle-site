@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1 bg-ivory">
+      <main id="main-content" tabIndex={-1} className="flex-1 bg-ivory">
         <section className="bg-graphite text-ivory">
           <div className="mx-auto w-full max-w-5xl px-6 py-16 sm:px-10 sm:py-20">
             <p className="mb-5 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
