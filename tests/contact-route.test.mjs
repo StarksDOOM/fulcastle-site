@@ -258,3 +258,32 @@ test("rejects missing origin and missing host independently, then restores envir
     }
   }
 });
+
+
+test("forwards stable, distinct provider idempotency keys for retried submissions", async () => {
+  configureEnvironment();
+  const providerKeys = [];
+  globalThis.fetch = async (_url, init) => {
+    providerKeys.push(init.headers["Idempotency-Key"]);
+    return new Response("{}", { status: 200 });
+  };
+
+  try {
+    const submissionId = "123e4567-e89b-42d3-a456-426614174000";
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      const response = await POST(request(validPayload, {
+        headers: { "x-contact-submission-id": submissionId },
+      }));
+      assert.equal(response.status, 200);
+    }
+
+    assert.deepEqual(providerKeys, [
+      `${submissionId}-notification`,
+      `${submissionId}-acknowledgment`,
+      `${submissionId}-notification`,
+      `${submissionId}-acknowledgment`,
+    ]);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
