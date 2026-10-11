@@ -194,11 +194,32 @@ export function ContactForm() {
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">
-              {/* Side-on folded dart: sharp nose, two distinct wings, and the paper's center crease. */}
-              <path d="M18 55 143 15 101 96 78 66 18 55Z" fill="var(--ivory)" />
-              <path d="M18 55 143 15 78 66Z" fill="var(--muted-gold)" />
-              <path d="M18 55 78 66 143 15M78 66 101 96 94 58" fill="none" />
+            <g
+              className="contact-success-plane"
+              stroke="var(--graphite)"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.7"
+            >
+              {/* Hand-drawn folded paper plane: broad upper wing, tucked lower wing, and visible crease. */}
+              <path
+                d="M19 55.5 142 16.5Q145 15.5 143 19L103 91Q101.5 94 99 91L77 67 22 58Q16 57 19 55.5Z"
+                fill="var(--ivory)"
+              />
+              <path
+                d="M20 56 142 17 77 67 47 78Q43 79 45 75L59 61Z"
+                fill="var(--muted-gold)"
+              />
+              <path
+                d="M20 56Q18 55 22 55L142 17 77 67 103 91Q104 93 101 91L77 67 47 78Q43 79 45 75L59 61"
+                fill="none"
+              />
+              <path
+                d="M59 61 77 67 99 91M77 67 142 17"
+                fill="none"
+                stroke="var(--graphite)"
+                strokeWidth="1.35"
+              />
             </g>
           </svg>
         </div>
