@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { DM_Sans } from "next/font/google";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
     "Learn about FulCastle Holdings, Inc., the parent company behind a portfolio of independent ventures.",
 };
 
-const dmSans = DM_Sans({ subsets: ["latin"], display: "swap" });
 
 export default function AboutPage() {
   return (
@@ -91,13 +89,13 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="max-w-2xl lg:pt-9">
-            <p className={`${dmSans.className} text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9`}>
+            <p className={`text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9`}>
               FulCastle provides the parent-company context for its portfolio.
               The ventures are distinct in what they build, who they serve, and
               the identities they establish—not a single service under different names.
             </p>
             <div className="mt-8 h-px w-full bg-graphite/15" />
-            <p className={`${dmSans.className} mt-6 max-w-xl text-sm leading-7 text-slate`}>
+            <p className={`mt-6 max-w-xl text-sm leading-7 text-slate`}>
               The shared perspective is long-term; the work remains specific.
               Each venture has room to pursue its own purpose while sitting
               within a considered broader portfolio.
@@ -139,14 +137,14 @@ export default function AboutPage() {
               </p>
               <div className="mt-10 grid gap-5 border-t border-graphite/15 pt-6 sm:grid-cols-2">
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-gold">01 / Perspective</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">01 / Perspective</span>
                   <h3 className="mt-3 font-display text-xl text-graphite">Think beyond the moment</h3>
                   <p className="mt-2 text-sm leading-6 text-slate">
                     Make deliberate choices with the longer view in mind.
                   </p>
                 </div>
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-gold">02 / Independence</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">02 / Independence</span>
                   <h3 className="mt-3 font-display text-xl text-graphite">Protect what makes each distinct</h3>
                   <p className="mt-2 text-sm leading-6 text-slate">
                     Let every venture speak clearly to its own audience and purpose.
@@ -231,7 +229,7 @@ export default function AboutPage() {
                 <div aria-hidden="true" className="absolute right-8 top-8 h-28 w-28 rounded-full border border-[#b46f79]/45" />
                 <div aria-hidden="true" className="absolute right-14 top-14 h-16 w-16 rounded-full border border-[#b46f79]/35" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#98616a]">Personal expression</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#824752]">Personal expression</span>
                   <div>
                     <h3 className="font-display text-2xl">Sweet Nothings</h3>
                     <p className="mt-2 max-w-sm text-sm leading-6 text-graphite/70">
@@ -246,7 +244,7 @@ export default function AboutPage() {
                 <div aria-hidden="true" className="absolute right-8 top-8 h-36 w-28 border border-[#6c8574]/45" />
                 <div aria-hidden="true" className="absolute right-14 top-14 h-36 w-28 border border-graphite/20" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#597061]">Real estate workflows</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#405b4a]">Real estate workflows</span>
                   <div>
                     <h3 className="font-display text-2xl">PropTech Real Estate</h3>
                     <p className="mt-2 max-w-sm text-sm leading-6 text-graphite/70">

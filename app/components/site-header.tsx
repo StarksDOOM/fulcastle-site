@@ -9,8 +9,8 @@ const navigation = [
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-black/10 bg-ivory">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-6 py-5 sm:px-10 md:flex-row md:items-center md:justify-between">
+    <header className="border-b border-graphite/10 bg-ivory">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-5 sm:gap-5 sm:px-10 sm:py-6 md:flex-row md:items-center md:justify-between">
         <Link
           aria-label="FulCastle Holdings home"
           className="flex w-fit items-center gap-3 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
@@ -24,10 +24,10 @@ export function SiteHeader() {
             </span>
           </span>
         </Link>
-        <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-x-5 gap-y-3 sm:gap-x-6">
           {navigation.map((item) => (
             <Link
-              className="rounded-sm py-1 text-xs font-semibold uppercase tracking-[0.13em] text-slate transition-colors hover:text-graphite focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
+              className="rounded-sm py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-slate transition-colors hover:text-graphite focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
               href={item.href}
               key={item.label}
             >

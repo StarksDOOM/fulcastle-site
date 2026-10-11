@@ -5,18 +5,20 @@
   --graphite: #101722;
   --ivory: #f6f3ed;
   --muted-gold: #c6ae7a;
-  --slate: #68717d;
+  --gold-ink: #765d2c;
+  --slate: #596472;
   --slate-dark: #394452;
   --line: rgba(16, 23, 34, 0.14);
   --surface: #fffdf9;
-  --font-body-family: Arial, Helvetica, sans-serif;
-  --font-display-family: Georgia, "Times New Roman", serif;
+  --font-body-family: var(--font-body-font, "DM Sans", Arial, sans-serif);
+  --font-display-family: var(--font-display-font, "Cormorant Garamond", Georgia, serif);
 }
 
 @theme inline {
   --color-graphite: var(--graphite);
   --color-ivory: var(--ivory);
   --color-muted-gold: var(--muted-gold);
+  --color-gold-ink: var(--gold-ink);
   --color-slate: var(--slate);
   --font-sans: var(--font-body-family);
   --font-display: var(--font-display-family);
@@ -30,6 +32,7 @@ html {
   min-height: 100%;
   background: var(--ivory);
   scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
 }
 
 body {
@@ -38,17 +41,30 @@ body {
   background: var(--ivory);
   color: var(--graphite);
   font-family: var(--font-body-family);
+  font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 a {
   color: inherit;
 }
 
-a:focus-visible {
-  outline: 2px solid var(--muted-gold);
-  outline-offset: 4px;
+:where(a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid var(--muted-gold);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--graphite);
 }
 
 ::selection {

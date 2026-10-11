@@ -67,7 +67,7 @@ const ventures = [
       "A consumer product concept for personalized, AI-generated affectionate messages shaped around individual preferences.",
     focus: "Personalized messages",
     card: "bg-[#eee4e0] text-graphite",
-    label: "text-[#98616a]",
+    label: "text-[#824752]",
     artwork:
       "bg-[radial-gradient(ellipse_at_80%_15%,rgba(180,111,121,0.2),transparent_45%),linear-gradient(135deg,#f3e9e5,#e5d5d1)]",
     shape: "border-[#b46f79]/45",
@@ -83,7 +83,7 @@ const ventures = [
       "Property-listing and agent-inventory workflows for the Dominican Republic, with transaction tooling being explored as part of the broader concept.",
     focus: "Property listings and agent inventory",
     card: "bg-[#dfe4df] text-graphite",
-    label: "text-[#597061]",
+    label: "text-[#405b4a]",
     artwork:
       "bg-[linear-gradient(145deg,rgba(255,255,255,0.6),transparent_58%),radial-gradient(ellipse_at_85%_90%,rgba(108,133,116,0.25),transparent_45%)]",
     shape: "border-[#6c8574]/45",
@@ -165,7 +165,7 @@ export default function VenturesPage() {
               {ventures.map((venture) => (
                 <article
                   aria-labelledby={`${venture.id}-title`}
-                  className={`group relative isolate flex min-h-[25rem] flex-col overflow-hidden border border-graphite/10 ${venture.card} sm:col-span-1 lg:col-span-2`}
+                  className={`group relative isolate flex min-h-[25rem] flex-col overflow-hidden border border-graphite/10 ${venture.card} sm:col-span-1 lg:col-span-2 ${venture.id === "sweet-nothings" ? "lg:col-start-2" : ""} ${venture.id === "proptech-real-estate" ? "lg:col-start-4" : ""}`}
                   id={venture.id}
                   key={venture.id}
                 >
