@@ -5,6 +5,24 @@
  width="1216.000000pt" height="832.000000pt" viewBox="0 0 1216.000000 832.000000"
  preserveAspectRatio="xMidYMid meet">
 
+<defs>
+  <filter id="soft-plane-shadow" x="-10%" y="-10%" width="130%" height="130%">
+    <feDropShadow dx="3" dy="5" stdDeviation="6" flood-color="#101722" flood-opacity="0.08" />
+  </filter>
+</defs>
+
+<g filter="url(#soft-plane-shadow)">
+  <g id="plane-fills" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Top wing (bright warm ivory highlight) with soft matching border -->
+    <polygon points="1095,143 388,318 493,426" fill="#FAF6EE" stroke="#FAF6EE" stroke-width="8" stroke-linejoin="round" />
+    <!-- Underwing / right wing (soft ivory tone) -->
+    <polygon points="537,476 700,622 1095,143" fill="#F2EAE0" stroke="#F2EAE0" stroke-width="8" stroke-linejoin="round" />
+    <!-- Center keel / vertical fold (warm shaded tone) -->
+    <polygon points="493,426 496,565 537,476 1095,143" fill="#EADBCC" stroke="#EADBCC" stroke-width="8" stroke-linejoin="round" />
+    <!-- Inner crease shadow -->
+    <polygon points="496,565 537,476 565,510" fill="#DECBAA" stroke="#DECBAA" stroke-width="6" stroke-linejoin="round" />
+  </g>
+
 <g transform="translate(0.000000,832.000000) scale(0.100000,-0.100000)"
 fill="#C6AE7A" stroke="none">
 <path d="M10945 6890 c-55 -15 -152 -41 -215 -59 -63 -17 -146 -40 -185 -51
@@ -273,5 +291,6 @@ m-115 -83 c-5 -10 -8 -21 -7 -25 1 -4 -5 -5 -13 -2 -9 4 -15 0 -15 -10 0 -9
 0z"/>
 <path d="M7651 3173 c-17 -20 -28 -39 -26 -41 6 -7 35 18 35 30 0 5 10 18 23
 29 12 10 17 18 10 19 -6 0 -25 -17 -42 -37z"/>
+</g>
 </g>
 </svg>
