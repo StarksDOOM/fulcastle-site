@@ -146,6 +146,54 @@ export function ContactForm() {
   const hasSucceeded = state === "success" || state === "partial";
 
   return (
+    hasSucceeded ? (
+      <section
+        aria-live="polite"
+        className="rounded-2xl border border-graphite/10 bg-white/70 px-6 py-10 text-center shadow-sm sm:px-10"
+        role="status"
+      >
+        <div aria-hidden="true" className="contact-success-illustration mx-auto mb-5">
+          <svg className="h-28 w-40 overflow-visible" fill="none" viewBox="0 0 160 112">
+            <path
+              className="contact-success-flight-path"
+              d="M18 88C43 88 57 76 76 55S105 24 133 22"
+              stroke="var(--muted-gold)"
+              strokeDasharray="3 6"
+              strokeLinecap="round"
+              strokeWidth="1.5"
+            />
+            <circle cx="132" cy="22" r="3" fill="var(--muted-gold)" />
+            <path
+              className="contact-success-sparkle"
+              d="M43 35v8m-4-4h8M115 72v6m-3-3h6"
+              stroke="var(--muted-gold)"
+              strokeLinecap="round"
+              strokeWidth="1.5"
+            />
+            <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7">
+              <path d="m22 7 33 14-24 27-9-17L5 23 22 7Z" fill="var(--muted-gold)" />
+              <path d="m22 7 9 41 7-22L55 21 22 7Z" fill="var(--ivory)" />
+              <path d="m5 23 26 25" />
+            </g>
+          </svg>
+        </div>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold-ink">
+          FulCastle Holdings
+        </p>
+        <h2 className="font-display text-3xl font-medium text-graphite sm:text-4xl">
+          Message received.
+        </h2>
+        {state === "partial" ? (
+          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate">
+            Your message was received, but we couldn’t send a confirmation email. You don’t need to submit it again.
+          </p>
+        ) : (
+          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate">
+            Thanks for reaching out. Your message is on its way to our team. We’ll follow up if a response is appropriate.
+          </p>
+        )}
+      </section>
+    ) : (
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       <div>
         <label className="block text-sm font-semibold text-graphite" htmlFor="contact-name">
@@ -234,60 +282,34 @@ export function ContactForm() {
         />
       </div>
 
-      {hasSucceeded ? (
-        <button
-          className="inline-flex min-h-12 items-center justify-center gap-3 bg-muted-gold px-6 py-3 text-sm font-semibold text-graphite transition-[filter,transform,background-color] duration-200 hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold motion-reduce:transition-none"
-          onClick={() => {
-            setFieldErrors({});
-            setState("idle");
-          }}
-          type="button"
-        >
-          Send another message
-          <span aria-hidden="true">
-            <PaperPlaneIcon />
-          </span>
-        </button>
-      ) : (
-        <button
-          aria-busy={state === "sending"}
-          className="inline-flex min-h-12 items-center justify-center gap-3 bg-muted-gold px-6 py-3 text-sm font-semibold text-graphite transition-[filter,transform,background-color] duration-200 hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none"
-          disabled={state === "sending"}
-          type="submit"
-        >
-          {state === "sending" ? (
-            <>
-              Sending…
-              <span aria-hidden="true" className="motion-safe:animate-pulse">
-                <PaperPlaneIcon />
-              </span>
-            </>
-          ) : (
-            <>
-              Send message
-              <span aria-hidden="true">
-                <PaperPlaneIcon />
-              </span>
-            </>
-          )}
-        </button>
-      )}
+      <button
+        aria-busy={state === "sending"}
+        className="inline-flex min-h-12 items-center justify-center gap-3 bg-muted-gold px-6 py-3 text-sm font-semibold text-graphite transition-[filter,transform,background-color] duration-200 hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none"
+        disabled={state === "sending"}
+        type="submit"
+      >
+        {state === "sending" ? (
+          <>
+            Sending…
+            <span aria-hidden="true" className="motion-safe:animate-pulse">
+              <PaperPlaneIcon />
+            </span>
+          </>
+        ) : (
+          <>
+            Send message
+            <span aria-hidden="true">
+              <PaperPlaneIcon />
+            </span>
+          </>
+        )}
+      </button>
 
       <p
         aria-live="polite"
         className="min-h-6 text-sm leading-6"
         role={state === "error" ? "alert" : "status"}
       >
-        {state === "success" && (
-          <span className="text-emerald-800">
-            Thanks for reaching out. Your message has been sent.
-          </span>
-        )}
-        {state === "partial" && (
-          <span className="text-amber-800">
-            Your message was received, but we couldn’t send a confirmation email. You don’t need to submit it again.
-          </span>
-        )}
         {state === "error" && (
           <span className="text-red-800">
             We couldn’t send your message right now. Please try again later.
@@ -295,5 +317,6 @@ export function ContactForm() {
         )}
       </p>
     </form>
+    )
   );
 }

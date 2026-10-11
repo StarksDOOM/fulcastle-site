@@ -191,3 +191,54 @@ article.group.scroll-reveal-target {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* A single, restrained paper-plane send animation for the contact confirmation. */
+@keyframes fc-plane-send {
+  0% { opacity: 0; transform: translate(-26px, 22px) rotate(-18deg) scale(0.78); }
+  18% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { opacity: 0.9; transform: translate(14px, -10px) rotate(8deg) scale(1); }
+}
+
+@keyframes fc-flight-path {
+  from { stroke-dashoffset: 44; opacity: 0.25; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes fc-success-sparkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+.contact-success-plane {
+  transform-origin: 30px 28px;
+  animation: fc-plane-send 1.25s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.contact-success-flight-path {
+  stroke-dashoffset: 44;
+  animation: fc-flight-path 900ms ease-out 120ms both;
+}
+
+.contact-success-sparkle {
+  transform-origin: center;
+  animation: fc-success-sparkle 1.6s ease-in-out 250ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-success-plane,
+  .contact-success-flight-path,
+  .contact-success-sparkle {
+    animation: none !important;
+  }
+
+  .contact-success-plane {
+    opacity: 1;
+    transform: none;
+  }
+
+  .contact-success-flight-path {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
