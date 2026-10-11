@@ -176,10 +176,10 @@ export function ContactForm() {
             <image
               className="contact-success-plane"
               href="/images/paper-plane-no-path.png"
-              x="52"
-              y="38"
-              width="42"
-              height="42"
+              x="62"
+              y="20"
+              width="72"
+              height="72"
               preserveAspectRatio="xMidYMid meet"
             />
           </svg>
