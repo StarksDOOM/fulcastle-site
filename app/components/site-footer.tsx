@@ -9,6 +9,12 @@ export function SiteFooter() {
           <p>Independent ventures. Shared vision.</p>
           <Link
             className="underline decoration-muted-gold/70 underline-offset-4 transition-colors hover:text-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
+            href="/privacy-policy"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            className="underline decoration-muted-gold/70 underline-offset-4 transition-colors hover:text-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
             href="/terms-of-use"
           >
             Terms of Use
