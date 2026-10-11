@@ -62,7 +62,8 @@ test("contact endpoint validates fields and sends escaped branded notification p
     assert.equal(sent[0].cc[0], "copy@example.com");
     assert.equal(sent[0].reply_to, "Avery@example.com");
     assert.match(sent[0].subject, /^Website Inquiry — Partnership inquiry$/);
-    assert.match(sent[0].html, /&lt;img src=x onerror=&quot;alert(1)&quot;&gt;/);
+    assert.ok(sent[0].html.includes("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;"));
+    assert.doesNotMatch(sent[0].html, /<img src=x onerror=/);
     assert.doesNotMatch(sent[0].html, /<script>alert/);
     assert.match(sent[0].text, /<script>alert\('xss'\)<\/script>/);
     assert.equal(sent[1].to[0], "Avery@example.com");
