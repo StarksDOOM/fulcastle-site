@@ -339,19 +339,16 @@ export default function AboutPage() {
                   </h3>
                   <p className="mt-5 text-sm leading-7 text-ivory/75">
                     Roman Castillo is a co-founder of FulCastle Holdings, Inc.,
-                    contributing to the company&apos;s brand identity, marketing
-                    direction, and partnership development. His focus is on
-                    shaping how FulCastle and its ventures present themselves to
-                    the market, establishing a cohesive brand presence, and
-                    cultivating relationships that support long-term growth.
+                    contributing to brand identity, marketing direction, and
+                    partnership development. He helps shape how FulCastle and its
+                    ventures present themselves, building a cohesive presence
+                    while preserving each venture&apos;s distinct identity.
                   </p>
                   <p className="mt-4 text-sm leading-7 text-ivory/75">
-                    Across FulCastle&apos;s portfolio, Roman is focused on helping
-                    each venture define its identity, communicate its value, and
-                    connect with the audiences, collaborators, and partners
-                    relevant to its goals. He brings a brand-oriented perspective
-                    to the company&apos;s broader vision, supporting distinct
-                    venture identities under a unified holding company.
+                    Roman helps ventures communicate their value and connect with
+                    relevant audiences and partners. He supports FulCastle&apos;s
+                    broader vision through clear positioning and meaningful
+                    relationships.
                   </p>
                 </div>
               </article>
