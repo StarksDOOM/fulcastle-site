@@ -30,19 +30,6 @@ function PaperPlaneIcon() {
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 24 24">
-      <path
-        d="m5 12 4.5 4.5L19 7"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
-    </svg>
-  );
-}
 
 function FieldError({ id, children }: { id: string; children: string | undefined }) {
   if (!children) return null;
