@@ -171,8 +171,8 @@ test("rejects CRLF/header injection in email and subject without sending mail", 
 
   try {
     for (const payload of [
-      { ...validPayload, email: "person@example.com\\r\\nBcc:attacker@example.com" },
-      { ...validPayload, subject: "Hello\\r\\nBcc:attacker@example.com" },
+      { ...validPayload, email: "person@example.com\r\nBcc:attacker@example.com" },
+      { ...validPayload, subject: "Hello\r\nBcc:attacker@example.com" },
     ]) {
       const response = await POST(request(payload));
       assert.equal(response.status, 400);
@@ -224,14 +224,19 @@ test("enforces each field's exact maximum and rejects one character over", async
 test("rejects oversized request bodies even when content-length is absent or understated", async () => {
   configureEnvironment();
   globalThis.fetch = async () => new Response("{}", { status: 200 });
-  const oversizedJsonWhitespace = `{}${" ".repeat(12_001)}`;
-  const absentLength = await POST(request(oversizedJsonWhitespace));
-  assert.equal(absentLength.status, 413);
 
-  const understatedLength = await POST(request(validPayload, {
-    headers: { "content-length": "1" },
-  }));
-  assert.equal(understatedLength.status, 200);
+  try {
+    const oversizedJsonWhitespace = `{}${" ".repeat(12_001)}`;
+    const absentLength = await POST(request(oversizedJsonWhitespace));
+    assert.equal(absentLength.status, 413);
+
+    const understatedLength = await POST(request(validPayload, {
+      headers: { "content-length": "1" },
+    }));
+    assert.equal(understatedLength.status, 200);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 test("rejects missing origin and missing host independently, then restores environment", async () => {
