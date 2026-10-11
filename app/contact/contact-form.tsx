@@ -13,18 +13,18 @@ function PaperPlaneIcon() {
   return (
     <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 24 24">
       <path
-        d="M21.5 2.5 14 21.5l-4-8-8-4 19.5-7Z"
+        d="M22 2 14.8 22l-4.1-8.7L2 9.2 22 2Z"
+        fill="currentColor"
         stroke="currentColor"
-        strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.6"
+        strokeWidth="1.2"
       />
       <path
-        d="M21.5 2.5 10 13.5"
-        stroke="currentColor"
+        d="M22 2 10.7 13.3"
+        stroke="var(--ivory)"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.6"
+        strokeWidth="1.2"
       />
     </svg>
   );
