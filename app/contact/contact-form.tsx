@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 type SubmissionState = "idle" | "sending" | "success" | "partial" | "error";
 type ContactField = "name" | "email" | "subject" | "message";
@@ -146,23 +146,23 @@ export function ContactForm() {
 
   const hasSucceeded = state === "success" || state === "partial";
 
-  useEffect(() => {
-    if (!hasSucceeded) return;
-
-    // Wait for React to replace the form, then align the confirmation panel itself.
-    const frame = window.requestAnimationFrame(() => scrollToConfirmation());
-
-    return () => window.cancelAnimationFrame(frame);
-  }, [hasSucceeded]);
-
-  function scrollToConfirmation() {
+  const scrollToConfirmation = useCallback(() => {
     const panel = successPanelRef.current;
     if (!panel) return;
 
     const top = window.scrollY + panel.getBoundingClientRect().top - 24;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
-  }
+  }, []);
+
+  useEffect(() => {
+    if (!hasSucceeded) return;
+
+    // Wait for React to replace the form, then align the confirmation panel itself.
+    const frame = window.requestAnimationFrame(scrollToConfirmation);
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [hasSucceeded, scrollToConfirmation]);
 
   return (
     hasSucceeded ? (
