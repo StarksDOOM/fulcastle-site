@@ -173,15 +173,23 @@ export function ContactForm() {
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <image
-              className="contact-success-plane"
-              href="/images/paper-plane-no-path.png"
-              x="62"
-              y="20"
-              width="72"
-              height="72"
-              preserveAspectRatio="xMidYMid meet"
-            />
+            <g className="contact-success-plane">
+              <animateMotion
+                dur="1.25s"
+                path="M10 91C39 88 55 73 76 53S111 24 143 18"
+                rotate="auto"
+                fill="freeze"
+              />
+              <image
+                href="/images/paper-plane-no-path.png"
+                x="-36"
+                y="-36"
+                width="72"
+                height="72"
+                transform="rotate(35)"
+                preserveAspectRatio="xMidYMid meet"
+              />
+            </g>
           </svg>
         </div>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold-ink">
