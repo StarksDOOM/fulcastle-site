@@ -4,7 +4,7 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
 export const metadata: Metadata = {
-  title: "Ventures | FulCastle",
+  title: "Ventures",
   description:
     "Explore the distinct areas of focus across FulCastle Holdings, Inc.'s portfolio of independent ventures.",
 };
@@ -110,7 +110,7 @@ export default function VenturesPage() {
             <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-muted-gold/50 to-transparent" />
           </div>
           <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 py-20 sm:px-10 sm:py-28 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-20 lg:py-32">
-            <div className="relative z-10">
+            <div className="hero-copy relative z-10">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
                 The portfolio
@@ -128,7 +128,7 @@ export default function VenturesPage() {
                 focus and room to develop its own identity.
               </p>
             </div>
-            <aside className="relative border-l-2 border-muted-gold/70 pl-7 sm:pl-9 lg:mb-2 lg:ml-4">
+            <aside className="hero-side-note relative border-l-2 border-muted-gold/70 pl-7 sm:pl-9 lg:mb-2 lg:ml-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-gold">
                 A portfolio in development
               </p>
