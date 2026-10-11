@@ -116,16 +116,31 @@ a:hover span[aria-hidden="true"] {
   transform: translate(2px, -1px);
 }
 
+/* Keep portfolio cards on both pages using the same calm, eased hover motion. */
 article.group {
-  transition: border-color 240ms ease, background-color 240ms ease;
+  transition:
+    transform 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 article.group > div[aria-hidden="true"] {
-  transition: transform 360ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 240ms ease;
+  transition:
+    transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 360ms ease;
 }
 
-article.group:hover > div[aria-hidden="true"] {
-  opacity: 0.9;
+@media (hover: hover) and (pointer: fine) {
+  article.group:hover {
+    transform: translateY(-3px);
+    border-color: var(--muted-gold);
+    box-shadow: 0 12px 28px rgba(16, 23, 34, 0.1);
+  }
+
+  article.group:hover > div[aria-hidden="true"] {
+    opacity: 0.9;
+  }
 }
 
 /* Progressive enhancement: reveal lower sections as they enter the viewport. */
