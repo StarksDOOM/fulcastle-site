@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 type SubmissionState = "idle" | "sending" | "success" | "partial" | "error";
 type ContactField = "name" | "email" | "subject" | "message";
@@ -49,6 +49,7 @@ export function ContactForm() {
   const [state, setState] = useState<SubmissionState>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const submissionId = useRef<string | null>(null);
+  const successPanelRef = useRef<HTMLElement | null>(null);
 
   function clearFieldError(field: ContactField) {
     setFieldErrors((current) => {
@@ -145,9 +146,16 @@ export function ContactForm() {
 
   const hasSucceeded = state === "success" || state === "partial";
 
+  useEffect(() => {
+    if (hasSucceeded) {
+      successPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [hasSucceeded]);
+
   return (
     hasSucceeded ? (
       <section
+        ref={successPanelRef}
         aria-live="polite"
         className="contact-success-panel rounded-2xl border border-graphite/10 bg-white/70 px-6 py-10 text-center shadow-sm sm:px-10"
         role="status"
@@ -171,9 +179,9 @@ export function ContactForm() {
               strokeWidth="1.5"
             />
             <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7">
-              <path d="M24 58 135 17 91 91 73 63 24 58Z" fill="var(--muted-gold)" />
-              <path d="m73 63 62-46-34 52-10 22-18-28Z" fill="var(--ivory)" />
-              <path d="m73 63 28 6M24 58l49 5" />
+              <path d="M24 58 137 17 91 94 72 66 24 58Z" fill="var(--ivory)" />
+              <path d="M24 58 111 43 72 66Z" fill="var(--muted-gold)" />
+              <path d="M72 66 111 43 91 94ZM111 43 137 17M24 58 111 43" />
             </g>
           </svg>
         </div>
