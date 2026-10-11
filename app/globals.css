@@ -232,10 +232,9 @@ article.group.scroll-reveal-target {
 
 /* A single, restrained paper-plane send animation for the contact confirmation. */
 @keyframes fc-plane-send {
-  0% { opacity: 0; transform: translate(-26px, 22px) rotate(-18deg) scale(0.78); }
+  0% { opacity: 0; }
   18% { opacity: 1; }
-  72% { opacity: 1; }
-  100% { opacity: 0.9; transform: translate(14px, -10px) rotate(8deg) scale(1); }
+  100% { opacity: 0.95; }
 }
 
 @keyframes fc-flight-path {
@@ -249,8 +248,7 @@ article.group.scroll-reveal-target {
 }
 
 .contact-success-plane {
-  transform-origin: 98px 56px;
-  animation: fc-plane-send 1.25s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: fc-plane-send 1.25s ease-out both;
 }
 
 .contact-success-flight-path {
