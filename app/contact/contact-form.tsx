@@ -156,7 +156,7 @@ export function ContactForm() {
 
       // Calculate against the document so the panel's top is aligned consistently
       // even when the form above it has just been replaced.
-      const top = window.scrollY + panel.getBoundingClientRect().top - 24;
+      const top = window.scrollY + panel.getBoundingClientRect().top;
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
     });
@@ -191,11 +191,11 @@ export function ContactForm() {
               strokeWidth="1.5"
             />
             <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">
-              {/* Classic folded-paper airplane: pointed nose, broad wings, and visible creases. */}
-              <path d="M18 54 143 16 91 96 76 65 18 54Z" fill="var(--ivory)" />
-              <path d="M18 54 143 16 76 65Z" fill="var(--muted-gold)" />
-              <path d="M76 65 143 16 91 96 88 58Z" fill="var(--ivory)" />
-              <path d="M18 54 88 58 143 16M76 65 88 58 91 96" fill="none" />
+              {/* Recognizable paper dart silhouette with two folded wings and a center seam. */}
+              <path d="M17 53 144 15 104 94 79 66 17 53Z" fill="var(--ivory)" />
+              <path d="M17 53 144 15 79 66Z" fill="var(--muted-gold)" />
+              <path d="M17 53 86 54 104 94M79 66 86 54 144 15" fill="none" />
+              <path d="M79 66 144 15 86 54" fill="var(--ivory)" />
             </g>
           </svg>
         </div>
