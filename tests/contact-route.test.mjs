@@ -155,14 +155,92 @@ test("reports acknowledgment failure separately after notification succeeds", as
   }
 });
 
-test("rejects missing origin/host and preserves the configured environment in tests", async () => {
-  const response = await POST(request(validPayload, {
-    headers: { origin: "", host: "" },
-  }));
-  assert.equal(response.status, 403);
+test("rejects CRLF/header injection in email and subject without sending mail", async () => {
+  configureEnvironment();
+  let calls = 0;
+  globalThis.fetch = async () => {
+    calls += 1;
+    return new Response("{}", { status: 200 });
+  };
 
-  for (const [key, value] of Object.entries(originalEnv)) {
-    if (value === undefined) delete process.env[key];
-    else process.env[key] = value;
+  try {
+    for (const payload of [
+      { ...validPayload, email: "person@example.com\\r\\nBcc:attacker@example.com" },
+      { ...validPayload, subject: "Hello\\r\\nBcc:attacker@example.com" },
+    ]) {
+      const response = await POST(request(payload));
+      assert.equal(response.status, 400);
+    }
+    assert.equal(calls, 0);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("enforces each field's exact maximum and rejects one character over", async () => {
+  configureEnvironment();
+  const maxEmailDomain = `${"b".repeat(63)}.${"c".repeat(63)}.${"d".repeat(61)}`;
+  const maxEmail = `${"a".repeat(64)}@${maxEmailDomain}`;
+  assert.equal(maxEmail.length, 254);
+  const overEmail = `${"a".repeat(64)}@${"b".repeat(63)}.${"c".repeat(63)}.${"d".repeat(62)}`;
+  assert.equal(overEmail.length, 255);
+
+  const cases = [
+    ["name", "n".repeat(100), "n".repeat(101)],
+    ["email", maxEmail, overEmail],
+    ["subject", "s".repeat(120), "s".repeat(121)],
+    ["message", "m".repeat(5000), "m".repeat(5001)],
+  ];
+  const acceptedPayload = { ...validPayload };
+  for (const [field, boundaryValue] of cases) acceptedPayload[field] = boundaryValue;
+
+  const sent = [];
+  globalThis.fetch = async (_url, init) => {
+    sent.push(JSON.parse(init.body));
+    return new Response("{}", { status: 200 });
+  };
+  try {
+    const accepted = await POST(request(acceptedPayload));
+    assert.equal(accepted.status, 200, "values at each field limit should be accepted");
+    assert.equal(sent.length, 2);
+    assert.equal(sent[0].reply_to, maxEmail);
+
+    for (const [field, _boundaryValue, overValue] of cases) {
+      const response = await POST(request({ ...validPayload, [field]: overValue }));
+      assert.equal(response.status, 400, `${field} one character over limit should be rejected`);
+    }
+    assert.equal(sent.length, 2, "oversized fields must not trigger provider calls");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("rejects oversized request bodies even when content-length is absent or understated", async () => {
+  const oversizedJsonWhitespace = `{}${" ".repeat(12_001)}`;
+  const absentLength = await POST(request(oversizedJsonWhitespace));
+  assert.equal(absentLength.status, 413);
+
+  const understatedLength = await POST(request(validPayload, {
+    headers: { "content-length": "1" },
+  }));
+  assert.equal(understatedLength.status, 200);
+});
+
+test("rejects missing origin and missing host independently, then restores environment", async () => {
+  try {
+    const missingOrigin = await POST(request(validPayload, {
+      headers: { origin: "" },
+    }));
+    assert.equal(missingOrigin.status, 403);
+
+    const missingHost = await POST(request(validPayload, {
+      headers: { host: "" },
+    }));
+    assert.equal(missingHost.status, 403);
+  } finally {
+    for (const [key, value] of Object.entries(originalEnv)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
   }
 });
