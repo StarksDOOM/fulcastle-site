@@ -157,9 +157,30 @@ export function ContactForm() {
       >
         <div aria-hidden="true" className="contact-success-illustration mx-auto mb-5">
           <svg className="h-28 w-40 overflow-visible" fill="none" viewBox="0 0 160 112">
+            <defs>
+              <mask id="contact-flight-trail-mask">
+                <path
+                  d="M10 91C39 88 55 73 76 53S111 24 143 18"
+                  pathLength="1"
+                  stroke="white"
+                  strokeWidth="16"
+                  strokeDasharray="1"
+                  strokeDashoffset="1"
+                >
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    from="1"
+                    to="0"
+                    dur="1.8s"
+                    fill="freeze"
+                  />
+                </path>
+              </mask>
+            </defs>
             <path
               className="contact-success-flight-path"
               d="M10 91C39 88 55 73 76 53S111 24 143 18"
+              mask="url(#contact-flight-trail-mask)"
               stroke="var(--muted-gold)"
               strokeDasharray="3 6"
               strokeLinecap="round"
