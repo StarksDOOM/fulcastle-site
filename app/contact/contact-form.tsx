@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { Send } from "lucide-react";
 
 type SubmissionState = "idle" | "sending" | "success" | "partial" | "error";
 type ContactField = "name" | "email" | "subject" | "message";
@@ -8,25 +9,6 @@ type FieldErrors = Partial<Record<ContactField, string>>;
 
 const fieldClassName =
   "mt-2 block min-h-12 w-full border border-graphite/20 bg-white px-4 py-3 text-base text-graphite placeholder:text-slate/70 focus:border-muted-gold focus:outline-2 focus:outline-offset-2 focus:outline-muted-gold";
-
-function SendIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-[18px] w-[18px]"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-    >
-      <path d="M22 2 11 13" />
-      <path d="m22 2-7 20-4-9-9-4 20-7Z" />
-    </svg>
-  );
-}
-
 
 function FieldError({ id, children }: { id: string; children: string | undefined }) {
   if (!children) return null;
@@ -317,14 +299,14 @@ export function ContactForm() {
           <>
             Sending…
             <span aria-hidden="true" className="motion-safe:animate-pulse">
-              <SendIcon />
+              <Send aria-hidden="true" className="h-[18px] w-[18px]" />
             </span>
           </>
         ) : (
           <>
             Send message
             <span aria-hidden="true">
-              <SendIcon />
+              <Send aria-hidden="true" className="h-[18px] w-[18px]" />
             </span>
           </>
         )}
