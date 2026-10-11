@@ -184,7 +184,7 @@ export function ContactForm() {
               <image
                 href="/images/paper-plane-no-path.png"
                 x="-50"
-                y="-42"
+                y="-25"
                 width="100"
                 height="100"
                 transform="rotate(35)"
