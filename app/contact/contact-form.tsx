@@ -13,14 +13,14 @@ function PaperPlaneIcon() {
   return (
     <svg aria-hidden="true" className="h-[18px] w-[18px]" fill="none" viewBox="0 0 24 24">
       <path
-        d="M2.5 3.25 21.75 2 14.25 21.5 10.5 13.5 2.5 3.25Z"
+        d="M2 3 22 2 14 22 10 13 2 3Z"
         fill="currentColor"
         stroke="currentColor"
         strokeLinejoin="round"
         strokeWidth="1.25"
       />
       <path
-        d="M2.5 3.25 10.5 13.5 21.75 2M10.5 13.5 14.25 21.5"
+        d="M2 3 10 13 22 2M10 13 14 22"
         stroke="var(--ivory)"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -150,9 +150,8 @@ export function ContactForm() {
     const panel = successPanelRef.current;
     if (!panel) return;
 
-    const top = window.scrollY + panel.getBoundingClientRect().top - 24;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
+    panel.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
   }, []);
 
   useEffect(() => {
@@ -199,8 +198,7 @@ export function ContactForm() {
               {/* Side-on folded dart: sharp nose, two distinct wings, and the paper's center crease. */}
               <path d="M18 55 143 15 101 96 78 66 18 55Z" fill="var(--ivory)" />
               <path d="M18 55 143 15 78 66Z" fill="var(--muted-gold)" />
-              <path d="M78 66 143 15 101 96 94 58Z" fill="var(--ivory)" />
-              <path d="M18 55 94 58 143 15M78 66 94 58 101 96" fill="none" />
+              <path d="M18 55 78 66 143 15M78 66 101 96 94 58" fill="none" />
             </g>
           </svg>
         </div>
