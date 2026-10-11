@@ -70,7 +70,7 @@ test("contact endpoint validates fields and sends escaped branded notification p
     assert.match(sent[1].html, /Thank you for reaching out/);
     assert.ok(sent[1].html.includes("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;"));
     assert.doesNotMatch(sent[1].html, /<img src=x onerror=/);
-    assert.match(sent[1].text, /Hello <img src=x onerror="alert\\(1\\)">,/);
+    assert.ok(sent[1].text.includes('Hello <img src=x onerror="alert(1)">,'));
   } finally {
     globalThis.fetch = originalFetch;
   }
