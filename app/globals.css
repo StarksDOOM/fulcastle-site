@@ -59,6 +59,14 @@ a { color: inherit; }
   color: var(--graphite);
 }
 
+/* Contact fields keep the gold keyboard-focus outline without the inner black ring. */
+#contact-name:focus-visible,
+#contact-email:focus-visible,
+#contact-subject:focus-visible,
+#contact-message:focus-visible {
+  box-shadow: none;
+}
+
 /* One restrained entrance sequence per page hero; scroll reveals use an observer, never scroll-jacking. */
 @keyframes fc-rise-in {
   from { opacity: 0; transform: translateY(14px); }
