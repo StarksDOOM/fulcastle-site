@@ -179,12 +179,16 @@ export function ContactForm() {
         ) : state === "success" || state === "partial" ? (
           <>
             Sent!
-            <CheckIcon />
+            <span aria-hidden="true">
+              <CheckIcon />
+            </span>
           </>
         ) : (
           <>
             Send message
-            <PaperPlaneIcon />
+            <span aria-hidden="true">
+              <PaperPlaneIcon />
+            </span>
           </>
         )}
       </button>
