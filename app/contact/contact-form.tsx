@@ -11,20 +11,20 @@ const fieldClassName =
 
 function PaperPlaneIcon() {
   return (
-    <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 24 24">
+    <svg aria-hidden="true" className="h-[18px] w-[18px]" fill="none" viewBox="0 0 24 24">
       <path
-        d="M22 2 14.8 22l-4.1-8.7L2 9.2 22 2Z"
+        d="M2.5 3.25 21.75 2 14.25 21.5 10.5 13.5 2.5 3.25Z"
         fill="currentColor"
         stroke="currentColor"
         strokeLinejoin="round"
-        strokeWidth="1.2"
+        strokeWidth="1.25"
       />
       <path
-        d="M22 2 10.7 13.3"
+        d="M2.5 3.25 10.5 13.5 21.75 2M10.5 13.5 14.25 21.5"
         stroke="var(--ivory)"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.2"
+        strokeWidth="1.15"
       />
     </svg>
   );
@@ -149,20 +149,20 @@ export function ContactForm() {
   useEffect(() => {
     if (!hasSucceeded) return;
 
-    // Wait until the success panel has committed to the DOM before aligning it.
-    const frame = window.requestAnimationFrame(() => {
-      const panel = successPanelRef.current;
-      if (!panel) return;
-
-      // Calculate against the document so the panel's top is aligned consistently
-      // even when the form above it has just been replaced.
-      const top = window.scrollY + panel.getBoundingClientRect().top;
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
-    });
+    // Wait for React to replace the form, then align the confirmation panel itself.
+    const frame = window.requestAnimationFrame(() => scrollToConfirmation());
 
     return () => window.cancelAnimationFrame(frame);
   }, [hasSucceeded]);
+
+  function scrollToConfirmation() {
+    const panel = successPanelRef.current;
+    if (!panel) return;
+
+    const top = window.scrollY + panel.getBoundingClientRect().top - 24;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
+  }
 
   return (
     hasSucceeded ? (
@@ -171,6 +171,11 @@ export function ContactForm() {
         aria-live="polite"
         className="contact-success-panel rounded-2xl border border-graphite/10 bg-white/70 px-6 py-10 text-center shadow-sm sm:px-10"
         role="status"
+        onAnimationEnd={(event) => {
+          // The entrance transform changes the panel's visual bounds. Re-align once
+          // that transform finishes so the panel's actual top stays at the viewport top.
+          if (event.target === event.currentTarget) scrollToConfirmation();
+        }}
       >
         <div aria-hidden="true" className="contact-success-illustration mx-auto mb-5">
           <svg className="h-28 w-40 overflow-visible" fill="none" viewBox="0 0 160 112">
@@ -191,11 +196,11 @@ export function ContactForm() {
               strokeWidth="1.5"
             />
             <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">
-              {/* Recognizable paper dart silhouette with two folded wings and a center seam. */}
-              <path d="M17 53 144 15 104 94 79 66 17 53Z" fill="var(--ivory)" />
-              <path d="M17 53 144 15 79 66Z" fill="var(--muted-gold)" />
-              <path d="M17 53 86 54 104 94M79 66 86 54 144 15" fill="none" />
-              <path d="M79 66 144 15 86 54" fill="var(--ivory)" />
+              {/* Side-on folded dart: sharp nose, two distinct wings, and the paper's center crease. */}
+              <path d="M18 55 143 15 101 96 78 66 18 55Z" fill="var(--ivory)" />
+              <path d="M18 55 143 15 78 66Z" fill="var(--muted-gold)" />
+              <path d="M78 66 143 15 101 96 94 58Z" fill="var(--ivory)" />
+              <path d="M18 55 94 58 143 15M78 66 94 58 101 96" fill="none" />
             </g>
           </svg>
         </div>
