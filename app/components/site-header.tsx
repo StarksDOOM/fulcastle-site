@@ -27,7 +27,7 @@ export function SiteHeader() {
         <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-x-5 gap-y-3 sm:gap-x-6">
           {navigation.map((item) => (
             <Link
-              className="rounded-sm py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-slate transition-colors hover:text-graphite focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
+              className="rounded-sm py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-slate transition-colors duration-200 hover:text-graphite focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold motion-reduce:transition-none"
               href={item.href}
               key={item.label}
             >
