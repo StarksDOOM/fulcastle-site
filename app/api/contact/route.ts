@@ -213,7 +213,11 @@ export async function POST(request: Request) {
   };
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
+  const configuredFrom = process.env.RESEND_FROM_EMAIL;
+  const fromAddress = configuredFrom?.match(/<([^<>]+)>/)?.[1] ?? configuredFrom;
+  const from = fromAddress?.includes("@")
+    ? `FulCastle Holdings, Inc. <${fromAddress}>`
+    : configuredFrom;
   const to = process.env.CONTACT_TO_EMAIL;
   const cc = process.env.CONTACT_CC_EMAIL;
 
