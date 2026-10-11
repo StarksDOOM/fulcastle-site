@@ -9,23 +9,20 @@ type FieldErrors = Partial<Record<ContactField, string>>;
 const fieldClassName =
   "mt-2 block min-h-12 w-full border border-graphite/20 bg-white px-4 py-3 text-base text-graphite placeholder:text-slate/70 focus:border-muted-gold focus:outline-2 focus:outline-offset-2 focus:outline-muted-gold";
 
-function PaperPlaneIcon() {
+function SendIcon() {
   return (
-    <svg aria-hidden="true" className="h-[18px] w-[18px]" fill="none" viewBox="0 0 24 24">
-      <path
-        d="M2 3 22 2 14 22 10 13 2 3Z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.25"
-      />
-      <path
-        d="M2 3 10 13 22 2M10 13 14 22"
-        stroke="var(--ivory)"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.15"
-      />
+    <svg
+      aria-hidden="true"
+      className="h-[18px] w-[18px]"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+    >
+      <path d="M22 2 11 13" />
+      <path d="m22 2-7 20-4-9-9-4 20-7Z" />
     </svg>
   );
 }
@@ -194,12 +191,15 @@ export function ContactForm() {
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">
-              {/* Side-on folded dart: sharp nose, two distinct wings, and the paper's center crease. */}
-              <path d="M18 55 143 15 101 96 78 66 18 55Z" fill="var(--ivory)" />
-              <path d="M18 55 143 15 78 66Z" fill="var(--muted-gold)" />
-              <path d="M18 55 78 66 143 15M78 66 101 96 94 58" fill="none" />
-            </g>
+            <image
+              className="contact-success-plane"
+              href="https://www.svgrepo.com/download/681/paper-plane-hand-drawn-outline.svg"
+              x="52"
+              y="38"
+              width="42"
+              height="42"
+              preserveAspectRatio="xMidYMid meet"
+            />
           </svg>
         </div>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold-ink">
@@ -317,14 +317,14 @@ export function ContactForm() {
           <>
             Sending…
             <span aria-hidden="true" className="motion-safe:animate-pulse">
-              <PaperPlaneIcon />
+              <SendIcon />
             </span>
           </>
         ) : (
           <>
             Send message
             <span aria-hidden="true">
-              <PaperPlaneIcon />
+              <SendIcon />
             </span>
           </>
         )}
