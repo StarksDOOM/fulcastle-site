@@ -204,8 +204,8 @@ export function ContactForm() {
               />
               <image
                 href="/images/paper-plane-no-path.svg"
-                x="-49"
-                y="-33"
+                x="0"
+                y="-67"
                 width="98"
                 height="67"
                 preserveAspectRatio="xMidYMid meet"
