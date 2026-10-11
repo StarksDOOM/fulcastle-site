@@ -149,36 +149,36 @@ export function ContactForm() {
     hasSucceeded ? (
       <section
         aria-live="polite"
-        className="rounded-2xl border border-graphite/10 bg-white/70 px-6 py-10 text-center shadow-sm sm:px-10"
+        className="contact-success-panel rounded-2xl border border-graphite/10 bg-white/70 px-6 py-10 text-center shadow-sm sm:px-10"
         role="status"
       >
         <div aria-hidden="true" className="contact-success-illustration mx-auto mb-5">
           <svg className="h-28 w-40 overflow-visible" fill="none" viewBox="0 0 160 112">
             <path
               className="contact-success-flight-path"
-              d="M18 88C43 88 57 76 76 55S105 24 133 22"
+              d="M12 91C43 88 59 72 77 53S109 23 143 18"
               stroke="var(--muted-gold)"
               strokeDasharray="3 6"
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <circle cx="132" cy="22" r="3" fill="var(--muted-gold)" />
+            <circle cx="142" cy="18" r="3" fill="var(--muted-gold)" />
             <path
               className="contact-success-sparkle"
-              d="M43 35v8m-4-4h8M115 72v6m-3-3h6"
+              d="M42 34v8m-4-4h8M117 72v6m-3-3h6"
               stroke="var(--muted-gold)"
               strokeLinecap="round"
               strokeWidth="1.5"
             />
             <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7">
-              <path d="m22 7 33 14-24 27-9-17L5 23 22 7Z" fill="var(--muted-gold)" />
-              <path d="m22 7 9 41 7-22L55 21 22 7Z" fill="var(--ivory)" />
-              <path d="m5 23 26 25" />
+              <path d="M24 58 135 17 91 91 73 63 24 58Z" fill="var(--muted-gold)" />
+              <path d="m73 63 62-46-34 52-10 22-18-28Z" fill="var(--ivory)" />
+              <path d="m73 63 28 6M24 58l49 5" />
             </g>
           </svg>
         </div>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold-ink">
-          FulCastle Holdings
+          FulCastle Holdings, Inc.
         </p>
         <h2 className="font-display text-3xl font-medium text-graphite sm:text-4xl">
           Message received.
