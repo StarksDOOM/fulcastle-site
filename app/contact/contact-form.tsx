@@ -151,7 +151,14 @@ export function ContactForm() {
 
     // Wait until the success panel has committed to the DOM before aligning it.
     const frame = window.requestAnimationFrame(() => {
-      successPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const panel = successPanelRef.current;
+      if (!panel) return;
+
+      // Calculate against the document so the panel's top is aligned consistently
+      // even when the form above it has just been replaced.
+      const top = window.scrollY + panel.getBoundingClientRect().top - 24;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -169,13 +176,13 @@ export function ContactForm() {
           <svg className="h-28 w-40 overflow-visible" fill="none" viewBox="0 0 160 112">
             <path
               className="contact-success-flight-path"
-              d="M12 91C43 88 59 72 77 53S109 23 143 18"
+              d="M10 91C39 88 55 73 76 53S111 24 143 18"
               stroke="var(--muted-gold)"
               strokeDasharray="3 6"
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <circle cx="142" cy="18" r="3" fill="var(--muted-gold)" />
+            <circle cx="143" cy="18" r="3" fill="var(--muted-gold)" />
             <path
               className="contact-success-sparkle"
               d="M42 34v8m-4-4h8M117 72v6m-3-3h6"
@@ -184,9 +191,11 @@ export function ContactForm() {
               strokeWidth="1.5"
             />
             <g className="contact-success-plane" stroke="var(--graphite)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">
-              <path d="M20 56 140 16 93 96 73 66 20 56Z" fill="var(--ivory)" />
-              <path d="M20 56 140 16 73 66Z" fill="var(--muted-gold)" />
-              <path d="M20 56 92 51 140 16M73 66 92 51 93 96" fill="none" />
+              {/* Classic folded-paper airplane: pointed nose, broad wings, and visible creases. */}
+              <path d="M18 54 143 16 91 96 76 65 18 54Z" fill="var(--ivory)" />
+              <path d="M18 54 143 16 76 65Z" fill="var(--muted-gold)" />
+              <path d="M76 65 143 16 91 96 88 58Z" fill="var(--ivory)" />
+              <path d="M18 54 88 58 143 16M76 65 88 58 91 96" fill="none" />
             </g>
           </svg>
         </div>
