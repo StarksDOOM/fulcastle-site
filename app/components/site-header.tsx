@@ -9,7 +9,14 @@ const navigation = [
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-graphite/10 bg-ivory">
+    <>
+      <a
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-muted-gold focus:px-4 focus:py-3 focus:font-semibold focus:text-graphite focus:outline-2 focus:outline-offset-4 focus:outline-graphite"
+        href="#main-content"
+      >
+        Skip to main content
+      </a>
+      <header className="border-b border-graphite/10 bg-ivory">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-5 sm:gap-5 sm:px-10 sm:py-6 md:flex-row md:items-center md:justify-between">
         <Link
           aria-label="FulCastle Holdings home"
@@ -36,6 +43,7 @@ export function SiteHeader() {
           ))}
         </nav>
       </div>
-    </header>
+      </header>
+    </>
   );
 }
