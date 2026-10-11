@@ -274,6 +274,10 @@ article.group.scroll-reveal-target {
     animation: none !important;
   }
 
+  .contact-success-illustration mask path {
+    stroke-dashoffset: 0 !important;
+  }
+
   .contact-success-plane {
     opacity: 1;
   }
