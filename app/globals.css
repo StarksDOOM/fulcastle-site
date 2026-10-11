@@ -262,6 +262,12 @@ article.group.scroll-reveal-target {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* CSS animations and SVG SMIL animations are separate mechanisms. */
+  .contact-success-illustration animate,
+  .contact-success-illustration animateMotion {
+    display: none !important;
+  }
+
   .contact-success-plane,
   .contact-success-flight-path,
   .contact-success-sparkle {
