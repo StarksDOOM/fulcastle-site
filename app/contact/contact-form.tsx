@@ -175,7 +175,7 @@ export function ContactForm() {
             />
             <image
               className="contact-success-plane"
-              href="https://www.svgrepo.com/download/681/paper-plane-hand-drawn-outline.svg"
+              href="/images/paper-plane-no-path.png"
               x="52"
               y="38"
               width="42"
