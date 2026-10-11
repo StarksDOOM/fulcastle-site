@@ -27,14 +27,24 @@ function FieldError({ id, children }: { id: string; children: string | undefined
 export function ContactForm() {
   const [state, setState] = useState<SubmissionState>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const submissionId = useRef<string | null>(null);
   const successPanelRef = useRef<HTMLElement | null>(null);
 
-  function clearFieldError(field: ContactField) {
+  function handleFieldChange(
+    field: ContactField,
+    element: HTMLInputElement | HTMLTextAreaElement,
+  ) {
+    // Only revalidate fields that have already failed submission validation.
+    // Keep the message visible until the value is actually valid.
+    if (!fieldErrors[field]) return;
+
+    const error = getFieldError(field, element);
     setFieldErrors((current) => {
-      if (!current[field]) return current;
+      if (current[field] === error) return current;
       const next = { ...current };
-      delete next[field];
+      if (error) next[field] = error;
+      else delete next[field];
       return next;
     });
   }
@@ -125,6 +135,14 @@ export function ContactForm() {
 
   const hasSucceeded = state === "success" || state === "partial";
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
   const scrollToConfirmation = useCallback(() => {
     const panel = successPanelRef.current;
     if (!panel) return;
@@ -167,13 +185,15 @@ export function ContactForm() {
                   strokeDasharray="1"
                   strokeDashoffset="1"
                 >
-                  <animate
-                    attributeName="stroke-dashoffset"
-                    from="1"
-                    to="0"
-                    dur="1.9s"
-                    fill="freeze"
-                  />
+                  {!prefersReducedMotion && (
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="1"
+                      to="0"
+                      dur="1.9s"
+                      fill="freeze"
+                    />
+                  )}
                 </path>
               </mask>
             </defs>
@@ -195,17 +215,22 @@ export function ContactForm() {
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <g className="contact-success-plane">
-              <animateMotion
-                dur="2.2s"
-                path="M6 96C36 93 58 76 86 54S130 24 165 20"
-                calcMode="spline"
-                keyPoints="0; 0.25; 0.65; 1"
-                keyTimes="0; 0.28; 0.68; 1"
-                keySplines="0.4 0 0.2 1; 0.25 0.1 0.25 1; 0.2 0 0.1 1"
-                rotate="auto"
-                fill="freeze"
-              />
+            <g
+              className="contact-success-plane"
+              transform={prefersReducedMotion ? "translate(165 20)" : undefined}
+            >
+              {!prefersReducedMotion && (
+                <animateMotion
+                  dur="2.2s"
+                  path="M6 96C36 93 58 76 86 54S130 24 165 20"
+                  calcMode="spline"
+                  keyPoints="0; 0.25; 0.65; 1"
+                  keyTimes="0; 0.28; 0.68; 1"
+                  keySplines="0.4 0 0.2 1; 0.25 0.1 0.25 1; 0.2 0 0.1 1"
+                  rotate="auto"
+                  fill="freeze"
+                />
+              )}
               {/* Paper plane scaled bigger (0.105) and centered at (670, 412) with smooth vector rendering */}
               <g transform="rotate(24.5) scale(0.105) translate(-670, -412)">
                 <image
@@ -251,7 +276,7 @@ export function ContactForm() {
           id="contact-name"
           maxLength={100}
           name="name"
-          onChange={() => clearFieldError("name")}
+          onChange={(event) => handleFieldChange("name", event.currentTarget)}
           placeholder="Your name"
           required
         />
@@ -270,7 +295,7 @@ export function ContactForm() {
           id="contact-email"
           maxLength={254}
           name="email"
-          onChange={() => clearFieldError("email")}
+          onChange={(event) => handleFieldChange("email", event.currentTarget)}
           placeholder="you@example.com"
           required
           type="email"
@@ -289,7 +314,7 @@ export function ContactForm() {
           id="contact-subject"
           maxLength={120}
           name="subject"
-          onChange={() => clearFieldError("subject")}
+          onChange={(event) => handleFieldChange("subject", event.currentTarget)}
           placeholder="What would you like to discuss?"
           required
         />
@@ -307,7 +332,7 @@ export function ContactForm() {
           id="contact-message"
           maxLength={5000}
           name="message"
-          onChange={() => clearFieldError("message")}
+          onChange={(event) => handleFieldChange("message", event.currentTarget)}
           placeholder="Tell us a little more..."
           required
           rows={6}
