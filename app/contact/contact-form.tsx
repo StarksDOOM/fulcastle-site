@@ -156,11 +156,11 @@ export function ContactForm() {
         }}
       >
         <div aria-hidden="true" className="contact-success-illustration mx-auto mb-5">
-          <svg className="h-28 w-40 overflow-visible" fill="none" viewBox="0 0 160 112">
+          <svg className="h-32 w-52 overflow-visible" fill="none" viewBox="0 0 190 116">
             <defs>
               <mask id="contact-flight-trail-mask">
                 <path
-                  d="M10 91C39 88 55 73 76 53S111 24 143 18"
+                  d="M6 96C36 93 58 76 86 54S130 24 165 20"
                   pathLength="1"
                   stroke="white"
                   strokeWidth="16"
@@ -171,7 +171,7 @@ export function ContactForm() {
                     attributeName="stroke-dashoffset"
                     from="1"
                     to="0"
-                    dur="1.8s"
+                    dur="1.9s"
                     fill="freeze"
                   />
                 </path>
@@ -179,37 +179,45 @@ export function ContactForm() {
             </defs>
             <path
               className="contact-success-flight-path"
-              d="M10 91C39 88 55 73 76 53S111 24 143 18"
+              d="M6 96C36 93 58 76 86 54S130 24 165 20"
               mask="url(#contact-flight-trail-mask)"
               stroke="var(--muted-gold)"
               strokeDasharray="3 6"
               strokeLinecap="round"
               strokeWidth="1.5"
             />
-            <circle cx="143" cy="18" r="3" fill="var(--muted-gold)" />
+            {/* Arrival dot placed at the endpoint where the plane settles */}
+            <circle cx="165" cy="20" r="3.5" fill="var(--muted-gold)" />
             <path
               className="contact-success-sparkle"
-              d="M42 34v8m-4-4h8M117 72v6m-3-3h6"
+              d="M50 36v8m-4-4h8M136 74v6m-3-3h6"
               stroke="var(--muted-gold)"
               strokeLinecap="round"
               strokeWidth="1.5"
             />
             <g className="contact-success-plane">
               <animateMotion
-                dur="1.8s"
-                path="M10 91C39 88 55 73 76 53S111 24 143 18"
-                calcMode="paced"
+                dur="2.2s"
+                path="M6 96C36 93 58 76 86 54S130 24 165 20"
+                calcMode="spline"
+                keyPoints="0; 0.25; 0.65; 1"
+                keyTimes="0; 0.28; 0.68; 1"
+                keySplines="0.4 0 0.2 1; 0.25 0.1 0.25 1; 0.2 0 0.1 1"
                 rotate="auto"
                 fill="freeze"
               />
-              <image
-                href="/images/paper-plane-no-path.svg"
-                x="0"
-                y="-67"
-                width="98"
-                height="67"
-                preserveAspectRatio="xMidYMid meet"
-              />
+              {/* Paper plane scaled bigger (0.105) and centered at (670, 412) with smooth vector rendering */}
+              <g transform="rotate(24.5) scale(0.105) translate(-670, -412)">
+                <image
+                  href="/images/paper-plane-no-path.svg"
+                  x="0"
+                  y="0"
+                  width="1216"
+                  height="832"
+                  preserveAspectRatio="xMidYMid meet"
+                  style={{ shapeRendering: "geometricPrecision" }}
+                />
+              </g>
             </g>
           </svg>
         </div>
