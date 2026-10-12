@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
 };
 
-export default async function ContactPage() {\n  const requestHeaders = await headers();\n  const localeValue = requestHeaders.get("x-site-locale") ?? "en";\n  const locale: Locale = isLocale(localeValue) ? localeValue : "en";
+export default async function ContactPage() {
+  const requestHeaders = await headers();
+  const localeValue = requestHeaders.get("x-site-locale") ?? "en";
+  const locale: Locale = isLocale(localeValue) ? localeValue : "en";
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
