@@ -184,7 +184,7 @@ export default async function VenturesPage() {
                     aria-hidden="true"
                     className={`absolute right-8 top-20 h-28 w-28 rotate-[18deg] border ${venture.shapeAlt}`}
                   />
-                  <div className="flex items-start justify-between gap-4 p-6 sm:p-7">
+                  <div className="flex items-start justify-between gap-4 p-6 sm:min-h-[4.25rem] sm:p-7 lg:min-h-[4.25rem]">
                     <span className={`text-xs font-semibold tracking-[0.18em] ${venture.label}`}>
                       {venture.number}
                     </span>
@@ -192,9 +192,9 @@ export default async function VenturesPage() {
                       {locale === "es" ? venture.categoryEs : venture.category}
                     </span>
                   </div>
-                  <div className="mt-auto p-6 pt-12 sm:p-7 sm:pt-12">
+                  <div className="mt-auto flex flex-1 flex-col justify-end p-6 pt-12 sm:p-7 sm:pt-12">
                     <h3
-                      className="max-w-sm font-display text-2xl leading-tight tracking-tight sm:text-3xl"
+                      className="max-w-sm font-display text-2xl leading-tight tracking-tight sm:min-h-[2.5rem] sm:text-3xl lg:min-h-[2.5rem]"
                       id={`${venture.id}-title`}
                     >
                       {venture.id === "rodar" ? (
@@ -208,14 +208,14 @@ export default async function VenturesPage() {
                         venture.name
                       )}
                     </h3>
-                    <p className={`mt-4 max-w-md text-sm leading-7 ${venture.tone}`}>
+                    <p className={`mt-4 max-w-md text-sm leading-7 ${venture.tone} sm:min-h-[9.5rem] lg:min-h-[8.75rem]`}>
                       {locale === "es" ? venture.descriptionEs : venture.description}
                     </p>
                     <div className="mt-7 border-t border-current/15 pt-4">
                       <p className={`text-[0.62rem] font-semibold uppercase tracking-[0.17em] ${venture.label}`}>
                         {locale === "es" ? "Área de enfoque" : "Area of focus"}
                       </p>
-                      <p className={`mt-2 text-sm leading-6 ${venture.tone}`}>
+                      <p className={`mt-2 text-sm leading-6 ${venture.tone} sm:min-h-[3rem] lg:min-h-[3rem]`}>
                         {locale === "es" ? venture.focusEs : venture.focus}
                       </p>
                     </div>
