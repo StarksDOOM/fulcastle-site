@@ -9,7 +9,7 @@ import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
  const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { title: isSpanish ? "Acerca de FulCastle" : "About FulCastle", description: isSpanish ? "Conoce FulCastle Holdings, Inc., la empresa matriz de una cartera de iniciativas independientes." : "Learn about FulCastle Holdings, Inc., the parent company behind a portfolio of independent ventures." };
+ return { alternates: { canonical: isSpanish ? "/es/about" : "/about", languages: { en: "/about", es: "/es/about" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Acerca de FulCastle" : "About FulCastle", description: isSpanish ? "Conoce FulCastle Holdings, Inc., la empresa matriz de una cartera de iniciativas independientes." : "Learn about FulCastle Holdings, Inc., the parent company behind a portfolio of independent ventures." };
 }
 
 

@@ -8,7 +8,7 @@ import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
  const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { title: isSpanish ? "Política de privacidad" : "Privacy Policy", description: isSpanish ? "Conoce cómo FulCastle Holdings, Inc. trata la información enviada a través de su sitio web corporativo." : "Learn how FulCastle Holdings, Inc. handles information submitted through its corporate website." };
+ return { alternates: { canonical: isSpanish ? "/es/privacy-policy" : "/privacy-policy", languages: { en: "/privacy-policy", es: "/es/privacy-policy" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Política de privacidad" : "Privacy Policy", description: isSpanish ? "Conoce cómo FulCastle Holdings, Inc. trata la información enviada a través de su sitio web corporativo." : "Learn how FulCastle Holdings, Inc. handles information submitted through its corporate website." };
 }
 
 const sections = [

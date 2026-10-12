@@ -8,7 +8,7 @@ import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
  const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { title: isSpanish ? "Iniciativas" : "Ventures", description: isSpanish ? "Explora las áreas de enfoque de las iniciativas independientes de FulCastle Holdings, Inc." : "Explore the distinct areas of focus across FulCastle Holdings, Inc.'s portfolio of independent ventures." };
+ return { alternates: { canonical: isSpanish ? "/es/ventures" : "/ventures", languages: { en: "/ventures", es: "/es/ventures" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Iniciativas" : "Ventures", description: isSpanish ? "Explora las áreas de enfoque de las iniciativas independientes de FulCastle Holdings, Inc." : "Explore the distinct areas of focus across FulCastle Holdings, Inc.'s portfolio of independent ventures." };
 }
 
 const ventures = [

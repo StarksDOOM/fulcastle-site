@@ -10,6 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const isSpanish = requestHeaders.get("x-site-locale") === "es";
   return {
+    alternates: { canonical: isSpanish ? "/es/contact" : "/contact", languages: { en: "/contact", es: "/es/contact" } },
+    openGraph: { locale: isSpanish ? "es_ES" : "en_US" },
     title: isSpanish ? "Contacto" : "Contact",
     description: isSpanish
       ? "Contacta con FulCastle Holdings, Inc. para consultas comerciales, colaboraciones y preguntas generales."

@@ -9,7 +9,7 @@ import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
  const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { title: isSpanish ? "Construidos sobre una base sólida. Impulsados por las posibilidades." : "Built on Structure. Driven by Possibility.", description: isSpanish ? "FulCastle Holdings, Inc. es una empresa matriz con una visión a largo plazo para desarrollar y apoyar iniciativas independientes." : "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next." };
+ return { alternates: { canonical: isSpanish ? "/es" : "/", languages: { en: "/", es: "/es" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Construidos sobre una base sólida. Impulsados por las posibilidades." : "Built on Structure. Driven by Possibility.", description: isSpanish ? "FulCastle Holdings, Inc. es una empresa matriz con una visión a largo plazo para desarrollar y apoyar iniciativas independientes." : "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next." };
 }
 
 const ventures = [
