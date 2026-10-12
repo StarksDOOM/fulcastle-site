@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --graphite: #101722;
+  --ivory: #f6f3ed;
+  --muted-gold: #c6ae7a;
+  --gold-ink: #765d2c;
+  --slate: #596472;
+  --slate-dark: #394452;
+  --line: rgba(16, 23, 34, 0.14);
+  --surface: #fffdf9;
+  --font-body-family: var(--font-body-font, "DM Sans", Arial, sans-serif);
+  --font-display-family: var(--font-display-font, "Cormorant Garamond", Georgia, serif);
+}
+
+@theme inline {
+  --color-graphite: var(--graphite);
+  --color-ivory: var(--ivory);
+  --color-muted-gold: var(--muted-gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-slate: var(--slate);
+  --font-sans: var(--font-body-family);
+  --font-display: var(--font-display-family);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  min-height: 100%;
+  background: var(--ivory);
+  scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--ivory);
+  color: var(--graphite);
+  font-family: var(--font-body-family);
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+a { color: inherit; }
+
+:where(a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid var(--muted-gold);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--graphite);
+}
+
+::selection {
+  background: var(--muted-gold);
+  color: var(--graphite);
+}
+
+/* One restrained entrance sequence per page hero; scroll reveals use an observer, never scroll-jacking. */
+@keyframes fc-rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fc-mark-arrive {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero-copy > * {
+  animation: fc-rise-in 620ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero-copy > *:nth-child(1) { animation-delay: 60ms; }
+.hero-copy > *:nth-child(2) { animation-delay: 130ms; }
+.hero-copy > *:nth-child(3) { animation-delay: 200ms; }
+.hero-copy > *:nth-child(4) { animation-delay: 270ms; }
+
+.hero-artwork,
+.hero-side-note {
+  animation: fc-mark-arrive 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 180ms both;
+}
+
+/* Small directional cues; motion is limited to hover/focus and never required for meaning. */
+header nav a {
+  position: relative;
+  text-decoration: none;
+}
+
+header nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: var(--muted-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms ease;
+}
+
+header nav a:hover::after,
+header nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+a span[aria-hidden="true"] {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+a:hover span[aria-hidden="true"] {
+  transform: translate(2px, -1px);
+}
+
+/* Keep portfolio cards on both pages using the same calm, eased hover motion. */
+article.group {
+  transition:
+    transform 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+article.group > div[aria-hidden="true"] {
+  transition:
+    transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 360ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  article.group:hover {
+    transform: translateY(-3px);
+    border-color: var(--muted-gold);
+    box-shadow: 0 12px 28px rgba(16, 23, 34, 0.1);
+  }
+
+  article.group:hover > div[aria-hidden="true"] {
+    opacity: 0.9;
+  }
+}
+
+/*
+ * Scroll reveals are activated only by the IntersectionObserver enhancement.
+ * Without JS, on unsupported browsers, or with reduced motion, all content stays visible.
+ */
+.scroll-reveal-target {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 720ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 720ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.scroll-reveal-target.is-scroll-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+article.group.scroll-reveal-target {
+  transition:
+    opacity 680ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 680ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay:
+    var(--scroll-reveal-delay, 0ms),
+    var(--scroll-reveal-delay, 0ms),
+    0ms,
+    0ms,
+    0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-target,
+  article.group.scroll-reveal-target {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Let the form hand off to the received state without a hard visual cut. */
+@keyframes fc-confirmation-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+    filter: blur(2px);
+  }
+  65% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.contact-success-panel {
+  scroll-margin-top: 0;
+  animation: fc-confirmation-arrive 680ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  transform-origin: center top;
+}
+
+/* A single, restrained paper-plane send animation for the contact confirmation. */
+@keyframes fc-plane-send {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  100% { opacity: 0.95; }
+}
+
+@keyframes fc-flight-path {
+  from { stroke-dashoffset: 44; opacity: 0.25; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes fc-success-sparkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+.contact-success-plane {
+  animation: fc-plane-send 1.8s ease-out both;
+}
+
+.contact-success-flight-path {
+  stroke-dashoffset: 44;
+  animation: fc-flight-path 1.8s ease-out both;
+}
+
+.contact-success-sparkle {
+  transform-origin: center;
+  animation: fc-success-sparkle 1.6s ease-in-out 250ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* CSS animations and SVG SMIL animations are separate mechanisms. */
+  .contact-success-illustration animate,
+  .contact-success-illustration animateMotion {
+    display: none !important;
+  }
+
+  .contact-success-plane,
+  .contact-success-flight-path,
+  .contact-success-sparkle {
+    animation: none !important;
+  }
+
+  .contact-success-illustration mask path {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .contact-success-plane {
+    opacity: 1;
+  }
+
+  .contact-success-flight-path {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
