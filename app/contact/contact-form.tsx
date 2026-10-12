@@ -2,6 +2,7 @@
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
+import { messages, type Locale } from "@/lib/i18n";
 
 type SubmissionState = "idle" | "sending" | "success" | "partial" | "error";
 type ContactField = "name" | "email" | "subject" | "message";
@@ -24,7 +25,7 @@ function FieldError({ id, children }: { id: string; children: string | undefined
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ locale = "en" }: { locale?: Locale }) {\n  const copy = messages[locale].contact;
   const [state, setState] = useState<SubmissionState>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -55,16 +56,16 @@ export function ContactForm() {
   ): string | undefined {
     if (!element.value.trim()) {
       const labels: Record<ContactField, string> = {
-        name: "Please enter your name.",
-        email: "Please enter your email address.",
-        subject: "Please add a subject.",
-        message: "Please enter a message.",
+        name: copy.errors.name,
+        email: copy.errors.email,
+        subject: copy.errors.subject,
+        message: copy.errors.message,
       };
       return labels[field];
     }
 
     if (field === "email" && element.validity.typeMismatch) {
-      return "Enter a valid email address, like you@example.com.";
+      return copy.errors.invalidEmail;
     }
 
     return undefined;
@@ -250,15 +251,15 @@ export function ContactForm() {
           FulCastle Holdings, Inc.
         </p>
         <h2 className="font-display text-3xl font-medium text-graphite sm:text-4xl">
-          Message received.
+          {copy.successTitle}
         </h2>
         {state === "partial" ? (
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate">
-            Your message was received, but we couldn’t send a confirmation email. You don’t need to submit it again.
+            {copy.partial}
           </p>
         ) : (
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate">
-            Thanks for reaching out. Your message is on its way to our team. We’ll follow up if a response is appropriate.
+            {copy.success}
           </p>
         )}
       </section>
@@ -277,7 +278,7 @@ export function ContactForm() {
           maxLength={100}
           name="name"
           onChange={(event) => handleFieldChange("name", event.currentTarget)}
-          placeholder="Your name"
+          placeholder={copy.placeholders.name}
           required
         />
         <FieldError id="contact-name-error">{fieldErrors.name}</FieldError>
@@ -296,7 +297,7 @@ export function ContactForm() {
           maxLength={254}
           name="email"
           onChange={(event) => handleFieldChange("email", event.currentTarget)}
-          placeholder="you@example.com"
+          placeholder={copy.placeholders.email}
           required
           type="email"
         />
@@ -315,7 +316,7 @@ export function ContactForm() {
           maxLength={120}
           name="subject"
           onChange={(event) => handleFieldChange("subject", event.currentTarget)}
-          placeholder="What would you like to discuss?"
+          placeholder={copy.placeholders.subject}
           required
         />
         <FieldError id="contact-subject-error">{fieldErrors.subject}</FieldError>
@@ -333,7 +334,7 @@ export function ContactForm() {
           maxLength={5000}
           name="message"
           onChange={(event) => handleFieldChange("message", event.currentTarget)}
-          placeholder="Tell us a little more..."
+          placeholder={copy.placeholders.message}
           required
           rows={6}
         />
@@ -359,14 +360,14 @@ export function ContactForm() {
       >
         {state === "sending" ? (
           <>
-            Sending…
+            {copy.sending}
             <span aria-hidden="true" className="motion-safe:animate-pulse">
               <Send aria-hidden="true" className="h-[18px] w-[18px]" />
             </span>
           </>
         ) : (
           <>
-            Send message
+            {copy.submit}
             <span aria-hidden="true">
               <Send aria-hidden="true" className="h-[18px] w-[18px]" />
             </span>
@@ -381,7 +382,7 @@ export function ContactForm() {
       >
         {state === "error" && (
           <span className="text-red-800">
-            We couldn’t send your message right now. Please try again later.
+            {copy.failed}
           </span>
         )}
       </p>

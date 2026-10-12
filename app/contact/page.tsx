@@ -3,6 +3,8 @@ import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { ContactForm } from "@/app/contact/contact-form";
+import { headers } from "next/headers";
+import { isLocale, type Locale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
     "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {\n  const requestHeaders = await headers();\n  const localeValue = requestHeaders.get("x-site-locale") ?? "en";\n  const locale: Locale = isLocale(localeValue) ? localeValue : "en";
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -69,7 +71,7 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="max-w-2xl border border-graphite/15 bg-[#fffdf9] p-6 sm:p-9">
-            <ContactForm />
+            <ContactForm locale={locale} />
             <p className="mt-6 border-t border-graphite/10 pt-5 text-xs leading-6 text-slate">
               Your message and contact details are used to respond to your
               inquiry. Please do not include passwords, payment details, or
