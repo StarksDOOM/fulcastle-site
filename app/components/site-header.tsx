@@ -51,7 +51,7 @@ export async function SiteHeader() {
               ))}
             </nav>
             <nav aria-label={copy.navigation.language} className="flex items-center gap-2 border-l border-graphite/15 pl-4 text-[0.68rem] font-semibold uppercase tracking-[0.12em]">
-              <a aria-current={locale === "en" ? "page" : undefined} className={locale === "en" ? "text-graphite underline decoration-muted-gold underline-offset-4" : "text-slate hover:text-graphite"} href={localizePath(pathname, "en")}>EN</a>
+              <a aria-current={locale === "en" ? "page" : undefined} className={locale === "en" ? "text-graphite underline decoration-muted-gold underline-offset-4" : "text-slate hover:text-graphite"} href={`${localizePath(pathname, "en")}?lang=en`}>EN</a>
               <span aria-hidden="true" className="text-graphite/30">/</span>
               <a aria-current={locale === "es" ? "page" : undefined} className={locale === "es" ? "text-graphite underline decoration-muted-gold underline-offset-4" : "text-slate hover:text-graphite"} href={localizePath(pathname, "es")}>ES</a>
             </nav>

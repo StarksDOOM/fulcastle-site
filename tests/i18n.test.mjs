@@ -2,8 +2,17 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { findUnlocalizedJsxCopy } from "../scripts/check-i18n.mjs";
 import { defaultLocale, isLocale, localizePath, messages } from "../lib/i18n.ts";
+import { isSpanishSpeakingCountry } from "../proxy.ts";
 
-test("English remains the default locale", () => assert.equal(defaultLocale, "en"));
+test("English remains the fallback locale", () => assert.equal(defaultLocale, "en"));
+test("Spanish-speaking country detection uses country codes", () => {
+  for (const country of ["DO", "ES", "MX", "AR", "CO", "PR"]) {
+    assert.equal(isSpanishSpeakingCountry(country), true, country);
+  }
+  for (const country of ["US", "CA", "FR", null, undefined]) {
+    assert.equal(isSpanishSpeakingCountry(country), false, String(country));
+  }
+});
 test("only supported locales are accepted", () => {
   assert.equal(isLocale("en"), true); assert.equal(isLocale("es"), true);
   assert.equal(isLocale("fr"), false); assert.equal(isLocale(undefined), false);
