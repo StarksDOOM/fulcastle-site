@@ -48,8 +48,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const locale = requestHeaders.get("x-site-locale") === "es" ? "es" : "en";
+
   return (
-    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
+    <html lang={locale} className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
         <ScrollReveal />
         {children}
