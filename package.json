@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.mjs"
+    "test": "tsx --test tests/*.test.mjs",
+    "i18n:check": "tsx scripts/check-i18n.mjs"
   },
   "dependencies": {
     "next": "^16.0.0",
