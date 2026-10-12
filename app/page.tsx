@@ -144,6 +144,7 @@ export default async function HomePage() {
                     <h3 className="font-display text-xl leading-tight tracking-tight text-graphite">
                       <Link className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold" href={venture.href.startsWith("https://") ? venture.href : localizePath(venture.href, locale)}>
                         {venture.name}
+                        {venture.name === "Rodar" && <span aria-hidden="true">↗</span>}
                       </Link>
                     </h3>
                     <p className="mt-2 min-h-[2.5rem] text-[0.65rem] font-medium uppercase leading-5 tracking-[0.12em] text-slate">
