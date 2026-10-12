@@ -194,7 +194,16 @@ export default function VenturesPage() {
                       className="max-w-sm font-display text-2xl leading-tight tracking-tight sm:text-3xl"
                       id={`${venture.id}-title`}
                     >
-                      {venture.name}
+                      {venture.id === "rodar" ? (
+                        <Link
+                          className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold hover:text-muted-gold"
+                          href="https://rodar.do"
+                        >
+                          Rodar <span aria-hidden="true">↗</span>
+                        </Link>
+                      ) : (
+                        venture.name
+                      )}
                     </h3>
                     <p className={`mt-4 max-w-md text-sm leading-7 ${venture.tone}`}>
                       {venture.description}

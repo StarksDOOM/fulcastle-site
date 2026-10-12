@@ -17,7 +17,7 @@ const ventures = [
   {
     name: "Rodar",
     category: "Mobility",
-    href: "/ventures#rodar",
+    href: "https://rodar.do",
   },
   {
     name: "Vantage",
