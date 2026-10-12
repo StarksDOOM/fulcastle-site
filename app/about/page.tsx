@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { isLocale, type Locale } from "@/lib/i18n";
-import { AboutSpanishPage } from "@/app/components/spanish-public-pages";
+import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
@@ -15,7 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
  const requestHeaders = await headers(); const localeValue = requestHeaders.get("x-site-locale") ?? "en"; const locale: Locale = isLocale(localeValue) ? localeValue : "en";
- if (locale === "es") return <AboutSpanishPage />;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -37,30 +35,28 @@ export default async function AboutPage() {
             <div className="hero-copy relative z-10">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
-                About FulCastle
+                {locale === "es" ? "Acerca de FulCastle" : "About FulCastle"}
               </p>
               <h1
                 className="max-w-4xl font-display text-5xl leading-[1.04] tracking-[-0.045em] sm:text-6xl md:text-7xl"
                 id="about-title"
               >
-                A clear foundation.
-                <span className="mt-2 block text-muted-gold">Independent paths.</span>
+                {locale === "es" ? "Una base clara." : "A clear foundation."}
+                <span className="mt-2 block text-muted-gold">{locale === "es" ? "Caminos independientes." : "Independent paths."}</span>
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
-                FulCastle Holdings, Inc. is the parent company behind a portfolio
-                of independent ventures. Each venture has its own focus, while
-                FulCastle brings a long-term perspective to the portfolio as a whole.
+                {locale === "es" ? "FulCastle Holdings, Inc. es la empresa matriz de una cartera de iniciativas independientes. Cada iniciativa tiene su propio enfoque, mientras FulCastle aporta una perspectiva a largo plazo al conjunto." : "FulCastle Holdings, Inc. is the parent company behind a portfolio of independent ventures. Each venture has its own focus, while FulCastle brings a long-term perspective to the portfolio as a whole."}
               </p>
             </div>
 
             <div
-              aria-label="Abstract architectural composition representing a shared foundation and distinct paths"
+              aria-label={locale === "es" ? "Composición arquitectónica abstracta que representa una base compartida y caminos distintos" : "Abstract architectural composition representing a shared foundation and distinct paths"}
               role="img"
               className="hero-artwork relative mx-auto hidden aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:block sm:aspect-[5/4] lg:aspect-[4/5]"
             >
               <Image
                 src="/images/architect-shared-foundation.jpg"
-                alt="FulCastle architectural artwork depicting foundational structure with ascending pathways"
+                alt={locale === "es" ? "Obra arquitectónica de FulCastle que representa una estructura fundamental con caminos ascendentes" : "FulCastle architectural artwork depicting foundational structure with ascending pathways"}
                 fill
                 priority
                 sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, 100vw"
@@ -70,14 +66,14 @@ export default async function AboutPage() {
               <div className="relative z-10 p-6 sm:p-8 flex h-full flex-col justify-between">
                 <div className="flex items-center gap-3 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-ivory/80">
                   <span className="h-px w-6 bg-muted-gold" />
-                  A shared foundation
+                  {locale === "es" ? "Una base compartida" : "A shared foundation"}
                 </div>
                 <div>
                   <p className="font-display text-3xl leading-tight tracking-tight sm:text-4xl text-ivory">
-                    Built with intention.
+                    {locale === "es" ? "Construido con intención." : "Built with intention."}
                   </p>
                   <p className="mt-3 max-w-xs text-sm leading-6 text-ivory/75">
-                    One foundation. Room for different directions.
+                    {locale === "es" ? "Una base. Espacio para distintos caminos." : "One foundation. Room for different directions."}
                   </p>
                 </div>
               </div>
@@ -91,27 +87,25 @@ export default async function AboutPage() {
         >
           <div>
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-              The company
+              {locale === "es" ? "La empresa" : "The company"}
             </p>
             <h2
               className="max-w-xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl"
               id="role-title"
             >
-              One parent company.
-              <span className="block text-slate">Distinct ventures.</span>
+              {locale === "es" ? "Una empresa matriz." : "One parent company."}
+              <span className="block text-slate">{locale === "es" ? "Iniciativas distintas." : "Distinct ventures."}</span>
             </h2>
           </div>
           <div className="max-w-2xl lg:pt-9">
             <p className={`text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9`}>
-              FulCastle provides the parent-company context for its portfolio.
-              The ventures are distinct in what they build, who they serve, and
-              the identities they establish—not a single service under different names.
+              {locale === "es" ? "FulCastle proporciona el marco de empresa matriz para su cartera." : "FulCastle provides the parent-company context for its portfolio."}
+              {locale === "es" ? "Las iniciativas se distinguen por lo que desarrollan, a quién sirven y la identidad que establecen; no son un mismo servicio con distintos nombres." : "The ventures are distinct in what they build, who they serve, and the identities they establish—not a single service under different names."}
             </p>
             <div className="mt-8 h-px w-full bg-graphite/15" />
             <p className={`mt-6 max-w-xl text-sm leading-7 text-slate`}>
-              The shared perspective is long-term; the work remains specific.
-              Each venture has room to pursue its own purpose while sitting
-              within a considered broader portfolio.
+              {locale === "es" ? "La perspectiva común es a largo plazo; el trabajo sigue siendo específico." : "The shared perspective is long-term; the work remains specific."}
+              {locale === "es" ? "Cada iniciativa tiene espacio para perseguir su propio propósito dentro de una cartera más amplia y bien pensada." : "Each venture has room to pursue its own purpose while sitting within a considered broader portfolio."}
             </p>
           </div>
         </section>
@@ -126,41 +120,36 @@ export default async function AboutPage() {
           <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-6 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <div>
               <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-                A point of view
+                {locale === "es" ? "Una perspectiva" : "A point of view"}
               </p>
               <h2
                 className="max-w-xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl"
                 id="approach-title"
               >
-                Build the foundation.
-                <span className="block text-slate">Let each venture find its form.</span>
+                {locale === "es" ? "Construir la base." : "Build the foundation."}
+                <span className="block text-slate">{locale === "es" ? "Permitir que cada iniciativa encuentre su forma." : "Let each venture find its form."}</span>
               </h2>
             </div>
             <div className="max-w-2xl lg:pt-10">
               <p className="text-lg leading-8 text-graphite/85 sm:text-xl sm:leading-9">
-                FulCastle brings a long-term perspective to building distinct
-                businesses. Each venture starts with its own problem to solve,
-                audience to serve, and identity to establish.
+                {locale === "es" ? "FulCastle aporta una perspectiva a largo plazo para construir negocios distintos. Cada iniciativa parte de un problema que resolver, un público al que servir y una identidad que establecer." : "FulCastle brings a long-term perspective to building distinct businesses. Each venture starts with its own problem to solve, audience to serve, and identity to establish."}
               </p>
               <p className="mt-6 text-sm leading-7 text-slate sm:text-base sm:leading-8">
-                A shared foundation should make that work clearer—not make
-                every venture the same. The goal is room to build with
-                intention, evolve with purpose, and let each idea stand on its
-                own merits.
+                {locale === "es" ? "Una base compartida debe aportar claridad al trabajo, no hacer que todas las iniciativas sean iguales. El objetivo es construir con intención, evolucionar con propósito y permitir que cada idea demuestre su valor." : "A shared foundation should make that work clearer—not make every venture the same. The goal is room to build with intention, evolve with purpose, and let each idea stand on its own merits."}
               </p>
               <div className="mt-10 grid gap-5 border-t border-graphite/15 pt-6 sm:grid-cols-2">
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">01 / Perspective</span>
-                  <h3 className="mt-3 font-display text-xl text-graphite">Think beyond the moment</h3>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">{locale === "es" ? "01 / Perspectiva" : "01 / Perspective"}</span>
+                  <h3 className="mt-3 font-display text-xl text-graphite">{locale === "es" ? "Pensar más allá del presente" : "Think beyond the moment"}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate">
-                    Make deliberate choices with the longer view in mind.
+                    {locale === "es" ? "Tomar decisiones deliberadas con una visión a largo plazo." : "Make deliberate choices with the longer view in mind."}
                   </p>
                 </div>
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">02 / Independence</span>
-                  <h3 className="mt-3 font-display text-xl text-graphite">Protect what makes each distinct</h3>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">{locale === "es" ? "02 / Independencia" : "02 / Independence"}</span>
+                  <h3 className="mt-3 font-display text-xl text-graphite">{locale === "es" ? "Preservar lo que hace única a cada iniciativa" : "Protect what makes each distinct"}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate">
-                    Let every venture speak clearly to its own audience and purpose.
+                    {locale === "es" ? "Permitir que cada iniciativa se comunique con claridad con su público y propósito." : "Let every venture speak clearly to its own audience and purpose."}
                   </p>
                 </div>
               </div>
@@ -176,18 +165,17 @@ export default async function AboutPage() {
             <div className="flex flex-col gap-6">
               <div>
                 <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-                  Across the portfolio
+                  {locale === "es" ? "En toda la cartera" : "Across the portfolio"}
                 </p>
                 <h2
                   className="max-w-3xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl"
                   id="portfolio-title"
                 >
-                  Different problems. Distinct paths.
+                  {locale === "es" ? "Problemas distintos. Caminos propios." : "Different problems. Distinct paths."}
                 </h2>
               </div>
               <p className="max-w-2xl text-base leading-8 text-slate">
-                A range of ideas, each shaped around a different need. Explore
-                the areas taking form across the FulCastle portfolio.
+                {locale === "es" ? "Un conjunto de ideas, cada una diseñada para una necesidad distinta. Explora las áreas que van tomando forma en la cartera de FulCastle." : "A range of ideas, each shaped around a different need. Explore the areas taking form across the FulCastle portfolio."}
               </p>
             </div>
 
@@ -197,11 +185,11 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute -right-5 bottom-[-4rem] h-56 w-40 rotate-[18deg] border border-muted-gold/55 bg-ivory/[0.04] transition-transform duration-500 group-hover:-translate-y-2" />
                 <div aria-hidden="true" className="absolute right-12 bottom-[-3rem] h-44 w-24 rotate-[18deg] border border-ivory/20" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-muted-gold">Mobility</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-muted-gold">{locale === "es" ? "Movilidad" : "Mobility"}</span>
                   <div>
                     <h3 className="font-display text-2xl">Rodar</h3>
                     <p className="mt-2 max-w-xs text-sm leading-6 text-ivory/70">
-                      Vehicle rental and agency tools focused on the Dominican Republic.
+                      {locale === "es" ? "Herramientas de alquiler de vehículos y gestión para agencias en la República Dominicana." : "Vehicle rental and agency tools focused on the Dominican Republic."}
                     </p>
                   </div>
                 </div>
@@ -212,11 +200,11 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute right-[-1rem] top-8 h-40 w-40 rounded-full border border-graphite/20" />
                 <div aria-hidden="true" className="absolute right-8 top-16 h-24 w-24 rounded-full border border-muted-gold/80" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-slate">Commerce intelligence</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-slate">{locale === "es" ? "Inteligencia comercial" : "Commerce intelligence"}</span>
                   <div>
                     <h3 className="font-display text-2xl">Vantage</h3>
                     <p className="mt-2 max-w-xs text-sm leading-6 text-graphite/70">
-                      Product discovery and trend-informed commerce workflows.
+                      {locale === "es" ? "Procesos de descubrimiento de productos y comercio guiados por tendencias." : "Product discovery and trend-informed commerce workflows."}
                     </p>
                   </div>
                 </div>
@@ -227,11 +215,11 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute right-[-2rem] top-[-2rem] h-48 w-48 rotate-45 border border-[#91b8c3]/45" />
                 <div aria-hidden="true" className="absolute right-8 top-12 h-28 w-28 rotate-45 border border-ivory/20" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#b8d0d6]">Public-sector technology</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#b8d0d6]">{locale === "es" ? "Tecnología para el sector público" : "Public-sector technology"}</span>
                   <div>
                     <h3 className="font-display text-2xl">Civora</h3>
                     <p className="mt-2 max-w-xs text-sm leading-6 text-ivory/70">
-                      Technology for discovering and evaluating government-contracting opportunities.
+                      {locale === "es" ? "Tecnología para descubrir y evaluar oportunidades de contratación pública." : "Technology for discovering and evaluating government-contracting opportunities."}
                     </p>
                   </div>
                 </div>
@@ -242,11 +230,11 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute right-8 top-8 h-28 w-28 rounded-full border border-[#b46f79]/45" />
                 <div aria-hidden="true" className="absolute right-14 top-14 h-16 w-16 rounded-full border border-[#b46f79]/35" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#824752]">Personal expression</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#824752]">{locale === "es" ? "Expresión personal" : "Personal expression"}</span>
                   <div>
                     <h3 className="font-display text-2xl">Sweet Nothings</h3>
                     <p className="mt-2 max-w-sm text-sm leading-6 text-graphite/70">
-                      Personalized, AI-generated affectionate messages shaped around individual preferences.
+                      {locale === "es" ? "Mensajes afectuosos personalizados, generados con IA y adaptados a preferencias individuales." : "Personalized, AI-generated affectionate messages shaped around individual preferences."}
                     </p>
                   </div>
                 </div>
@@ -257,11 +245,11 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute right-8 top-8 h-36 w-28 border border-[#6c8574]/45" />
                 <div aria-hidden="true" className="absolute right-14 top-14 h-36 w-28 border border-graphite/20" />
                 <div className="relative flex min-h-64 flex-col justify-between p-6 sm:p-7">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#405b4a]">Real estate workflows</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#405b4a]">{locale === "es" ? "Procesos inmobiliarios" : "Real estate workflows"}</span>
                   <div>
                     <h3 className="font-display text-2xl">PropTech Real Estate</h3>
                     <p className="mt-2 max-w-sm text-sm leading-6 text-graphite/70">
-                      Property listing and agent-inventory workflows, with transaction tooling for the Dominican Republic.
+                      {locale === "es" ? "Procesos de anuncios inmobiliarios e inventario de agentes, con herramientas transaccionales para la República Dominicana." : "Property listing and agent-inventory workflows, with transaction tooling for the Dominican Republic."}
                     </p>
                   </div>
                 </div>
@@ -270,13 +258,13 @@ export default async function AboutPage() {
 
             <div className="mt-9 flex flex-col gap-4 border-t border-graphite/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-xl text-sm leading-6 text-slate">
-                Each venture has its own focus and identity. The portfolio will continue to take shape over time.
+                {locale === "es" ? "Cada iniciativa tiene su propio enfoque e identidad. La cartera seguirá tomando forma con el tiempo." : "Each venture has its own focus and identity. The portfolio will continue to take shape over time."}
               </p>
               <Link
                 className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start border border-graphite/20 px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold sm:self-center"
-                href="/ventures"
+                href={localizePath("/ventures", locale)}
               >
-                Explore the ventures <span aria-hidden="true">↗</span>
+                {locale === "es" ? "Explorar las iniciativas" : "Explore the ventures"} <span aria-hidden="true">↗</span>
               </Link>
             </div>
           </div>
@@ -290,20 +278,18 @@ export default async function AboutPage() {
             <div className="grid gap-8 border-b border-ivory/15 pb-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
               <div>
                 <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-muted-gold">
-                  The people behind FulCastle
+                  {locale === "es" ? "Las personas detrás de FulCastle" : "The people behind FulCastle"}
                 </p>
                 <h2
                   className="max-w-2xl font-display text-4xl leading-tight tracking-[-0.035em] sm:text-5xl"
                   id="founders-title"
                 >
-                  Different perspectives.
-                  <span className="block text-ivory/55">A shared ambition.</span>
+                  {locale === "es" ? "Perspectivas distintas." : "Different perspectives."}
+                  <span className="block text-ivory/55">{locale === "es" ? "Una ambición compartida." : "A shared ambition."}</span>
                 </h2>
               </div>
               <p className="max-w-xl text-base leading-8 text-ivory/70 lg:pt-10">
-                Technology, product thinking, brand, and relationships each
-                shape how a venture finds its place. FulCastle brings those
-                perspectives together while leaving each business room to define itself.
+                {locale === "es" ? "La tecnología, el pensamiento de producto, la marca y las relaciones ayudan a definir el lugar de cada iniciativa. FulCastle reúne esas perspectivas y permite que cada negocio defina su propia identidad." : "Technology, product thinking, brand, and relationships each shape how a venture finds its place. FulCastle brings those perspectives together while leaving each business room to define itself."}
               </p>
             </div>
 
@@ -312,23 +298,16 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute right-0 top-0 h-40 w-40 translate-x-1/3 -translate-y-1/3 rotate-45 border border-muted-gold/20" />
                 <div className="relative">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-gold">
-                    Founder &amp; CTO
+                    {locale === "es" ? "Fundador y director de tecnología" : "Founder &amp; CTO"}
                   </p>
                   <h3 className="mt-4 font-display text-3xl tracking-tight sm:text-4xl">
                     Gamaliel Fulgencio
                   </h3>
                   <p className="mt-5 max-w-2xl text-sm leading-7 text-ivory/75 sm:text-base sm:leading-8">
-                    Gamaliel leads FulCastle&apos;s technology and product direction,
-                    overseeing software architecture, engineering, and the
-                    development of the platforms and systems behind its ventures.
-                    His work brings business concepts into practical products,
-                    combining systems thinking with hands-on technical execution.
+                    {locale === "es" ? "Gamaliel dirige la estrategia tecnológica y de producto de FulCastle, incluida la arquitectura de software, la ingeniería y el desarrollo de las plataformas y sistemas que respaldan sus iniciativas. Convierte conceptos de negocio en productos prácticos, combinando pensamiento sistémico con ejecución técnica directa." : "Gamaliel leads FulCastle&apos;s technology and product direction, overseeing software architecture, engineering, and the development of the platforms and systems behind its ventures. His work brings business concepts into practical products, combining systems thinking with hands-on technical execution."}
                   </p>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-ivory/75 sm:text-base sm:leading-8">
-                    His professional experience includes work with Nespresso,
-                    Sony Music Entertainment, BMI, MLA, and FCB Health, across
-                    consumer brands, media, digital platforms, and healthcare
-                    marketing technology.
+                    {locale === "es" ? "Su experiencia profesional incluye trabajo con Nespresso, Sony Music Entertainment, BMI, MLA y FCB Health, en marcas de consumo, medios, plataformas digitales y tecnología de marketing sanitario." : "His professional experience includes work with Nespresso, Sony Music Entertainment, BMI, MLA, and FCB Health, across consumer brands, media, digital platforms, and healthcare marketing technology."}
                   </p>
                 </div>
               </article>
@@ -337,23 +316,16 @@ export default async function AboutPage() {
                 <div aria-hidden="true" className="absolute bottom-0 right-0 h-48 w-48 translate-x-1/4 translate-y-1/4 rounded-full border border-muted-gold/25" />
                 <div className="relative">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-gold">
-                    Co-Founder
+                    {locale === "es" ? "Cofundador" : "Co-Founder"}
                   </p>
                   <h3 className="mt-4 font-display text-3xl tracking-tight">
                     Roman Castillo
                   </h3>
                   <p className="mt-5 text-sm leading-7 text-ivory/75">
-                    Roman Castillo is a co-founder of FulCastle Holdings, Inc.,
-                    contributing to brand identity, marketing direction, and
-                    partnership development. He helps shape how FulCastle and its
-                    ventures present themselves, building a cohesive presence
-                    while preserving each venture&apos;s distinct identity.
+                    {locale === "es" ? "Roman Castillo es cofundador de FulCastle Holdings, Inc. y contribuye a la identidad de marca, la dirección de marketing y el desarrollo de alianzas. Ayuda a definir cómo se presentan FulCastle y sus iniciativas, creando una presencia coherente y preservando la identidad propia de cada una." : "Roman Castillo is a co-founder of FulCastle Holdings, Inc., contributing to brand identity, marketing direction, and partnership development. He helps shape how FulCastle and its ventures present themselves, building a cohesive presence while preserving each venture&apos;s distinct identity."}
                   </p>
                   <p className="mt-4 text-sm leading-7 text-ivory/75">
-                    Roman helps ventures communicate their value and connect with
-                    relevant audiences and partners. He supports FulCastle&apos;s
-                    broader vision through clear positioning and meaningful
-                    relationships.
+                    {locale === "es" ? "Roman ayuda a las iniciativas a comunicar su valor y conectar con públicos y socios relevantes. Apoya la visión general de FulCastle mediante un posicionamiento claro y relaciones significativas." : "Roman helps ventures communicate their value and connect with relevant audiences and partners. He supports FulCastle&apos;s broader vision through clear positioning and meaningful relationships."}
                   </p>
                 </div>
               </article>
@@ -368,20 +340,20 @@ export default async function AboutPage() {
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-20 sm:px-10 sm:py-24 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-                Explore the portfolio
+                {locale === "es" ? "Explorar la cartera" : "Explore the portfolio"}
               </p>
               <h2 className="max-w-2xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl">
-                Different paths. Clear purpose.
+                {locale === "es" ? "Caminos distintos. Propósitos claros." : "Different paths. Clear purpose."}
               </h2>
               <p className="mt-4 max-w-xl text-sm leading-7 text-slate">
-                Get to know the ventures and the distinct problems each is built to address.
+                {locale === "es" ? "Conoce las iniciativas y los problemas específicos que cada una busca resolver." : "Get to know the ventures and the distinct problems each is built to address."}
               </p>
             </div>
             <Link
               className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start bg-muted-gold px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold md:self-center"
               href="/ventures"
             >
-              Explore the ventures <span aria-hidden="true">↗</span>
+              {locale === "es" ? "Explorar las iniciativas" : "Explore the ventures"} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </section>
