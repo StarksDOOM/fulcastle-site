@@ -86,7 +86,7 @@ test("not-found metadata follows the active locale", async () => {
   const source = await fs.readFile(new URL("../app/not-found.tsx", import.meta.url), "utf8");
   assert.match(source, /generateMetadata/);
   assert.match(source, /const title = isSpanish \? "Página no encontrada" : "Page not found"/);
-  assert.match(source, /description:\s*isSpanish\s*\?/);
+  assert.match(source, /const description = isSpanish\s*\?/);
   assert.match(source, /locale: isSpanish \? "es_ES" : "en_US"/);
   assert.match(source, /siteName: "FulCastle Holdings, Inc\."/);
   assert.match(source, /twitter: \{/);
