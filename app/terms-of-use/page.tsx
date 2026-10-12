@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { isLocale, type Locale } from "@/lib/i18n";
+import { TermsSpanishPage } from "@/app/components/spanish-public-pages";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
-export const metadata: Metadata = {
-  title: "Terms of Use",
-  description: "Terms for using the FulCastle Holdings, Inc. corporate website.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+ const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
+ return { title: isSpanish ? "Términos de uso" : "Terms of Use", description: isSpanish ? "Términos para utilizar el sitio web corporativo de FulCastle Holdings, Inc." : "Terms for using the FulCastle Holdings, Inc. corporate website." };
+}
 
 const sections = [
   {
@@ -71,7 +74,10 @@ const sections = [
   },
 ];
 
-export default function TermsOfUsePage() {
+export default async function TermsOfUsePage() {
+ const requestHeaders = await headers(); const localeValue = requestHeaders.get("x-site-locale") ?? "en"; const locale: Locale = isLocale(localeValue) ? localeValue : "en";
+ if (locale === "es") return <TermsSpanishPage />;
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />

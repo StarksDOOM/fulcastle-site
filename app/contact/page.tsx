@@ -4,7 +4,7 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { ContactForm } from "@/app/contact/contact-form";
 import { headers } from "next/headers";
-import { isLocale, type Locale } from "@/lib/i18n";
+import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -98,7 +98,7 @@ export default async function ContactPage() {
             </p>
             <Link
               className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 border border-graphite/20 px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
-              href="/ventures"
+              href={localizePath("/ventures", locale)}
             >
               {locale === "es" ? "Explorar las iniciativas" : "Explore the ventures"} <span aria-hidden="true">↗</span>
             </Link>

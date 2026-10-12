@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { isLocale, type Locale } from "@/lib/i18n";
+import { PrivacySpanishPage } from "@/app/components/spanish-public-pages";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "Learn how FulCastle Holdings, Inc. handles information submitted through its corporate website.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+ const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
+ return { title: isSpanish ? "Política de privacidad" : "Privacy Policy", description: isSpanish ? "Conoce cómo FulCastle Holdings, Inc. trata la información enviada a través de su sitio web corporativo." : "Learn how FulCastle Holdings, Inc. handles information submitted through its corporate website." };
+}
 
 const sections = [
   {
@@ -81,7 +83,10 @@ const sections = [
   },
 ];
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+ const requestHeaders = await headers(); const localeValue = requestHeaders.get("x-site-locale") ?? "en"; const locale: Locale = isLocale(localeValue) ? localeValue : "en";
+ if (locale === "es") return <PrivacySpanishPage />;
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />

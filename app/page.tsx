@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { isLocale, type Locale } from "@/lib/i18n";
+import { HomeSpanishPage } from "@/app/components/spanish-public-pages";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
-export const metadata: Metadata = {
-  title: "Built on Structure. Driven by Possibility.",
-  description:
-    "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next.",
-  other: {
-    "facebook-domain-verification": "o0yn7f7qd7169d7lxl9frrns31z74b",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+ const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
+ return { title: isSpanish ? "Construidos sobre una base sólida. Impulsados por las posibilidades." : "Built on Structure. Driven by Possibility.", description: isSpanish ? "FulCastle Holdings, Inc. es una empresa matriz con una visión a largo plazo para desarrollar y apoyar iniciativas independientes." : "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next." };
+}
 
 const ventures = [
   {
@@ -41,7 +40,10 @@ const ventures = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+ const requestHeaders = await headers(); const localeValue = requestHeaders.get("x-site-locale") ?? "en"; const locale: Locale = isLocale(localeValue) ? localeValue : "en";
+ if (locale === "es") return <HomeSpanishPage />;
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
