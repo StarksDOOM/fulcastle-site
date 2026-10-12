@@ -5,11 +5,19 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Page not found",
-  description: "The page you’re looking for could not be found.",
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+
+  return {
+    title: isSpanish ? "Página no encontrada" : "Page not found",
+    description: isSpanish
+      ? "No encontramos la página que buscas. Puede que se haya movido o que la dirección sea incorrecta."
+      : "The page you’re looking for could not be found.",
+    openGraph: { locale: isSpanish ? "es_ES" : "en_US" },
+    robots: { index: false, follow: true },
+  };
+}
 
 export default async function NotFound() {
   const requestHeaders = await headers();

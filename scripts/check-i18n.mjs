@@ -11,7 +11,7 @@ const pages = [
   ["Privacy Policy", "app/privacy-policy/page.tsx"], ["Terms of Use", "app/terms-of-use/page.tsx"],
 ];
 const sharedUi = ["app/components/site-header.tsx", "app/components/site-footer.tsx", "app/contact/contact-form.tsx"];
-const invariantText = new Set(["FulCastle", "Holdings, Inc.", "FulCastle Holdings, Inc.", "Rodar", "Vantage", "Civora", "Sweet Nothings", "PropTech Real Estate", "Gamaliel Fulgencio", "Roman Castillo", "EN", "ES"]);
+const invariantText = new Set(["FulCastle", "Holdings, Inc.", "FulCastle Holdings, Inc.", "Rodar", "Vantage", "Civora", "Sweet Nothings", "PropTech Real Estate", "Gamaliel Fulgencio", "Roman Castillo", "EN", "ES", "Error 404"]);
 const userFacingAttributes = new Set(["alt", "aria-label", "placeholder", "title"]);
 
 function flattenKeys(value, prefix = "") {
@@ -128,12 +128,20 @@ function runAudit() {
     if (!fs.existsSync(file)) { errors.push(`Shared localized UI missing: ${relative}`); continue; }
     for (const finding of findUnlocalizedJsxCopy(fs.readFileSync(file, "utf8"), relative)) errors.push(`${relative}: ${finding}`);
   }
+  const notFoundPath = path.join(root, "app/not-found.tsx");
+  if (!fs.existsSync(notFoundPath)) errors.push("Not Found: missing route source app/not-found.tsx");
+  else {
+    const source = fs.readFileSync(notFoundPath, "utf8");
+    if (!source.includes("generateMetadata")) errors.push("Not Found: locale-aware metadata generation missing");
+    if (!source.includes("title: isSpanish ?") || !/description:\s*isSpanish\s*\?/.test(source) || !source.includes("openGraph: { locale: isSpanish ?")) errors.push("Not Found: title, description, and Open Graph locale must follow the active locale.");
+    for (const finding of findUnlocalizedJsxCopy(source, "app/not-found.tsx")) errors.push(`Not Found (app/not-found.tsx): ${finding}`);
+  }
   if (errors.length) {
     console.error("❌ [i18n-check] Translation audit failed:");
     for (const error of errors) console.error("  - " + error);
     process.exitCode = 1;
     return;
   }
-  console.log(`✅ [i18n-check] Catalog parity, locale-aware metadata, and hardcoded visible JSX copy checks passed for all ${pages.length} public pages and shared localized UI.`);
+  console.log(`✅ [i18n-check] Catalog parity, locale-aware metadata, and hardcoded visible JSX copy checks passed for all ${pages.length} public pages, the not-found page, and shared localized UI.`);
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) runAudit();

@@ -74,3 +74,13 @@ test("audit catches a hardcoded expression inside a user-facing attribute", () =
   const findings = findUnlocalizedJsxCopy('<button aria-label={isOpen ? "Close menu" : "Open menu"} />');
   assert.equal(findings.length, 2, findings.join("\\n"));
 });
+
+test("not-found metadata follows the active locale", async () => {
+  const fs = await import("node:fs/promises");
+  const source = await fs.readFile(new URL("../app/not-found.tsx", import.meta.url), "utf8");
+  assert.match(source, /generateMetadata/);
+  assert.match(source, /title: isSpanish \? "Página no encontrada" : "Page not found"/);
+  assert.match(source, /description:\s*isSpanish\s*\?/);
+  assert.match(source, /openGraph: \{ locale: isSpanish \? "es_ES" : "en_US" \}/);
+  assert.match(source, /robots: \{ index: false, follow: true \}/);
+});
