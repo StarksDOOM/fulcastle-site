@@ -25,7 +25,8 @@ function FieldError({ id, children }: { id: string; children: string | undefined
   );
 }
 
-export function ContactForm({ locale = "en" }: { locale?: Locale }) {\n  const copy = messages[locale].contact;
+export function ContactForm({ locale = "en" }: { locale?: Locale }) {
+  const copy = messages[locale].contact;
   const [state, setState] = useState<SubmissionState>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
