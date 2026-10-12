@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ScrollReveal } from "@/app/components/scroll-reveal";
+import { headers } from "next/headers";
 
 const bodyFont = DM_Sans({ subsets: ["latin"], display: "swap", variable: "--font-body-font" });
 const displayFont = Cormorant_Garamond({ subsets: ["latin"], display: "swap", weight: ["500", "600", "700"], variable: "--font-display-font" });
@@ -42,13 +43,16 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const locale = requestHeaders.get("x-site-locale") === "es" ? "es" : "en";
+
   return (
-    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
+    <html lang={locale} className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
         <ScrollReveal />
         {children}

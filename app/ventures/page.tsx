@@ -1,23 +1,51 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
-export const metadata: Metadata = {
-  title: "Ventures",
-  description:
-    "Explore the distinct areas of focus across FulCastle Holdings, Inc.'s portfolio of independent ventures.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Iniciativas" : "Ventures";
+  const description = isSpanish
+    ? "Explora las áreas de enfoque de las iniciativas independientes de FulCastle Holdings, Inc."
+    : "Explore the distinct areas of focus across FulCastle Holdings, Inc.'s portfolio of independent ventures.";
+  const canonical = isSpanish ? "/es/ventures" : "/ventures";
+
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/ventures", es: "/es/ventures" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
 
 const ventures = [
   {
     id: "rodar",
     number: "01",
-    category: "Mobility",
+    category: "Mobility", categoryEs: "Movilidad",
     name: "Rodar",
     description:
-      "Vehicle-rental and agency tools focused on the Dominican Republic, with an emphasis on making rental operations easier to manage.",
-    focus: "Rental and agency workflows",
+      "Vehicle-rental and agency tools focused on the Dominican Republic, with an emphasis on making rental operations easier to manage.", descriptionEs: "Herramientas de alquiler de vehículos y gestión para agencias en la República Dominicana, centradas en facilitar las operaciones de alquiler.",
+    focus: "Rental and agency workflows", focusEs: "Procesos de alquiler y gestión de agencias",
     card: "bg-graphite text-ivory",
     label: "text-muted-gold",
     artwork:
@@ -29,11 +57,11 @@ const ventures = [
   {
     id: "vantage",
     number: "02",
-    category: "Commerce intelligence",
+    category: "Commerce intelligence", categoryEs: "Inteligencia comercial",
     name: "Vantage",
     description:
-      "Product-discovery and trend-informed commerce technology connecting emerging demand signals with ecommerce workflows.",
-    focus: "Product discovery and ecommerce",
+      "Product-discovery and trend-informed commerce technology connecting emerging demand signals with ecommerce workflows.", descriptionEs: "Tecnología de descubrimiento de productos y comercio basada en tendencias que conecta señales de demanda emergente con procesos de comercio electrónico.",
+    focus: "Product discovery and ecommerce", focusEs: "Descubrimiento de productos y comercio electrónico",
     card: "bg-[#e8e3d8] text-graphite",
     label: "text-slate",
     artwork:
@@ -45,11 +73,11 @@ const ventures = [
   {
     id: "civora",
     number: "03",
-    category: "Public-sector technology",
+    category: "Public-sector technology", categoryEs: "Tecnología para el sector público",
     name: "Civora",
     description:
-      "A concept for discovering, organizing, and evaluating government-contracting opportunities.",
-    focus: "Contract discovery and procurement intelligence",
+      "A concept for discovering, organizing, and evaluating government-contracting opportunities.", descriptionEs: "Un concepto para descubrir, organizar y evaluar oportunidades de contratación pública.",
+    focus: "Contract discovery and procurement intelligence", focusEs: "Descubrimiento de contratos e inteligencia de compras",
     card: "bg-[#202a30] text-ivory",
     label: "text-[#b8d0d6]",
     artwork:
@@ -61,11 +89,11 @@ const ventures = [
   {
     id: "sweet-nothings",
     number: "04",
-    category: "Personal expression",
+    category: "Personal expression", categoryEs: "Expresión personal",
     name: "Sweet Nothings",
     description:
-      "A consumer product concept for personalized, AI-generated affectionate messages shaped around individual preferences.",
-    focus: "Personalized messages",
+      "A consumer product concept for personalized, AI-generated affectionate messages shaped around individual preferences.", descriptionEs: "Un concepto de producto de consumo para crear mensajes afectuosos personalizados mediante IA, adaptados a las preferencias individuales.",
+    focus: "Personalized messages", focusEs: "Mensajes personalizados",
     card: "bg-[#eee4e0] text-graphite",
     label: "text-[#824752]",
     artwork:
@@ -77,11 +105,11 @@ const ventures = [
   {
     id: "proptech-real-estate",
     number: "05",
-    category: "Real estate workflows",
+    category: "Real estate workflows", categoryEs: "Procesos inmobiliarios",
     name: "PropTech Real Estate",
     description:
-      "Property-listing and agent-inventory workflows for the Dominican Republic, with transaction tooling being explored as part of the broader concept.",
-    focus: "Property listings and agent inventory",
+      "Property-listing and agent-inventory workflows for the Dominican Republic, with transaction tooling being explored as part of the broader concept.", descriptionEs: "Procesos de anuncios inmobiliarios e inventario de agentes en la República Dominicana, con herramientas transaccionales en evaluación.",
+    focus: "Property listings and agent inventory", focusEs: "Anuncios inmobiliarios e inventario de agentes",
     card: "bg-[#dfe4df] text-graphite",
     label: "text-[#405b4a]",
     artwork:
@@ -92,7 +120,9 @@ const ventures = [
   },
 ];
 
-export default function VenturesPage() {
+export default async function VenturesPage() {
+ const requestHeaders = await headers(); const localeValue = requestHeaders.get("x-site-locale") ?? "en"; const locale: Locale = isLocale(localeValue) ? localeValue : "en";
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -113,29 +143,29 @@ export default function VenturesPage() {
             <div className="hero-copy relative z-10">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
-                The portfolio
+                {locale === "es" ? "La cartera" : "The portfolio"}
               </p>
               <h1
                 className="max-w-4xl font-display text-5xl leading-[1.04] tracking-[-0.045em] sm:text-6xl md:text-7xl"
                 id="ventures-title"
               >
-                Different problems.
-                <span className="mt-2 block text-muted-gold">Distinct paths.</span>
+                {locale === "es" ? "Problemas distintos." : "Different problems."}
+                <span className="mt-2 block text-muted-gold">{locale === "es" ? "Caminos propios." : "Distinct paths."}</span>
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
-                FulCastle Holdings, Inc. is the parent company behind a portfolio
-                of independent ventures. Each initiative has its own area of
-                focus and room to develop its own identity.
+                {locale === "es"
+                  ? "FulCastle Holdings, Inc. es la empresa matriz de una cartera de iniciativas independientes. Cada iniciativa tiene su propia área de enfoque y espacio para desarrollar su identidad."
+                  : "FulCastle Holdings, Inc. is the parent company behind a portfolio of independent ventures. Each initiative has its own area of focus and room to develop its own identity."}
               </p>
             </div>
             <aside className="hero-side-note relative border-l-2 border-muted-gold/70 pl-7 sm:pl-9 lg:mb-2 lg:ml-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-gold">
-                A portfolio in development
+                {locale === "es" ? "Una cartera en desarrollo" : "A portfolio in development"}
               </p>
               <p className="mt-5 max-w-md text-sm leading-7 text-ivory/70 sm:text-base sm:leading-8">
-                These profiles describe areas of focus, not a promise that
-                every venture is launched or commercially available. The work
-                will take shape at its own pace.
+                {locale === "es"
+                  ? "Estos perfiles describen áreas de enfoque; no prometen que todas las iniciativas estén lanzadas o disponibles comercialmente. Cada una evolucionará a su propio ritmo."
+                  : "These profiles describe areas of focus, not a promise that every venture is launched or commercially available. The work will take shape at its own pace."}
               </p>
             </aside>
           </div>
@@ -148,16 +178,16 @@ export default function VenturesPage() {
           <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
             <div className="border-b border-graphite/15 pb-8">
               <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-                Five areas of focus
+                {locale === "es" ? "Cinco áreas de enfoque" : "Five areas of focus"}
               </p>
               <h2
                 className="max-w-3xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl"
                 id="portfolio-heading"
               >
-                One parent company. Independent directions.
+                {locale === "es" ? "Una empresa matriz. Caminos independientes." : "One parent company. Independent directions."}
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-slate">
-                Explore the problems each initiative is intended to address.
+                {locale === "es" ? "Explora los problemas que cada iniciativa busca abordar." : "Explore the problems each initiative is intended to address."}
               </p>
             </div>
 
@@ -181,17 +211,17 @@ export default function VenturesPage() {
                     aria-hidden="true"
                     className={`absolute right-8 top-20 h-28 w-28 rotate-[18deg] border ${venture.shapeAlt}`}
                   />
-                  <div className="flex items-start justify-between gap-4 p-6 sm:p-7">
+                  <div className="flex items-start justify-between gap-4 p-6 sm:min-h-[4.25rem] sm:p-7 lg:min-h-[4.25rem]">
                     <span className={`text-xs font-semibold tracking-[0.18em] ${venture.label}`}>
                       {venture.number}
                     </span>
                     <span className={`max-w-[65%] text-right text-[0.62rem] font-semibold uppercase tracking-[0.15em] ${venture.label}`}>
-                      {venture.category}
+                      {locale === "es" ? venture.categoryEs : venture.category}
                     </span>
                   </div>
-                  <div className="mt-auto p-6 pt-12 sm:p-7 sm:pt-12">
+                  <div className="mt-auto flex flex-1 flex-col justify-end p-6 pt-12 sm:p-7 sm:pt-12">
                     <h3
-                      className="max-w-sm font-display text-2xl leading-tight tracking-tight sm:text-3xl"
+                      className="max-w-sm font-display text-2xl leading-tight tracking-tight sm:min-h-[2.5rem] sm:text-3xl lg:min-h-[2.5rem]"
                       id={`${venture.id}-title`}
                     >
                       {venture.id === "rodar" ? (
@@ -205,15 +235,15 @@ export default function VenturesPage() {
                         venture.name
                       )}
                     </h3>
-                    <p className={`mt-4 max-w-md text-sm leading-7 ${venture.tone}`}>
-                      {venture.description}
+                    <p className={`mt-4 max-w-md text-sm leading-7 ${venture.tone} sm:min-h-[9.5rem] lg:min-h-[8.75rem]`}>
+                      {locale === "es" ? venture.descriptionEs : venture.description}
                     </p>
                     <div className="mt-7 border-t border-current/15 pt-4">
                       <p className={`text-[0.62rem] font-semibold uppercase tracking-[0.17em] ${venture.label}`}>
-                        Area of focus
+                        {locale === "es" ? "Área de enfoque" : "Area of focus"}
                       </p>
-                      <p className={`mt-2 text-sm leading-6 ${venture.tone}`}>
-                        {venture.focus}
+                      <p className={`mt-2 text-sm leading-6 ${venture.tone} sm:min-h-[3rem] lg:min-h-[3rem]`}>
+                        {locale === "es" ? venture.focusEs : venture.focus}
                       </p>
                     </div>
                   </div>
@@ -224,18 +254,17 @@ export default function VenturesPage() {
             <div className="mt-20 flex flex-col gap-6 border-t border-graphite/15 pt-10 sm:mt-24 sm:flex-row sm:items-center sm:justify-between sm:pt-12">
               <div>
                 <p className="font-display text-2xl text-graphite sm:text-3xl">
-                  One foundation. Room for different directions.
+                  {locale === "es" ? "Una base. Espacio para distintos caminos." : "One foundation. Room for different directions."}
                 </p>
                 <p className="mt-3 max-w-2xl text-sm leading-7 text-slate sm:text-base">
-                  Learn more about the company&apos;s perspective and the people
-                  behind the portfolio.
+                  {locale === "es" ? "Conoce la perspectiva de la empresa y a las personas detrás de la cartera." : "Learn more about the company&apos;s perspective and the people behind the portfolio."}
                 </p>
               </div>
               <Link
                 className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 self-start border border-graphite/20 px-6 py-3.5 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold sm:self-center"
-                href="/about"
+                href={localizePath("/about", locale)}
               >
-                About FulCastle <span aria-hidden="true">↗</span>
+                {locale === "es" ? "Acerca de FulCastle" : "About FulCastle"} <span aria-hidden="true">↗</span>
               </Link>
             </div>
           </div>

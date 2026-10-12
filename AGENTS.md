@@ -18,7 +18,7 @@
 4. PR descriptions must state the user story, purpose, scope, non-goals, verification performed, and related issue references. Use closing keywords when the PR fully resolves the issue.
 5. Keep commits logically atomic: group inseparable implementation, styles, tests, and documentation together. Do not create one commit per file or collapse unrelated changes into a single commit.
 6. Never merge a PR, push directly to protected/integration branches, or stage/commit local changes without the user's explicit authorization for that action.
-7. Before declaring a PR review-ready, inspect both the complete diff and commit history. Report fragmentation, unrelated changes, or missing issue traceability.
+7. Before declaring a PR review-ready or merging it, inspect the complete diff and the full commit history relative to the target branch. Verify that commits are logically atomic and that related implementation, styles, tests, and documentation are grouped into cohesive commits; unrelated changes must remain separate. Identify commits that are fragmented, overly broad, duplicated, or otherwise poorly grouped, and reorganize the branch history where appropriate before merge. Do not merge until commit atomicity and grouping have been reviewed; report any remaining concerns and missing issue traceability.
 
 ## 3. Investigation, authorization, and scope control
 

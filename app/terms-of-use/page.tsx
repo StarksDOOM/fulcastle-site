@@ -1,14 +1,43 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
-export const metadata: Metadata = {
-  title: "Terms of Use",
-  description: "Terms for using the FulCastle Holdings, Inc. corporate website.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Términos de uso" : "Terms of Use";
+  const description = isSpanish
+    ? "Términos para utilizar el sitio web corporativo de FulCastle Holdings, Inc."
+    : "Terms for using the FulCastle Holdings, Inc. corporate website.";
+  const canonical = isSpanish ? "/es/terms-of-use" : "/terms-of-use";
 
-const sections = [
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/terms-of-use", es: "/es/terms-of-use" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
+
+const englishSections = [
   {
     title: "1. About these terms",
     paragraphs: [
@@ -71,7 +100,22 @@ const sections = [
   },
 ];
 
-export default function TermsOfUsePage() {
+const spanishSections = [
+{title:"1. Sobre estos términos",paragraphs:["Estos términos regulan el acceso y uso de fulcastle.com, operado para FulCastle Holdings, Inc. («FulCastle»). Al utilizar el sitio, aceptas cumplir estos términos y la legislación aplicable. Si no estás de acuerdo, no utilices el sitio.","Se aplican únicamente a este sitio corporativo y no crean ni sustituyen acuerdos de clientes, suscripciones, alquileres, mercados u otros acuerdos de las iniciativas independientes. Esos productos o servicios pueden tener términos y avisos de privacidad propios."]},
+{title:"2. Finalidad e información",paragraphs:["El sitio ofrece información general sobre FulCastle y su cartera. Algunas descripciones pueden corresponder a conceptos o iniciativas en desarrollo que aún no están disponibles al público.","Procuramos que el contenido sea útil y preciso, pero no garantizamos que sea completo, actual, libre de errores o adecuado para un fin particular. La información puede cambiar sin previo aviso."]},
+{title:"3. Sin asesoramiento ni oferta",paragraphs:["El contenido tiene fines informativos generales y no constituye asesoramiento jurídico, financiero, fiscal, de inversión ni profesional. Consulta a un profesional cualificado para decisiones que lo requieran.","Nada en este sitio constituye una oferta de valores, una promesa de lanzamiento de una iniciativa o función, ni un compromiso comercial. Cualquier oferta o servicio estará sujeto a su propia documentación."]},
+{title:"4. Uso permitido",paragraphs:["Puedes utilizar el sitio con fines lícitos de información personal y comercial. No debes interrumpir, dañar o sobrecargar el sitio o sus sistemas, acceder sin autorización, eludir controles de seguridad, enviar código malicioso ni utilizar el formulario para mensajes ilícitos, engañosos, abusivos o masivos no solicitados.","No falsees tu identidad ni utilices el contenido de forma que infrinja derechos de terceros o la legislación aplicable."]},
+{title:"5. Propiedad intelectual",paragraphs:["Salvo indicación contraria, los textos originales, el diseño, la marca y demás contenidos pertenecen a FulCastle o se utilizan con permiso, y están protegidos por las leyes aplicables. Estos términos no te transfieren su titularidad.","Puedes enlazar páginas públicas y citar fragmentos breves con atribución adecuada, sin tergiversar a FulCastle ni sugerir respaldo. Otras reproducciones, redistribuciones o usos comerciales requieren permiso, salvo que la ley disponga otra cosa. Las marcas de terceros pertenecen a sus titulares."]},
+{title:"6. Enlaces de terceros",paragraphs:["El sitio puede incluir enlaces a sitios o servicios de terceros por comodidad o referencia. FulCastle no los controla ni es responsable de su contenido, disponibilidad, términos o prácticas de privacidad. Visitar un sitio externo queda a tu discreción y se rige por sus términos."]},
+{title:"7. Disponibilidad y exenciones",paragraphs:["Podemos actualizar, suspender o interrumpir todo o parte del sitio. No garantizamos acceso ininterrumpido ni ausencia permanente de errores o interrupciones.","En la medida permitida por la ley, el sitio se proporciona según disponibilidad. Nada excluye o limita derechos o responsabilidades que legalmente no puedan excluirse o limitarse."]},
+{title:"8. Responsabilidad por el uso",paragraphs:["Eres responsable de tu uso del sitio y de cumplir la legislación aplicable. En la medida permitida por la ley, FulCastle no responde por pérdidas derivadas de confiar en la información del sitio, de interrupciones o falta de disponibilidad, o de sitios de terceros. Esto no limita responsabilidades que legalmente no puedan limitarse."]},
+{title:"9. Cambios y contacto",paragraphs:["Podemos revisar estos términos cuando cambien el sitio o nuestras prácticas. La fecha indicada identifica la última actualización del texto. Puedes enviar preguntas mediante la página de contacto."]}
+];
+
+export default async function TermsOfUsePage() {
+ const requestHeaders = await headers(); const localeValue = requestHeaders.get("x-site-locale") ?? "en"; const locale: Locale = isLocale(localeValue) ? localeValue : "en";
+ const sections = locale === "es" ? spanishSections : englishSections;
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -80,16 +124,16 @@ export default function TermsOfUsePage() {
           <div className="mx-auto w-full max-w-5xl px-6 py-16 sm:px-10 sm:py-20">
             <p className="mb-5 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
               <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
-              Legal information
+              {locale === "es" ? "Información legal" : "Legal information"}
             </p>
             <h1 className="max-w-3xl font-display text-5xl leading-tight tracking-[-0.04em] sm:text-6xl">
-              Terms of <span className="text-muted-gold">Use</span>
+              {locale === "es" ? "Términos de" : "Terms of"} <span className="text-muted-gold">{locale === "es" ? "uso" : "Use"}</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
-              The expectations that apply when using the FulCastle corporate website.
+              {locale === "es" ? "Condiciones aplicables al utilizar el sitio web corporativo de FulCastle." : "The expectations that apply when using the FulCastle corporate website."}
             </p>
             <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-ivory/55">
-              Last updated: October 10, 2026
+              {locale === "es" ? "Última actualización: 10 de octubre de 2026" : "Last updated: October 10, 2026"}
             </p>
           </div>
         </section>
@@ -110,15 +154,15 @@ export default function TermsOfUsePage() {
               );
             })}
             <p className="border-l-2 border-muted-gold pl-4 text-sm leading-7 text-slate">
-              This is a general website-use draft, not legal advice. Qualified counsel should review enforceability, jurisdiction, liability language, and consumer-protection requirements before publication.
+              {locale === "es" ? "Este documento es un borrador general y no constituye asesoramiento jurídico. Antes de publicarlo como versión definitiva, un profesional cualificado debe revisar su aplicabilidad, jurisdicción, responsabilidad y requisitos de protección al consumidor." : "This is a general website-use draft, not legal advice. Qualified counsel should review enforceability, jurisdiction, liability language, and consumer-protection requirements before publication."}
             </p>
           </article>
 
           <aside className="h-fit border border-graphite/10 bg-[#fffdf9] p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate">Get in touch</p>
-            <p className="mt-3 text-sm leading-6 text-slate">Have a question about these terms?</p>
-            <Link className="mt-4 inline-block text-sm font-semibold text-graphite underline decoration-muted-gold underline-offset-4 hover:text-slate" href="/contact">
-              Contact FulCastle
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate">{locale === "es" ? "Contacto" : "Get in touch"}</p>
+            <p className="mt-3 text-sm leading-6 text-slate">{locale === "es" ? "¿Tienes alguna pregunta sobre estos términos?" : "Have a question about these terms?"}</p>
+            <Link className="mt-4 inline-block text-sm font-semibold text-graphite underline decoration-muted-gold underline-offset-4 hover:text-slate" href={localizePath("/contact", locale)}>
+              {locale === "es" ? "Contactar con FulCastle" : "Contact FulCastle"}
             </Link>
           </aside>
         </div>

@@ -3,14 +3,45 @@ import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { ContactForm } from "@/app/contact/contact-form";
+import { headers } from "next/headers";
+import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Contacto" : "Contact";
+  const description = isSpanish
+    ? "Contacta con FulCastle Holdings, Inc. para consultas comerciales, colaboraciones y preguntas generales."
+    : "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.";
+  const canonical = isSpanish ? "/es/contact" : "/contact";
 
-export default function ContactPage() {
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/contact", es: "/es/contact" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
+
+export default async function ContactPage() {
+  const requestHeaders = await headers();
+  const localeValue = requestHeaders.get("x-site-locale") ?? "en";
+  const locale: Locale = isLocale(localeValue) ? localeValue : "en";
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -31,19 +62,19 @@ export default function ContactPage() {
             <div className="hero-copy">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
-                Contact FulCastle
+                {locale === "es" ? "Contactar con FulCastle" : "Contact FulCastle"}
               </p>
               <h1
                 className="max-w-4xl font-display text-5xl leading-[1.04] tracking-[-0.045em] sm:text-6xl md:text-7xl"
                 id="contact-title"
               >
-                Start a conversation.
-                <span className="mt-2 block text-muted-gold">Build with intention.</span>
+                {locale === "es" ? "Iniciemos una conversación." : "Start a conversation."}
+                <span className="mt-2 block text-muted-gold">{locale === "es" ? "Construyamos con propósito." : "Build with intention."}</span>
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
-                For business inquiries, potential partnerships, or questions about
-                FulCastle Holdings, Inc. and its ventures, send us a message using
-                the form below.
+                {locale === "es"
+                  ? "Para consultas comerciales, posibles alianzas o preguntas sobre FulCastle Holdings, Inc. y sus iniciativas, envíanos un mensaje mediante el formulario."
+                  : "For business inquiries, potential partnerships, or questions about FulCastle Holdings, Inc. and its ventures, send us a message using the form below."}
               </p>
             </div>
           </div>
@@ -55,25 +86,26 @@ export default function ContactPage() {
         >
           <div>
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-              Get in touch
+              {locale === "es" ? "Ponte en contacto" : "Get in touch"}
             </p>
             <h2
               className="max-w-xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl"
               id="form-title"
             >
-              Tell us what you have in mind.
+              {locale === "es" ? "Cuéntanos qué tienes en mente." : "Tell us what you have in mind."}
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-slate">
-              Share a little context and the right person at FulCastle will
-              follow up if a response is appropriate.
+              {locale === "es"
+                ? "Comparte algo de contexto y la persona indicada de FulCastle te responderá si corresponde."
+                : "Share a little context and the right person at FulCastle will follow up if a response is appropriate."}
             </p>
           </div>
           <div className="max-w-2xl border border-graphite/15 bg-[#fffdf9] p-6 sm:p-9">
-            <ContactForm />
+            <ContactForm locale={locale} />
             <p className="mt-6 border-t border-graphite/10 pt-5 text-xs leading-6 text-slate">
-              Your message and contact details are used to respond to your
-              inquiry. Please do not include passwords, payment details, or
-              other sensitive information.
+              {locale === "es"
+                ? "Usaremos tu mensaje y tus datos de contacto para responder a tu consulta. No incluyas contraseñas, datos de pago ni otra información sensible."
+                : "Your message and contact details are used to respond to your inquiry. Please do not include passwords, payment details, or other sensitive information."}
             </p>
           </div>
         </section>
@@ -81,14 +113,15 @@ export default function ContactPage() {
         <section className="border-t border-graphite/10 bg-[#fffdf9]">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-6 py-10 sm:px-10 md:flex-row md:items-center md:justify-between">
             <p className="max-w-2xl text-sm leading-7 text-slate">
-              Learn more about FulCastle Holdings, Inc. and the independent ventures
-              taking shape across its portfolio.
+              {locale === "es"
+                ? "Conoce más sobre FulCastle Holdings, Inc. y las iniciativas independientes que están tomando forma en su portafolio."
+                : "Learn more about FulCastle Holdings, Inc. and the independent ventures taking shape across its portfolio."}
             </p>
             <Link
               className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 border border-graphite/20 px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
-              href="/ventures"
+              href={localizePath("/ventures", locale)}
             >
-              Explore the ventures <span aria-hidden="true">↗</span>
+              {locale === "es" ? "Explorar las iniciativas" : "Explore the ventures"} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </section>
