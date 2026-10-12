@@ -225,10 +225,7 @@ export function ContactForm({ locale = "en" }: { locale?: Locale }) {
                 <animateMotion
                   dur="2.2s"
                   path="M6 96C36 93 58 76 86 54S130 24 165 20"
-                  calcMode="spline"
-                  keyPoints="0; 0.25; 0.65; 1"
-                  keyTimes="0; 0.28; 0.68; 1"
-                  keySplines="0.4 0 0.2 1; 0.25 0.1 0.25 1; 0.2 0 0.1 1"
+                  calcMode="paced"
                   rotate="auto"
                   fill="freeze"
                 />
