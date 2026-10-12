@@ -6,11 +6,16 @@ import { ContactForm } from "@/app/contact/contact-form";
 import { headers } from "next/headers";
 import { isLocale, type Locale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  return {
+    title: isSpanish ? "Contacto" : "Contact",
+    description: isSpanish
+      ? "Contacta con FulCastle Holdings, Inc. para consultas comerciales, colaboraciones y preguntas generales."
+      : "{locale === "es" ? "Contactar con FulCastle" : "Contact FulCastle"} Holdings, Inc. for business inquiries, partnerships, and general questions.",
+  };
+}
 
 export default async function ContactPage() {
   const requestHeaders = await headers();
@@ -36,14 +41,14 @@ export default async function ContactPage() {
             <div className="hero-copy">
               <p className="mb-7 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-gold">
                 <span aria-hidden="true" className="h-px w-8 bg-muted-gold" />
-                Contact FulCastle
+                {locale === "es" ? "Contactar con FulCastle" : "Contact FulCastle"}
               </p>
               <h1
                 className="max-w-4xl font-display text-5xl leading-[1.04] tracking-[-0.045em] sm:text-6xl md:text-7xl"
                 id="contact-title"
               >
-                Start a conversation.
-                <span className="mt-2 block text-muted-gold">Build with intention.</span>
+                {locale === "es" ? "Iniciemos una conversación." : "Start a conversation."}
+                <span className="mt-2 block text-muted-gold">{locale === "es" ? "Construyamos con propósito." : "Build with intention."}</span>
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
                 For business inquiries, potential partnerships, or questions about
@@ -60,13 +65,13 @@ export default async function ContactPage() {
         >
           <div>
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate">
-              Get in touch
+              {locale === "es" ? "Ponte en contacto" : "Get in touch"}
             </p>
             <h2
               className="max-w-xl font-display text-3xl leading-tight tracking-[-0.035em] sm:text-4xl"
               id="form-title"
             >
-              Tell us what you have in mind.
+              {locale === "es" ? "Cuéntanos qué tienes en mente." : "Tell us what you have in mind."}
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-slate">
               Share a little context and the right person at FulCastle will
@@ -93,7 +98,7 @@ export default async function ContactPage() {
               className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 border border-graphite/20 px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
               href="/ventures"
             >
-              Explore the ventures <span aria-hidden="true">↗</span>
+              {locale === "es" ? "Explorar las iniciativas" : "Explore the ventures"} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </section>

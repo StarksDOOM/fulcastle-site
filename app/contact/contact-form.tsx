@@ -267,7 +267,7 @@ export function ContactForm({ locale = "en" }: { locale?: Locale }) {\n  const c
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
       <div>
         <label className="block text-sm font-semibold text-graphite" htmlFor="contact-name">
-          Name
+          {copy.labels.name}
         </label>
         <input
           aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
@@ -286,7 +286,7 @@ export function ContactForm({ locale = "en" }: { locale?: Locale }) {\n  const c
 
       <div>
         <label className="block text-sm font-semibold text-graphite" htmlFor="contact-email">
-          Email
+          {copy.labels.email}
         </label>
         <input
           aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
@@ -306,7 +306,7 @@ export function ContactForm({ locale = "en" }: { locale?: Locale }) {\n  const c
 
       <div>
         <label className="block text-sm font-semibold text-graphite" htmlFor="contact-subject">
-          Subject
+          {copy.labels.subject}
         </label>
         <input
           aria-describedby={fieldErrors.subject ? "contact-subject-error" : undefined}
@@ -324,7 +324,7 @@ export function ContactForm({ locale = "en" }: { locale?: Locale }) {\n  const c
 
       <div>
         <label className="block text-sm font-semibold text-graphite" htmlFor="contact-message">
-          Message
+          {copy.labels.message}
         </label>
         <textarea
           aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
