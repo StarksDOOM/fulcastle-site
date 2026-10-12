@@ -22,12 +22,12 @@ test("locale paths preserve the current route", () => {
 });
 
 test("English and Spanish shared UI catalogs expose the same keys", () => {
-  const flatten = (value: unknown, prefix = ""): string[] => {
+  function flatten(value, prefix = "") {
     if (typeof value !== "object" || value === null) return [prefix];
     return Object.entries(value).flatMap(([key, child]) =>
       flatten(child, prefix ? `${prefix}.${key}` : key),
     );
-  };
+  }
 
   assert.deepEqual(
     flatten(messages.en).sort(),
