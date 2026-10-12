@@ -9,13 +9,32 @@ import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Contacto" : "Contact";
+  const description = isSpanish
+    ? "Contacta con FulCastle Holdings, Inc. para consultas comerciales, colaboraciones y preguntas generales."
+    : "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.";
+  const canonical = isSpanish ? "/es/contact" : "/contact";
+
   return {
-    alternates: { canonical: isSpanish ? "/es/contact" : "/contact", languages: { en: "/contact", es: "/es/contact" } },
-    openGraph: { locale: isSpanish ? "es_ES" : "en_US" },
-    title: isSpanish ? "Contacto" : "Contact",
-    description: isSpanish
-      ? "Contacta con FulCastle Holdings, Inc. para consultas comerciales, colaboraciones y preguntas generales."
-      : "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
+    alternates: {
+      canonical,
+      languages: { en: "/contact", es: "/es/contact" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
   };
 }
 

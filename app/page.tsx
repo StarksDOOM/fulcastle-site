@@ -7,8 +7,35 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
- const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { alternates: { canonical: isSpanish ? "/es" : "/", languages: { en: "/", es: "/es" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Construidos sobre una base sólida. Impulsados por las posibilidades." : "Built on Structure. Driven by Possibility.", description: isSpanish ? "FulCastle Holdings, Inc. es una empresa matriz con una visión a largo plazo para desarrollar y apoyar iniciativas independientes." : "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next." };
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Construidos sobre una base sólida. Impulsados por las posibilidades." : "Built on Structure. Driven by Possibility.";
+  const description = isSpanish
+    ? "FulCastle Holdings, Inc. es una empresa matriz con una visión a largo plazo para desarrollar y apoyar iniciativas independientes."
+    : "FulCastle Holdings, Inc. is a parent company behind a portfolio of independent ventures, with a long-term perspective on what comes next.";
+  const canonical = isSpanish ? "/es" : "/";
+
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/", es: "/es" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 const ventures = [

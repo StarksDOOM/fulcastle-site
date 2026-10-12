@@ -6,8 +6,35 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
- const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { alternates: { canonical: isSpanish ? "/es/terms-of-use" : "/terms-of-use", languages: { en: "/terms-of-use", es: "/es/terms-of-use" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Términos de uso" : "Terms of Use", description: isSpanish ? "Términos para utilizar el sitio web corporativo de FulCastle Holdings, Inc." : "Terms for using the FulCastle Holdings, Inc. corporate website." };
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Términos de uso" : "Terms of Use";
+  const description = isSpanish
+    ? "Términos para utilizar el sitio web corporativo de FulCastle Holdings, Inc."
+    : "Terms for using the FulCastle Holdings, Inc. corporate website.";
+  const canonical = isSpanish ? "/es/terms-of-use" : "/terms-of-use";
+
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/terms-of-use", es: "/es/terms-of-use" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 const englishSections = [

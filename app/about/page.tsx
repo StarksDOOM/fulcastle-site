@@ -7,8 +7,35 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
- const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { alternates: { canonical: isSpanish ? "/es/about" : "/about", languages: { en: "/about", es: "/es/about" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Acerca de FulCastle" : "About FulCastle", description: isSpanish ? "Conoce FulCastle Holdings, Inc., la empresa matriz de una cartera de iniciativas independientes." : "Learn about FulCastle Holdings, Inc., the parent company behind a portfolio of independent ventures." };
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Acerca de FulCastle" : "About FulCastle";
+  const description = isSpanish
+    ? "Conoce FulCastle Holdings, Inc., la empresa matriz de una cartera de iniciativas independientes."
+    : "Learn about FulCastle Holdings, Inc., the parent company behind a portfolio of independent ventures.";
+  const canonical = isSpanish ? "/es/about" : "/about";
+
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/about", es: "/es/about" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 

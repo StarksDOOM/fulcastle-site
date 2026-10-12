@@ -8,13 +8,26 @@ import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Página no encontrada" : "Page not found";
+  const description = isSpanish
+    ? "No encontramos la página que buscas. Puede que se haya movido o que la dirección sea incorrecta."
+    : "The page you’re looking for could not be found.";
 
   return {
-    title: isSpanish ? "Página no encontrada" : "Page not found",
-    description: isSpanish
-      ? "No encontramos la página que buscas. Puede que se haya movido o que la dirección sea incorrecta."
-      : "The page you’re looking for could not be found.",
-    openGraph: { locale: isSpanish ? "es_ES" : "en_US" },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
     robots: { index: false, follow: true },
   };
 }

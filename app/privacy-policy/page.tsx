@@ -6,8 +6,35 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
 export async function generateMetadata(): Promise<Metadata> {
- const requestHeaders = await headers(); const isSpanish = requestHeaders.get("x-site-locale") === "es";
- return { alternates: { canonical: isSpanish ? "/es/privacy-policy" : "/privacy-policy", languages: { en: "/privacy-policy", es: "/es/privacy-policy" } }, openGraph: { locale: isSpanish ? "es_ES" : "en_US" }, title: isSpanish ? "Política de privacidad" : "Privacy Policy", description: isSpanish ? "Conoce cómo FulCastle Holdings, Inc. trata la información enviada a través de su sitio web corporativo." : "Learn how FulCastle Holdings, Inc. handles information submitted through its corporate website." };
+  const requestHeaders = await headers();
+  const isSpanish = requestHeaders.get("x-site-locale") === "es";
+  const title = isSpanish ? "Política de privacidad" : "Privacy Policy";
+  const description = isSpanish
+    ? "Conoce cómo FulCastle Holdings, Inc. trata la información enviada a través de su sitio web corporativo."
+    : "Learn how FulCastle Holdings, Inc. handles information submitted through its corporate website.";
+  const canonical = isSpanish ? "/es/privacy-policy" : "/privacy-policy";
+
+  return {
+    alternates: {
+      canonical,
+      languages: { en: "/privacy-policy", es: "/es/privacy-policy" },
+    },
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: new URL(canonical, "https://fulcastle.com").toString(),
+      siteName: "FulCastle Holdings, Inc.",
+      title,
+      description,
+      locale: isSpanish ? "es_ES" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 const englishSections = [

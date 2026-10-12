@@ -41,6 +41,13 @@ function isSpanishLocaleGuard(node) {
   return (left === 'locale' && (right === '"es"' || right === "'es'")) ||
     (right === 'locale' && (left === '"es"' || left === "'es'"));
 }
+function isStringCopyExpression(node) {
+  node = unwrapExpression(node);
+  return Boolean(node && (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node) || ts.isTemplateExpression(node)));
+}
+function isLocalizedStringPair(whenTrue, whenFalse) {
+  return isStringCopyExpression(whenTrue) && isStringCopyExpression(whenFalse);
+}
 function hasRenderedValue(node) {
   node = unwrapExpression(node);
   if (!node || node.kind === ts.SyntaxKind.NullKeyword || node.kind === ts.SyntaxKind.UndefinedKeyword || node.kind === ts.SyntaxKind.FalseKeyword) return false;
@@ -63,7 +70,13 @@ export function findUnlocalizedJsxCopy(source, fileName = "page.tsx") {
     node = unwrapExpression(node);
     if (!node) return;
     if (ts.isConditionalExpression(node)) {
-      if (isSpanishLocaleGuard(node.condition) && hasRenderedValue(node.whenTrue) && hasRenderedValue(node.whenFalse)) return;
+      const localizedPair =
+        isSpanishLocaleGuard(node.condition) &&
+        hasRenderedValue(node.whenTrue) &&
+        hasRenderedValue(node.whenFalse) &&
+        (isLocalizedStringPair(node.whenTrue, node.whenFalse) ||
+          (!isStringCopyExpression(node.whenTrue) && !isStringCopyExpression(node.whenFalse)));
+      if (localizedPair) return;
       inspectRenderedExpression(node.whenTrue, context);
       inspectRenderedExpression(node.whenFalse, context);
       return;
@@ -119,7 +132,7 @@ function runAudit() {
     if (!fs.existsSync(file)) { errors.push(`${name}: missing route source ${relative}`); continue; }
     const source = fs.readFileSync(file, "utf8");
     if (!source.includes("generateMetadata")) errors.push(`${name}: locale-aware metadata generation missing`);
-    if (!source.includes('alternates: { canonical:') || !source.includes('languages:')) errors.push(`${name}: canonical or hreflang metadata missing`);
+    if (!source.includes('alternates: {') || !source.includes('languages:')) errors.push(`${name}: canonical or hreflang metadata missing`);
     if (relative !== "app/contact/page.tsx" && !source.includes('locale === "es"')) errors.push(`${name}: Spanish content branch missing`);
     for (const finding of findUnlocalizedJsxCopy(source, relative)) errors.push(`${name} (${relative}): ${finding}`);
   }
@@ -133,7 +146,7 @@ function runAudit() {
   else {
     const source = fs.readFileSync(notFoundPath, "utf8");
     if (!source.includes("generateMetadata")) errors.push("Not Found: locale-aware metadata generation missing");
-    if (!source.includes("title: isSpanish ?") || !/description:\s*isSpanish\s*\?/.test(source) || !source.includes("openGraph: { locale: isSpanish ?")) errors.push("Not Found: title, description, and Open Graph locale must follow the active locale.");
+    if (!source.includes('const title = isSpanish ?') || !/const description = isSpanish\s*\?/.test(source) || !/locale:\s*isSpanish\s*\?\s*"es_ES"\s*:\s*"en_US"/.test(source)) errors.push("Not Found: title, description, and Open Graph locale must follow the active locale.");
     for (const finding of findUnlocalizedJsxCopy(source, "app/not-found.tsx")) errors.push(`Not Found (app/not-found.tsx): ${finding}`);
   }
   if (errors.length) {
