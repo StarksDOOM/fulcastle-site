@@ -56,3 +56,21 @@ test("audit permits known venture names and people names while catching ordinary
 test("audit ignores decorative text and whitespace", () => {
   assert.deepEqual(findUnlocalizedJsxCopy('<div aria-hidden="true"><span>Decorative copy</span></div><p> </p>'), []);
 });
+
+test("audit detects hardcoded copy in rendered JSX expressions", () => {
+  const findings = findUnlocalizedJsxCopy('<main><p>{isReady && "English-only copy"}</p><p>{condition ? "First hardcoded option" : "Second hardcoded option"}</p></main>');
+  assert.equal(findings.length, 3, findings.join("\\n"));
+  assert.ok(findings.some(f => f.includes("English-only copy")));
+  assert.ok(findings.some(f => f.includes("First hardcoded option")));
+  assert.ok(findings.some(f => f.includes("Second hardcoded option")));
+});
+
+test("audit permits complete locale-guarded text pairs and locale-selected content", () => {
+  const source = '<main><p>{locale === "es" ? "Texto en español" : "English text"}</p><p>{locale === "es" ? spanishCopy : englishCopy}</p><img alt={locale === "es" ? "Imagen arquitectónica" : "Architectural image"} /></main>';
+  assert.deepEqual(findUnlocalizedJsxCopy(source), []);
+});
+
+test("audit catches a hardcoded expression inside a user-facing attribute", () => {
+  const findings = findUnlocalizedJsxCopy('<button aria-label={isOpen ? "Close menu" : "Open menu"} />');
+  assert.equal(findings.length, 2, findings.join("\\n"));
+});
