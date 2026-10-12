@@ -51,7 +51,7 @@ export default function AboutPage() {
             <div
               aria-label="Abstract architectural composition representing a shared foundation and distinct paths"
               role="img"
-              className="hero-artwork relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:aspect-[5/4] lg:aspect-[4/5]"
+              className="hero-artwork relative mx-auto hidden aspect-[4/5] w-full max-w-sm overflow-hidden border border-ivory/15 bg-[#20211f] sm:block sm:aspect-[5/4] lg:aspect-[4/5]"
             >
               <Image
                 src="/images/architect-shared-foundation.jpg"

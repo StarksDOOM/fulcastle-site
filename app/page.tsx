@@ -75,7 +75,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="hero-artwork mx-auto w-full max-w-[23rem] sm:max-w-[27rem] lg:max-w-none">
+            <div className="hero-artwork mx-auto hidden w-full max-w-[23rem] sm:block sm:max-w-[27rem] lg:max-w-none">
               <div
                 aria-label="FulCastle architectural artwork depicting structure and perspective"
                 role="img"
