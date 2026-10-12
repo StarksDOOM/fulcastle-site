@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: isSpanish ? "Contacto" : "Contact",
     description: isSpanish
       ? "Contacta con FulCastle Holdings, Inc. para consultas comerciales, colaboraciones y preguntas generales."
-      : "{locale === "es" ? "Contactar con FulCastle" : "Contact FulCastle"} Holdings, Inc. for business inquiries, partnerships, and general questions.",
+      : "Contact FulCastle Holdings, Inc. for business inquiries, partnerships, and general questions.",
   };
 }
 
@@ -51,9 +51,9 @@ export default async function ContactPage() {
                 <span className="mt-2 block text-muted-gold">{locale === "es" ? "Construyamos con propósito." : "Build with intention."}</span>
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-7 text-ivory/75 sm:text-lg sm:leading-8">
-                For business inquiries, potential partnerships, or questions about
-                FulCastle Holdings, Inc. and its ventures, send us a message using
-                the form below.
+                {locale === "es"
+                  ? "Para consultas comerciales, posibles alianzas o preguntas sobre FulCastle Holdings, Inc. y sus iniciativas, envíanos un mensaje mediante el formulario."
+                  : "For business inquiries, potential partnerships, or questions about FulCastle Holdings, Inc. and its ventures, send us a message using the form below."}
               </p>
             </div>
           </div>
@@ -74,16 +74,17 @@ export default async function ContactPage() {
               {locale === "es" ? "Cuéntanos qué tienes en mente." : "Tell us what you have in mind."}
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-slate">
-              Share a little context and the right person at FulCastle will
-              follow up if a response is appropriate.
+              {locale === "es"
+                ? "Comparte algo de contexto y la persona indicada de FulCastle te responderá si corresponde."
+                : "Share a little context and the right person at FulCastle will follow up if a response is appropriate."}
             </p>
           </div>
           <div className="max-w-2xl border border-graphite/15 bg-[#fffdf9] p-6 sm:p-9">
             <ContactForm locale={locale} />
             <p className="mt-6 border-t border-graphite/10 pt-5 text-xs leading-6 text-slate">
-              Your message and contact details are used to respond to your
-              inquiry. Please do not include passwords, payment details, or
-              other sensitive information.
+              {locale === "es"
+                ? "Usaremos tu mensaje y tus datos de contacto para responder a tu consulta. No incluyas contraseñas, datos de pago ni otra información sensible."
+                : "Your message and contact details are used to respond to your inquiry. Please do not include passwords, payment details, or other sensitive information."}
             </p>
           </div>
         </section>
@@ -91,8 +92,9 @@ export default async function ContactPage() {
         <section className="border-t border-graphite/10 bg-[#fffdf9]">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-6 py-10 sm:px-10 md:flex-row md:items-center md:justify-between">
             <p className="max-w-2xl text-sm leading-7 text-slate">
-              Learn more about FulCastle Holdings, Inc. and the independent ventures
-              taking shape across its portfolio.
+              {locale === "es"
+                ? "Conoce más sobre FulCastle Holdings, Inc. y las iniciativas independientes que están tomando forma en su portafolio."
+                : "Learn more about FulCastle Holdings, Inc. and the independent ventures taking shape across its portfolio."}
             </p>
             <Link
               className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 border border-graphite/20 px-5 py-3 text-sm font-semibold text-graphite transition-colors hover:border-muted-gold hover:bg-muted-gold/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-muted-gold"
